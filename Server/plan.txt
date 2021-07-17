@@ -23,7 +23,6 @@ Post{
 
 Comments{
     id: "!23124124",
-    postId: postId,
     createdBy: userId,
     comment: "Super tare",
     datePosted
