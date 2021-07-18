@@ -5,12 +5,12 @@ export const Layout = styled.div`
 `
 
 export const Main = styled.div`
-    width: 85%;
+    width: calc(100% - 250px);
     height: 100vh;
-    background-color: gray;
+    background-color: #E4E9F7;
+    padding: 15px;
 `
 
 export const SideBar = styled.div`
-    width: 15%;
-    background-color: darkgray;
+    width: 250px;
 `
