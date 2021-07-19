@@ -117,7 +117,7 @@ export const NavItem = styled.li`
     }
 `
 
-export const LinkName = styled.span`
+export const LinkName = styled.div`
     color: #fff;
     font-size: 15px;
     font-weight: 400;
