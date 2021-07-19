@@ -6,11 +6,10 @@ import NavBar from '../NavBar/NavBar.component';
 const AllPosts = () => {
     return (
         <Layout>
-            
-            <SideBar>
+            <SideBar className=''>
                 <NavBar></NavBar>
             </SideBar>
-            <Main>
+            <Main className='main'>
                 Main
             </Main>
         </Layout>

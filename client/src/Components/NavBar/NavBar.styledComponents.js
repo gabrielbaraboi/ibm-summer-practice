@@ -5,11 +5,11 @@ export const Nav = styled.div`
     left: 0;
     top: 0;
     height: 100%;
-    width: 250px;
+    width: 78px;
     background: #11101D;
     padding: 6px 14px;
     z-index: 99;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease-in-out;
     .icon {
         color: #fff;
         height: 18px;
@@ -19,28 +19,40 @@ export const Nav = styled.div`
     }
     .profile {
         position: fixed;
-        height: 60px;
-        width: 250px;
+        height: 70px;
+        width: 78px;
         left: 0;
         bottom: -8px;
-        padding: 10px 14px;
+        padding: 14px;
         background: #1d1b31;
-        transition: all 0.5s ease;
+        transition: all 0.3s ease-in-out;
         overflow: hidden;
+        .details {
+            opacity: 0;
+        }
         img {
             height: 45px;
             width: 45px;
             object-fit: cover;
             border-radius: 6px;
             margin-right: 10px;
+            opacity: 0;
         }
         .log-out {
             position: absolute;
             top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-            transition: all 0.5s ease;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease-in-out;
+            height: 50px;
+            padding: 16px 0;
+            border-radius: 12px;
+            opacity: 1;
+            &:hover {
+                background-color: white;
+            }
         }
+
     }
 `
 
@@ -50,10 +62,10 @@ export const LogoDetails = styled.div`
     align-items: center;
     position: relative;
     .icon {
-        /* opacity: 0; */
+        opacity: 0;
         height: 30px;
         color: white;
-        transition: all 0.5s ease;
+        transition: all 0.3s ease-in-out;
     }
 `
 
@@ -61,8 +73,9 @@ export const LogoName = styled.div`
     color: #fff;
     font-size: 23px;
     font-weight: 500;
-    /* opacity: 0; */
-    transition: all 0.5s ease;
+    opacity: 0;
+    transition: all 0.3s ease-ease-in-out;
+    white-space: nowrap;
 `
 
 export const NavList = styled.ul`
@@ -76,6 +89,13 @@ export const NavItem = styled.li`
     list-style: none;
     height: 50px;
     line-height: 50px;
+    &:hover .tooltip {
+        opacity: 1;
+        pointer-events: auto;
+        transition: all 0.4s ease;
+        top: 20%;
+        transform: translateY(-20%);
+    }
     a {
         display: flex;
         height: 100%;
@@ -83,13 +103,13 @@ export const NavItem = styled.li`
         border-radius: 12px;
         align-items: center;
         text-decoration: none;
-        transition: all 0.4s ease;
+        transition: all 0.3s ease-in-out;
         background: #11101D;
         &:hover {
             background: #FFF;
         }
         &:hover div, &:hover svg {
-            transition: all 0.5s ease;
+            transition: all 0.3s ease-in-out;
             color: #11101D;
         }
     }
@@ -100,7 +120,8 @@ export const LinkName = styled.div`
     font-size: 15px;
     font-weight: 400;
     white-space: nowrap;
-    /* opacity: 0; */
+    display: none;
+    opacity: 0;
     pointer-events: none;
     transition: 0.4s;
 `
@@ -115,6 +136,7 @@ export const Details = styled.div`
     font-weight: 400;
     display: flex;
     flex-direction: column;
+    white-space: nowrap;
 `
 
 export const Name = styled.div`
@@ -127,4 +149,23 @@ export const Role = styled.div`
     font-size: 12px;
     display: inline-block;
     line-height: normal;
+`
+
+export const Tooltip = styled.span`
+    position: absolute;
+    top: -20px;
+    left: calc(100% + 15px);
+    z-index: 3;
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    height: 30px;
+    line-height: 22px;
+    font-weight: 400;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0s;
 `
