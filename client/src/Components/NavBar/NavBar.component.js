@@ -9,7 +9,7 @@ const NavBar = () => {
     return (
         <Nav className={openNav ? `open` : ``}>
             <LogoDetails>
-                <FontAwesomeIcon icon={faGlobe} className="icon" fixedWidth />
+                <i><FontAwesomeIcon icon={faGlobe} className="icon" fixedWidth /></i>
                 <LogoName>IBM Jobs</LogoName>
                 <button className={openNav ? `hamburger hamburger--slider is-active` : `hamburger hamburger--slider`} type="button" onClick={(e) => {
                     setOpenNav(!openNav);
@@ -22,35 +22,35 @@ const NavBar = () => {
             <NavList>
                 <NavItem>
                     <a href="/">
-                        <FontAwesomeIcon icon={faHome} className="icon" fixedWidth />
+                        <i><FontAwesomeIcon icon={faHome} className="icon" fixedWidth /></i>
                         <LinkName>Home</LinkName>
                     </a>
                     <Tooltip className="tooltip">Home</Tooltip>
                 </NavItem>
                 <NavItem>
                     <a href="#">
-                        <FontAwesomeIcon icon={faUser} className="icon" fixedWidth />
+                        <i><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></i>
                         <LinkName>Profile</LinkName>
                     </a>
                     <Tooltip className="tooltip">Profile</Tooltip>
                 </NavItem>
                 <NavItem>
                     <a href="#">
-                        <FontAwesomeIcon icon={faPlusCircle} className="icon" fixedWidth />
+                        <i><FontAwesomeIcon icon={faPlusCircle} className="icon" fixedWidth /></i>
                         <LinkName>New post</LinkName>
                     </a>
                     <Tooltip className="tooltip">New post</Tooltip>
                 </NavItem>
                 <NavItem>
                     <a href="#">
-                        <FontAwesomeIcon icon={faBuilding} className="icon" fixedWidth />
+                        <i><FontAwesomeIcon icon={faBuilding} className="icon" fixedWidth /></i>
                         <LinkName>Companies</LinkName>
                     </a>
                     <Tooltip className="tooltip">Companies</Tooltip>
                 </NavItem>
                 <NavItem>
                     <a href="#">
-                        <FontAwesomeIcon icon={faCog} className="icon" fixedWidth />
+                        <i><FontAwesomeIcon icon={faCog} className="icon" fixedWidth /></i>
                         <LinkName>Settings</LinkName>
                     </a>
                     <Tooltip className="tooltip">Settings</Tooltip>
@@ -62,7 +62,7 @@ const NavBar = () => {
                             <Name>Gabriel Baraboi</Name>
                             <Role>Student</Role>
                         </Details>
-                        <a href="#">                        
+                        <a href="#">
                             <FontAwesomeIcon icon={faSignOutAlt} className="icon log-out" fixedWidth />
                         </a>
                     </ProfileDetails>

@@ -66,6 +66,8 @@ export const LogoDetails = styled.div`
         height: 30px;
         color: white;
         transition: all 0.3s ease-in-out;
+        position: relative;
+        top: 2px;
     }
 `
 
@@ -74,7 +76,7 @@ export const LogoName = styled.div`
     font-size: 23px;
     font-weight: 500;
     opacity: 0;
-    transition: all 0.3s ease-ease-in-out;
+    transition: all 0.4s ease-out;
     white-space: nowrap;
 `
 
@@ -115,12 +117,12 @@ export const NavItem = styled.li`
     }
 `
 
-export const LinkName = styled.div`
+export const LinkName = styled.span`
     color: #fff;
     font-size: 15px;
     font-weight: 400;
     white-space: nowrap;
-    display: none;
+    /* display: none; */
     opacity: 0;
     pointer-events: none;
     transition: 0.4s;
@@ -154,7 +156,7 @@ export const Role = styled.div`
 export const Tooltip = styled.span`
     position: absolute;
     top: -20px;
-    left: calc(100% + 15px);
+    left: calc(100% + 25px);
     z-index: 3;
     background: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
