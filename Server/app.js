@@ -1,68 +1,111 @@
+require("dotenv").config();
+require("./config/database.js").connect();
+
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
-var User = require("./models/user");
-var Post = require("./models/post");
-var Comment = require("./models/comment");
+const auth = require("./middleware/auth");
+const User = require("./models/user");
+const Post = require("./models/post");
+const Comment = require("./models/comment");
 
-mongoose.connect(
-	"mongodb+srv://gege:parola@cluster0.kccyy.mongodb.net/IBMSummerPractice?retryWrites=true&w=majority",
-	{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
-	// (err, client) => {
-	// 	if (err) return console.error(err);
-	// 	console.log("Connected");
-	// }
-);
-
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.set("view engine", "ejs");
+
 app.use(express.static(__dirname + "/public"));
+app.use(express.json());
 
-// Passport config
-app.use(
-	require("express-session")({
-		secret: "IBM summer Practice",
-		resave: false,
-		saveUninitialized: false,
-	})
-);
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+module.exports = app;
 
-app.get("/", (req, res) => {
-	res.render("index.ejs");
-});
-
-app.get("/register", (req, res) => {
+//REGISTER
+app.get("/registerUser", (req, res) => {
 	res.render("registerForm.ejs");
 });
 
-app.post("/register", function (req, res) {
-	var newUser = new User({
-		email: req.body.email,
-		password: req.body.password,
-		role: req.body.role,
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
-		companyName: req.body.companyName,
-	});
+app.post("/registerUser", async (req, res) => {
+	try {
+		//Get user Inputs
+		const { email, firstName, lastName, password, role } = req.body;
+		// Validate data
+		console.log(req.body);
+		if (!(email && firstName && lastName && password && role)) {
+			res.status(400).send("All inputs are required");
+		}
 
-	newUser
-		.save()
-		.then((result) => {
-			console.log(result);
-		})
-		.catch((err) => console.log(err));
+		// Check if user exist
+		const oldUser = await User.findOne({ email });
+
+		if (oldUser) {
+			return res.status(409).send("User already exist!");
+		}
+
+		// encrypt password
+		encryptedPassword = await bcrypt.hash(password, 10);
+
+		//reate user to db
+
+		const user = await User.create({
+			email: email.toLowerCase(),
+			firstName,
+			lastName,
+			password: encryptedPassword,
+			role,
+		});
+
+		// Create token
+		const token = jwt.sign(
+			{ user_id: user._id, email },
+			process.env.TOKEN_KEY,
+			{
+				expiresIn: "2h",
+			}
+		);
+		user.token = token;
+	} catch (err) {
+		console.log(err);
+	}
 });
 
-app.listen(3000, (req, res) => {
-	console.log("Server has Started");
+//LOGIN
+
+app.get("/loginUser", (req, res) => {
+	res.render("loginForm.ejs");
+});
+
+app.post("/loginUser", async (req, res) => {
+	try {
+		//Get user data
+		const { email, password } = req.body;
+		//Validate data
+		if (!(email && password)) {
+			res.status(400).send("All inputs are required");
+		}
+		//Verify if user exist
+		const user = await User.findOne({ email });
+
+		if (user && (await bcrypt.compare(password, user.password))) {
+			const token = jwt.sign(
+				{ user_id: user._id, email },
+				process.env.TOKEN_KEY,
+				{
+					expiresIn: "2h",
+				}
+			);
+			// save token
+			user.token = token;
+			//user
+			res.status(200).json(user);
+		}
+		res.status(400).send("Invalid email or password");
+	} catch (err) {
+		console.log(err);
+	}
+});
+app.post("/welcome", auth, (req, res) => {
+	res.status(200).send("Welcome 🙌 ");
 });
