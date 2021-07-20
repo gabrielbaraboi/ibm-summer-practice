@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 var PostSchema = new mongoose.Schema({
-	type: String,
-	description: String,
+	type: {type: String, required: true, enum:[`offer`,'request']},
+	description: {type: String, required: true},
 	createdBy: {
 		id: {
 			type: mongoose.Schema.Types.ObjectID,
@@ -11,11 +11,15 @@ var PostSchema = new mongoose.Schema({
 		firstName: String,
 		lastName: String,
 	},
-	title: String,
-	programmingLanguage: String,
-	workHours: String,
-	WorkPlace: String,
+	title: {type: String, required : true},
+	programmingLanguage: {type: String, required: true},
+	workHours: {type: String, required : true},
+	workPlace: {type: String, required : true},
 	requirements: [],
+	date:{
+		type:Date,
+		default: Date.now
+	}
 });
 
 module.exports = mongoose.model("Post", PostSchema);

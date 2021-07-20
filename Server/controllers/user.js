@@ -1,5 +1,3 @@
-const express = require("express");
-const controller = express();
 const User = require("../models/user");
 const Company = require("../models/company");
 const bcrypt = require("bcryptjs");

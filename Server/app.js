@@ -6,14 +6,9 @@ const app = express();
 const bodyParser = require("body-parser");
 
 const auth = require("./middleware/auth");
-//models
-
-const Comment = require("./models/comment");
-const Company = require("./models/company.js");
-
 //Routes require
-const authenticantion = require("./routes/user");
-
+const authenticantion = require("./routes/userRoutes");
+const posts = require("./routes/postRoutes");
 //config bodyParser & express
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
@@ -21,4 +16,5 @@ app.use(express.json());
 
 //routes use
 app.use(authenticantion);
+app.use(posts);
 module.exports = app;
