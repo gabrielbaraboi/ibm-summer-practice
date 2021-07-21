@@ -29,19 +29,32 @@ export const InputContainer = styled.div`
     background-color: white;
     margin-bottom: 0.25rem;
     padding: 0;
-    .input{
-        width: 100%;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        display: block;
-    }
 `
 
-export const SignUpContainer = styled.div`
+export const DropdownContainer = styled.div`
+    width: 300px;
+    border: 1px;
+    height: 9%;
+    background-color: white;
+    margin-bottom: 0.5rem;
+    padding: 0;
+`
+
+export const LoginContainer = styled.div`
 	color: white;
     width:100%;
     background-color: #7cb5e4;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+`
+
+export const RegisterContainer = styled.div`
+    width:100%;
+    background-color: #E4E9F7;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -58,13 +71,33 @@ export const Label = styled.label`
     padding: 1vh 1vh;
 `
 
-export const Div = styled.div`
-    overflow: hidden;
-    margin-bottom: 5px;
+export const LabelReg = styled.label`
+    color: #7cb5e4;
+    float: left;
+    border: 0;
+    font-size: 18px;
+    margin-top: 5px;
+    padding: 1vh 1vh;
 `
 
-export const Form = styled.form`
+export const Div = styled.div`
+    overflow: hidden;
+    margin-bottom: 0px;
+`
+
+export const LoginForm = styled.form`
     background-color: #E4E9F7;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+    width: 50%;
+`
+
+export const RegisterForm = styled.form`
+    background-color: #7cb5e4;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -89,6 +122,27 @@ export const H1 = styled.h1`
     font-weight: bold;
     margin: 0;
     margin-bottom: 10px;
+`
+
+export const H1Reg = styled.h1`
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 10px;
+`
+
+export const Dropdown = styled.select`
+    width: 100%;
+    height: 100%;
+    outline:none;
+    color: #333;
+	font-size: 14px;
+`
+
+export const Option = styled.option`
+    $:hover{
+        background-color: #f0b24e;
+    }
 `
 
 export const A = styled.a`
@@ -119,7 +173,7 @@ export const SignInput = styled.input`
 `
 
 export const SignUpInput = styled.input`
-    margin-top: 115px;
+    
     border-radius: 20px;
 	border: 1px solid white;
 	background-color: transparent;
