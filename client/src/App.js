@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import AllPosts from "./Components/Posts/AllPosts.component"
 import Login from "./Components/Auth/Login";
+import Register from "./Components/Auth/Register";
 
 
 const App = () => {
@@ -12,13 +13,12 @@ const App = () => {
         <Route
           exact path='/'
           component={AllPosts} />
-       {/* <Route
-          path='/register'
-          component={Register} /> */}
-          <Route
+        <Route
+            path='/register'
+            component={Register} />
+        <Route
             exact path='/login'
-            component={Login}
-          />
+            component={Login} />
       </div>
     </Router>
   );
