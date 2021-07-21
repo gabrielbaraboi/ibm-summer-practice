@@ -6,7 +6,6 @@ var UserSchema = new mongoose.Schema({
 	lastName: { type: String,required: true},
 	password: { type: String, required: true },
 	role: { type: String, required: true, default: "Student"},
-	token: { type: String },
 });
 
 module.exports = mongoose.model("User", UserSchema);

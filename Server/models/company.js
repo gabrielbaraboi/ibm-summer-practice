@@ -5,7 +5,6 @@ var CompanySchema = new mongoose.Schema({
 	password: { type: String, required: true },
     companyName: {type: String, required: true},
 	role: { type: String, required: true , default: "Company"},
-	token: { type: String },
 });
 
 module.exports = mongoose.model("Company", CompanySchema);

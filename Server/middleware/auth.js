@@ -3,18 +3,16 @@ const jwt = require("jsonwebtoken");
 const config = process.env;
 
 const verifyToken = (req, res, next) => {
-	const token =
-		req.body.token || req.query.token || req.headers["x-access-token"];
+	const token = req.headers["auth-token"];
 	if (!token) {
-		return res.status(403).send("Token is required for login");
+		return res.status(401).send("Access Denied");
 	}
 	try {
 		const decoded = jwt.verify(token, config.TOKEN_KEY);
 		req.user = decoded;
-		return next();
+		next();
 	} catch (err) {
-		console.log(err);
-		res.send(err);
+		res.status(400).send("Invalid token");
 	}
 };
 

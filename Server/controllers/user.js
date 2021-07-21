@@ -66,15 +66,11 @@ const loginUser = async (req, res) => {
 		const company = await Company.findOne({ email });
 
 		if (user && (await bcrypt.compare(password, user.password))) {
-			// save token
-			user.token = generateToken("user", email);
-			//send user
-			res.status(200).json(user);
+			const token = generateToken(user, email);
+			res.header("auth-token",token).json(token);
 		} else if (company && (await bcrypt.compare(password, company.password))) {
-			// save token
-			company.token = generateToken("company", email);
-			//send user
-			res.status(200).json(company);
+			const token = generateToken(company, email);
+			res.header("auth-token",token).json(token);
 		} else {
 			res.status(400).send("Invalid email or password");
 		}
@@ -91,13 +87,7 @@ async function encryptPass(pass) {
 }
 
 function generateToken(accType, email) {
-	const token = jwt.sign(
-		{ comapny_id: accType._id, email },
-		process.env.TOKEN_KEY,
-		{
-			expiresIn: "2h",
-		}
-	);
+	const token = jwt.sign({_id: accType._id},process.env.TOKEN_KEY);
 	return token;
 }
 async function isEmailAlreadyUsed(email) {

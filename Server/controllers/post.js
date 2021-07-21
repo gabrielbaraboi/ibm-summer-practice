@@ -1,8 +1,7 @@
 const User = require("../models/user");
 const Company = require("../models/company");
 const Post = require("../models/post");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+
 
 
 const getAllPosts = async (req,res) => {
@@ -37,13 +36,32 @@ const getSpecificPost = async (req,res) => {
 }
 
 const createPost = async (req,res) => {
+    let createdBy;
 
-    
-   const createdBy = {
-       id:req.body.createdBy.id,
-       firstName:req.body.createdBy.firstName,
-       lastName:req.body.createdBy.lastName
+   if(req.body.type === "Request")
+   {
+    const user = await User.findById(req.user._id)
+    if(!user)
+            return res.status(400).send("Company account can't create requests");
+        createdBy = {
+        id:user._id,
+        name:user.firstName+" "+user.lastName,
+    };
    }
+  else if (req.body.type === "Offer")
+  {
+        const company = await Company.findById(req.user._id);
+        if(!company)
+            return res.status(400).send("Student account can't create offers");
+        createdBy = {
+            id:company._id,
+            name:company.companyName,
+        } 
+  }
+  else
+  {
+      res.status(400).send("request type not valid for account type");
+  }
    const newPost = {
        type: req.body.type,
        description: req.body.description,
@@ -54,8 +72,6 @@ const createPost = async (req,res) => {
        workPlace: req.body.workPlace,
        requirements: req.body.requirements
    }
-   console.log(newPost);
-
 
    Post.create(newPost, (err,Post) => {
     if(err)
@@ -67,4 +83,30 @@ const createPost = async (req,res) => {
         res.status(200).send("Post created Succesfully");
    });
 };
-module.exports = {getAllPosts,getSpecificPost,createPost};
+
+const updatePost = async (req,res) => {
+    const post =  await Post.findById(req.params.id).exec();
+    if(req.body.type == post.type)
+    {
+        await Post.findByIdAndUpdate(req.params.id,req.body, (err,updatedPost) =>{
+            if(err)
+                res.status(400).send(err);
+            res.status(200).send(updatedPost);
+        });
+    }
+    else
+    {
+        res.status(400).send("post type can't be modified");
+    }
+   
+}
+
+const deletePost = async (req,res) => {
+    try {
+        await Post.deleteOne({_id: req.params.id});
+        res.status(200).send("post deleted successfully")
+    } catch (error) {
+        console.log(error)
+    }
+}
+module.exports = {getAllPosts,getSpecificPost,createPost,deletePost,updatePost};

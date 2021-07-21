@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
 
 var PostSchema = new mongoose.Schema({
-	type: {type: String, required: true, enum:[`offer`,'request']},
+	type: {type: String, required: true, enum:[`Offer`,'Request']},
 	description: {type: String, required: true},
 	createdBy: {
 		id: {
 			type: mongoose.Schema.Types.ObjectID,
-			ref: "User",
 		},
-		firstName: String,
-		lastName: String,
+		name:String,
 	},
 	title: {type: String, required : true},
 	programmingLanguage: {type: String, required: true},
