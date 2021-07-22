@@ -25,7 +25,8 @@ const getAllPosts = async (req, res) => {
 				(el) => el.programmingLanguage == sortingParams.programmingLanguage
 			);
 		}
-		if (sortingParams.requirements.length != 0) {
+
+		if (sortingParams.requirements) {
 			const arr = JSON.parse(req.query.requirements);
 			arr.forEach((element) => {
 				allPosts = allPosts.filter(
@@ -58,7 +59,7 @@ const getSpecificPost = async (req, res) => {
 const createPost = async (req, res) => {
 	let createdBy;
 
-	if (req.body.type === "request") {
+	if (req.body.type == "request") {
 		const user = await User.findById(req.user._id);
 		if (!user)
 			return res.status(400).send("Company account can't create requests");
@@ -66,7 +67,7 @@ const createPost = async (req, res) => {
 			id: user._id,
 			name: user.firstName + " " + user.lastName,
 		};
-	} else if (req.body.type === "offer") {
+	} else if (req.body.type == "offer") {
 		const company = await Company.findById(req.user._id);
 		if (!company)
 			return res.status(400).send("Student account can't create offers");

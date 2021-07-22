@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Company = require("../models/company");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { response } = require("../app");
 
 const registerUser = async (req, res) => {
 	try {
@@ -52,6 +53,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
 	try {
+		let responseUser;
 		//Get user data
 		const { email, password } = req.body;
 		//Validate data
@@ -63,27 +65,27 @@ const loginUser = async (req, res) => {
 		const company = await Company.findOne({ email });
 
 		if (user && (await bcrypt.compare(password, user.password))) {
-			// responseUser = {
-			// 	id: user._id,
-			// 	email: user.email,
-			// 	firstName: user.firstName,
-			// 	lastName: user.lastName,
-			// 	role: 'student'
-			// }
+			responseUser = {
+				id: user._id,
+				email: user.email,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				role: "student",
+			};
 			// save token
-			user.token = generateToken("user", email);
+			responseUser.token = generateToken(responseUser);
 			//send user
 			res.cookie("token", responseUser.token, { httpOnly: true });
 			res.status(200).json({ user: responseUser });
 		} else if (company && (await bcrypt.compare(password, company.password))) {
-			// responseUser = {
-			// 	id: company._id,
-			// 	email: company.email,
-			// 	companyName: company.companyName,
-			// 	role: 'company'
-			// }
+			responseUser = {
+				id: company._id,
+				email: company.email,
+				companyName: company.companyName,
+				role: "company",
+			};
 			// save token
-			company.token = generateToken("company", email);
+			responseUser.token = generateToken(responseUser);
 			//send user
 			res.cookie("token", responseUser.token, { httpOnly: true });
 			res.status(200).json({ user: responseUser });
@@ -103,7 +105,7 @@ async function encryptPass(pass) {
 }
 
 function generateToken(accType) {
-	const token = jwt.sign({ _id: accType._id }, process.env.TOKEN_KEY);
+	const token = jwt.sign({ _id: accType.id }, process.env.TOKEN_KEY);
 	return token;
 }
 
