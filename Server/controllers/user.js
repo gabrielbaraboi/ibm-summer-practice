@@ -1,5 +1,3 @@
-const express = require("express");
-const controller = express();
 const User = require("../models/user");
 const Company = require("../models/company");
 const bcrypt = require("bcryptjs");
@@ -9,14 +7,14 @@ const registerUser = async (req, res) => {
 	try {
 		const email = req.body.email;
 		if (await isEmailAlreadyUsed(email))
-			return res.status(409).json({ message: 'This email is taken!' });
-		if (req.body.role === "Student") {
+			return res.status(409).json({ message: "This email is taken!" });
+		if (req.body.role === "student") {
 			//Get user Inputs
 			const { email, firstName, lastName, password, role } = req.body;
 
 			// Validate data
 			if (!(email && firstName && lastName && password && role)) {
-				res.status(400).json({ message: 'All inputs are required!' });
+				res.status(400).json({ message: "All inputs are required!" });
 			}
 
 			//create user to db
@@ -28,14 +26,12 @@ const registerUser = async (req, res) => {
 				role,
 			});
 
-			//save Token
-			user.token = generateToken("user", email);
 			return res.send("User created!");
-		} else if (req.body.role === "Company") {
+		} else if (req.body.role === "company") {
 			const { email, password, companyName, role } = req.body;
 
 			if (!(email && companyName && password && role)) {
-				res.status(400).json({ message: 'All inputs are required!' });
+				res.status(400).json({ message: "All inputs are required!" });
 			}
 
 			const company = await Company.create({
@@ -44,8 +40,7 @@ const registerUser = async (req, res) => {
 				companyName,
 				role,
 			});
-			//save token
-			company.token = generateToken("company", email);
+
 			return res.send("Company account created!");
 		} else {
 			res.status(400).send("Role undefined");
@@ -61,39 +56,39 @@ const loginUser = async (req, res) => {
 		const { email, password } = req.body;
 		//Validate data
 		if (!(email && password)) {
-			res.status(400).json({ message: 'All inputs are required!' });
+			res.status(400).json({ message: "All inputs are required!" });
 		}
 		//Verify if user exist
 		const user = await User.findOne({ email });
 		const company = await Company.findOne({ email });
 
 		if (user && (await bcrypt.compare(password, user.password))) {
-			responseUser = {
-				id: user._id,
-				email: user.email,
-				firstName: user.firstName,
-				lastName: user.lastName,
-				role: 'student'
-			}
+			// responseUser = {
+			// 	id: user._id,
+			// 	email: user.email,
+			// 	firstName: user.firstName,
+			// 	lastName: user.lastName,
+			// 	role: 'student'
+			// }
 			// save token
-			responseUser.token = generateToken("user", email);
+			user.token = generateToken("user", email);
 			//send user
-			res.cookie('token', responseUser.token, { httpOnly: true });
+			res.cookie("token", responseUser.token, { httpOnly: true });
 			res.status(200).json({ user: responseUser });
 		} else if (company && (await bcrypt.compare(password, company.password))) {
-			responseUser = {
-				id: company._id,
-				email: company.email,
-				companyName: company.companyName,
-				role: 'company'
-			}
+			// responseUser = {
+			// 	id: company._id,
+			// 	email: company.email,
+			// 	companyName: company.companyName,
+			// 	role: 'company'
+			// }
 			// save token
 			company.token = generateToken("company", email);
 			//send user
-			res.cookie('token', responseUser.token, { httpOnly: true });
+			res.cookie("token", responseUser.token, { httpOnly: true });
 			res.status(200).json({ user: responseUser });
 		} else {
-			res.status(400).json({ message: 'Invalid email or password!' });
+			res.status(400).json({ message: "Invalid email or password!" });
 		}
 	} catch (err) {
 		console.log(err);
@@ -107,14 +102,8 @@ async function encryptPass(pass) {
 	return encryptedPassword;
 }
 
-function generateToken(accType, email) {
-	const token = jwt.sign(
-		{ comapny_id: accType._id, email },
-		process.env.TOKEN_KEY,
-		{
-			expiresIn: "2h",
-		}
-	);
+function generateToken(accType) {
+	const token = jwt.sign({ _id: accType._id }, process.env.TOKEN_KEY);
 	return token;
 }
 
@@ -128,11 +117,13 @@ async function isEmailAlreadyUsed(email) {
 
 const logout = async (req, res) => {
 	try {
-		res.clearCookie('token', { httpOnly: true });
-		res.status(200).json({ success: true, message: 'User logged out successfully' });
+		res.clearCookie("token", { httpOnly: true });
+		res
+			.status(200)
+			.json({ success: true, message: "User logged out successfully" });
 	} catch (err) {
 		console.log(err.message);
 	}
-}
+};
 
 module.exports = { registerUser, loginUser, logout };
