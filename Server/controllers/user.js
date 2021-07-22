@@ -8,7 +8,7 @@ const registerUser = async (req, res) => {
 		const email = req.body.email;
 		if (await isEmailAlreadyUsed(email))
 			return res.status(409).send("email is already used for an account");
-		if (req.body.role === "Student") {
+		if (req.body.role === "student") {
 			//Get user Inputs
 			const { email, firstName, lastName, password, role } = req.body;
 
@@ -26,10 +26,8 @@ const registerUser = async (req, res) => {
 				role,
 			});
 
-			//save Token
-			user.token = generateToken("user", email);
 			return res.send("User created!");
-		} else if (req.body.role === "Company") {
+		} else if (req.body.role === "company") {
 			const { email, password, companyName, role } = req.body;
 
 			if (!(email && companyName && password && role)) {
@@ -42,8 +40,7 @@ const registerUser = async (req, res) => {
 				companyName,
 				role,
 			});
-			//save token
-			company.token = generateToken("company", email);
+
 			return res.send("Company account created!");
 		} else {
 			res.status(400).send("Role undefined");
@@ -66,11 +63,11 @@ const loginUser = async (req, res) => {
 		const company = await Company.findOne({ email });
 
 		if (user && (await bcrypt.compare(password, user.password))) {
-			const token = generateToken(user, email);
-			res.header("auth-token",token).json(token);
+			const token = generateToken(user);
+			res.header("auth-token", token).json(token);
 		} else if (company && (await bcrypt.compare(password, company.password))) {
-			const token = generateToken(company, email);
-			res.header("auth-token",token).json(token);
+			const token = generateToken(company);
+			res.header("auth-token", token).json(token);
 		} else {
 			res.status(400).send("Invalid email or password");
 		}
@@ -86,8 +83,8 @@ async function encryptPass(pass) {
 	return encryptedPassword;
 }
 
-function generateToken(accType, email) {
-	const token = jwt.sign({_id: accType._id},process.env.TOKEN_KEY);
+function generateToken(accType) {
+	const token = jwt.sign({ _id: accType._id }, process.env.TOKEN_KEY);
 	return token;
 }
 async function isEmailAlreadyUsed(email) {

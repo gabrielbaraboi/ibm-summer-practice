@@ -5,9 +5,15 @@ var commentSchema = new mongoose.Schema({
 	createdBy: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
 		},
-		username: String,
+		name: String,
+	},
+	parentPostId: {
+		type: String,
+	},
+	date: {
+		type: Date,
+		default: Date.now,
 	},
 });
 
