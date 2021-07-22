@@ -47,7 +47,7 @@ const NavBar = () => {
                     ``}
                 {isUserData() ?
                     <NavItem>
-                        <a href="#">
+                        <a href="/AddPost">
                             <i><FontAwesomeIcon icon={faPlusCircle} className="icon" fixedWidth /></i>
                             <LinkName>New post</LinkName>
                         </a>

@@ -4,7 +4,7 @@ import { saveUserData, getUserData, isUserData } from "./Services/localStorageMa
 import AllPosts from "./Components/Posts/AllPosts.component"
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
-
+import AddPost from "./Components/Posts/AddPost";
 
 const App = () => {
 
@@ -44,6 +44,10 @@ const App = () => {
             <Login {...props} parentCallback={setData} />
           )}
         />
+        <Route
+            exact path='/addpost'
+            component={AddPost}
+          />
       </div>
     </Router>
   );
