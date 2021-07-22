@@ -140,7 +140,7 @@ export const Dropdown = styled.select`
 `
 
 export const Option = styled.option`
-    $:hover{
+    &:hover{
         background-color: #f0b24e;
     }
 `

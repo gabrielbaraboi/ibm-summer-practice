@@ -38,7 +38,7 @@ export const InputContainer = styled.div`
 export const InputDescription = styled.div`
 	color: white;
     width:100%;
-    background-color: ;
+    /* background-color: ; */
     display: flex;
     justify-content: center;
     flex-direction: column;
