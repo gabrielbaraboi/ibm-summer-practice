@@ -23,7 +23,7 @@ export const Nav = styled.div`
         width: 78px;
         left: 0;
         bottom: -8px;
-        padding: 14px;
+        padding: 10px;
         background: #1d1b31;
         transition: all 0.3s ease-in-out;
         overflow: hidden;
@@ -94,7 +94,7 @@ export const NavItem = styled.li`
     &:hover .tooltip {
         opacity: 1;
         pointer-events: auto;
-        transition: all 0.4s ease;
+        transition: all 0.3s ease;
         top: 20%;
         transform: translateY(-20%);
     }
@@ -117,7 +117,7 @@ export const NavItem = styled.li`
     }
 `
 
-export const LinkName = styled.span`
+export const LinkName = styled.div`
     color: #fff;
     font-size: 15px;
     font-weight: 400;
@@ -125,7 +125,7 @@ export const LinkName = styled.span`
     /* display: none; */
     opacity: 0;
     pointer-events: none;
-    transition: 0.4s;
+    transition: 0.3s;
 `
 
 export const ProfileDetails = styled.div`

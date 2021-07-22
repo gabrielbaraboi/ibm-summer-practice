@@ -129,6 +129,16 @@ a:visited {
     width: 0 !important;
 }
 
+.open .profile.signout a {
+    width: 100% !important;
+    background-color: transparent;
+}
+
+.open .profile.signout a:hover {
+    width: 100% !important;
+    background: #FFF;
+}
+
 .open .log-out {
     transform: translate(0, -50%) !important;
     left: 0 !important;

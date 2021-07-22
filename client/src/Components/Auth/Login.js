@@ -1,42 +1,76 @@
 import React, { useState } from 'react';
-import { Body,Container,Form,Input,H1,A, InputContainer, SignInput, SignUpContainer,SignUpInput,Label,Div } from './Login.styledComponents';
+import { useHistory } from 'react-router';
+import useForm from "../../customHooks/userForm";
+import LoginValidationRules from "../../Services/Validation/LoginValidationRules";
+import { login } from "../../Services/UserServices";
+import { Body, Container, LoginForm, Input, H1, A, InputContainer, SignInput, LoginContainer, SignUpInput, Label, Div } from './Auth.styledComponents';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faEnvelopeOpen,faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faEnvelopeOpen, faLock } from '@fortawesome/free-solid-svg-icons';
 
-function Login( { Login, error } ) {
-    const [details, setDetails] = useState({email: "", password: ""});
+const Login = ({ onSubmit, authError }) => {
+    const {
+        values,
+        errors,
+        handleChange,
+        handleSubmit,
+    } = useForm(sendData, LoginValidationRules);
 
-    const submitHandler = e => {
-        e.preventDefault(); // prevent page from re-rendering
-
-        Login(details);
-    }
+    function sendData() {
+        const data = {
+            email: values.email,
+            password: values.password
+        }
+        onSubmit(data);
+    };
 
     return (
         <Body>
             <Container>
-                <Form onSubmit={submitHandler}>
+                <LoginForm onSubmit={handleSubmit}>
                     <H1>Login</H1>
                     <InputContainer>
                         <Label><FontAwesomeIcon icon={faEnvelope} className="icon" fixedWidth /></Label>
-                        <Div><Input type="text" name="email" id="email" placeholder="Email"/></Div>
+                        <Div><Input autoComplete="off" className={`input ${errors.email && 'is-danger'}`} type="email" name="email" onChange={handleChange} value={values.email || ''} />
+                            {errors.email && (
+                                <p className="help is-danger">{errors.email}</p>
+                            )}</Div>
                     </InputContainer>
                     <InputContainer>
-                        <Label><FontAwesomeIcon icon={ faLock } className="icon" fixedWidth /></Label>
-                        <Div><Input type="password" name="password" id="password" placeholder="Password"/></Div>
+                        <Label><FontAwesomeIcon icon={faLock} className="icon" fixedWidth /></Label>
+                        <Div><Input className={`input ${errors.password && 'is-danger'}`} type="password" name="password" onChange={handleChange} value={values.password || ''} />
+                            {errors.password && (
+                                <p className="help is-danger">{errors.password}</p>
+                            )}</Div>
                     </InputContainer>
                     <A href="#">Forgot your password?</A>
                     <SignInput type="submit" value="LOGIN" />
-                    {/* Display errors */}
-                </Form>
-                <SignUpContainer>
+                    <p className="help is-danger">{authError}</p>
+                </LoginForm>
+                <LoginContainer>
                     <H1> Welcome </H1>
                     <A>Dont Have an Account?</A>
                     <SignUpInput type="submit" value="Sign Up" />
-                </SignUpContainer>
+                </LoginContainer>
             </Container>
         </Body>
     )
 }
 
-export default Login
+export default ({ parentCallback }) => {
+    const [authError, setAuthError] = useState('');
+    const history = useHistory();
+
+    const handleSubmit = data => {
+        login(data)
+            .then(res => {
+                console.log(res.data)
+                parentCallback(res.data.user);
+                history.push("/");
+            })
+            .catch(err => {
+                setAuthError(err.response.data.message)
+            });
+    };
+
+    return <Login onSubmit={handleSubmit} authError={authError} />
+};
