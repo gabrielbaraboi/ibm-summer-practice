@@ -11,6 +11,7 @@ const cookieParser = require("cookie-parser");
 const authenticantion = require("./routes/userRoutes");
 const posts = require("./routes/postRoutes");
 const comments = require("./routes/commentRoutes");
+const messages = require("./routes/messagesRoutes");
 
 //config bodyParser & express
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(authenticantion);
 app.use(posts);
 app.use(comments);
+app.use(messages);
 // app.use('/user', userRoutes);
 
 module.exports = app;
