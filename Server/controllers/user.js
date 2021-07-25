@@ -53,13 +53,12 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
 	try {
 		let responseUser;
-		//Get user data
 		const { email, password } = req.body;
-		//Validate data
+
 		if (!(email && password)) {
 			res.status(400).json({ message: "All inputs are required!" });
 		}
-		//Verify if user exist
+
 		const user = await User.findOne({ email });
 		const company = await Company.findOne({ email });
 
@@ -69,25 +68,22 @@ const loginUser = async (req, res) => {
 				email: user.email,
 				firstName: user.firstName,
 				lastName: user.lastName,
-				role: "student",
+				role: "Student",
 			};
-			// save token
-			responseUser.token = generateToken(responseUser);
-			//send user
-			res.cookie("token", responseUser.token, { httpOnly: true });
+			responseUser.accessToken = generateToken(responseUser);
+			// console.log(req.headers['x-access-token']);
 			res.status(200).json({ user: responseUser });
+			
 		} else if (company && (await bcrypt.compare(password, company.password))) {
 			responseUser = {
 				id: company._id,
 				email: company.email,
 				companyName: company.companyName,
-				role: "company",
+				role: "Company",
 			};
-			// save token
-			responseUser.token = generateToken(responseUser);
-			//send user
-			res.cookie("token", responseUser.token, { httpOnly: true });
+			responseUser.accessToken = generateToken(responseUser);
 			res.status(200).json({ user: responseUser });
+
 		} else {
 			res.status(400).json({ message: "Invalid email or password!" });
 		}
@@ -104,7 +100,9 @@ async function encryptPass(pass) {
 }
 
 function generateToken(accType) {
-	const token = jwt.sign({ _id: accType.id }, process.env.TOKEN_KEY);
+	const token = jwt.sign({ _id: accType.id }, process.env.TOKEN_KEY, {
+		expiresIn: 86400 // 24 hours
+	});
 	return token;
 }
 
@@ -116,15 +114,4 @@ async function isEmailAlreadyUsed(email) {
 	return false;
 }
 
-const logout = async (req, res) => {
-	try {
-		res.clearCookie("token", { httpOnly: true });
-		res
-			.status(200)
-			.json({ success: true, message: "User logged out successfully" });
-	} catch (err) {
-		console.json(err.message);
-	}
-};
-
-module.exports = { registerUser, loginUser, logout };
+module.exports = { registerUser, loginUser };

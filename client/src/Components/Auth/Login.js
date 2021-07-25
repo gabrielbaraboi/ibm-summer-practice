@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import useForm from "../../customHooks/userForm";
 import LoginValidationRules from "../../Services/Validation/LoginValidationRules";
-import { login } from "../../Services/UserServices";
+import { login } from "../../Services/auth.service";
 import { Body, Container, LoginForm, Input, H1, A, InputContainer, SignInput, LoginContainer, SignUpInput, Label, Div } from './Auth.styledComponents';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faEnvelopeOpen, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -56,16 +56,15 @@ const Login = ({ onSubmit, authError }) => {
     )
 }
 
-export default ({ parentCallback }) => {
+export default () => {
     const [authError, setAuthError] = useState('');
     const history = useHistory();
 
     const handleSubmit = data => {
         login(data)
-            .then(res => {
-                console.log(res.data)
-                parentCallback(res.data.user);
+            .then(() => {
                 history.push("/");
+                window.location.reload();
             })
             .catch(err => {
                 setAuthError(err.response.data.message)

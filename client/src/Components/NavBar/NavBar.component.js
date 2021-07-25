@@ -2,16 +2,14 @@ import { Nav, LogoDetails, LogoName, NavList, NavItem, LinkName, ProfileDetails,
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobe, faHome, faPlusCircle, faUser, faCog, faBuilding, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react';
-import { logout } from '../../Services/UserServices'
-import { clearUser } from "../../Services/localStorageManagement";
-import { isUserData, getUserData } from "../../Services/localStorageManagement";
+import { logout, getCurrentUser, isUserData } from "../../Services/auth.service"
 
 const NavBar = () => {
     const [openNav, setOpenNav] = useState(true);
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        const userData = getUserData();
+        const userData = getCurrentUser();
         setUser(userData);
     }, [])
 
@@ -83,8 +81,6 @@ const NavBar = () => {
                                     e.preventDefault();
                                     try {
                                         logout().then(res => console.log(res)).catch(err => console.log(err.message));
-                                        clearUser();
-                                        window.location.reload();
                                     } catch (error) {
                                         console.log(error.message);
                                     }
