@@ -9,7 +9,6 @@ import { Main, Layout } from './Components/Global.styledComponents';
 import NavBar from './Components/NavBar/NavBar.component';
 
 const App = () => {
-
   return (
     <Layout>
       <NavBar />
@@ -32,7 +31,6 @@ const App = () => {
         </Router>
       </Main>
     </Layout>
-
   );
 }
 
