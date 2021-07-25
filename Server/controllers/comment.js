@@ -32,9 +32,9 @@ const createComment = async (req, res) => {
 	Comment.create(newComment, (err, comment) => {
 		if (err) {
 			console.log(err);
-			res.status(400).send(err);
+			res.status(400).json({ message: "Can`t create comment" });
 		} else {
-			res.status(200).send("Comment created successfully");
+			res.status(200).json({ message: "Comment created successfully" });
 		}
 	});
 };
@@ -63,18 +63,18 @@ const updateComment = async (req, res) => {
 				req.body,
 				(err, updatedComment) => {
 					if (err) {
-						res.status(400).send(err);
+						res.status(400).json({ message: "Can`t update comment" });
 					}
-					res.status(200).send("Comment updated successfully");
+					res.status(200).json({ message: "Comment updated successfully" });
 				}
 			);
 		} else if (authorization === 3) {
-			res.status(400).send("Comment dosen`t exist!");
+			res.status(400).json({ message: "Comment dosen`t exist!" });
 		} else {
-			res.status(400).send("You dont`t have permissions!");
+			res.status(400).json({ message: "You dont`t have permissions!" });
 		}
 	} catch (err) {
-		res.status(400).send(err);
+		res.status(400).json({ message: "Can`t update comment" });
 	}
 };
 
@@ -85,14 +85,14 @@ const deleteComment = async (req, res) => {
 	if (authorization === true) {
 		try {
 			await Comment.findByIdAndDelete(req.params.commentId);
-			res.status(200).send("Comment deleted!");
+			res.status(200).json({ message: "Comment deleted!" });
 		} catch (err) {
 			console.log(err);
 		}
 	} else if (authorization === 3) {
-		res.status(400).send("Comment dosen`t exist!");
+		res.status(400).json({ message: "Comment dosen`t exist!" });
 	} else {
-		res.status(400).send("You dont`t have permissions!");
+		res.status(400).json({ message: "You dont`t have permissions!" });
 	}
 };
 

@@ -2,7 +2,6 @@ const User = require("../models/user");
 const Company = require("../models/company");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { response } = require("../app");
 
 const registerUser = async (req, res) => {
 	try {
@@ -42,12 +41,12 @@ const registerUser = async (req, res) => {
 				role,
 			});
 
-			return res.send("Company account created!");
+			return res.json({ message: "Company account created!" });
 		} else {
-			res.status(400).send("Role undefined");
+			res.status(400).json({ message: "Role undefined" });
 		}
 	} catch (err) {
-		console.log(err);
+		res.status(400).json({ message: "Register failed!" });
 	}
 };
 
@@ -124,7 +123,7 @@ const logout = async (req, res) => {
 			.status(200)
 			.json({ success: true, message: "User logged out successfully" });
 	} catch (err) {
-		console.log(err.message);
+		console.json(err.message);
 	}
 };
 

@@ -9,7 +9,7 @@ const verifyToken = (req, res, next) => {
 		req.headers["auth-token"] ||
 		req.cookies.token;
 	if (!token) {
-		return res.status(403).send({ message: "Token is required for login" });
+		return res.status(403).json({ message: "Token is required for login" });
 	}
 	try {
 		const decoded = jwt.verify(token, config.TOKEN_KEY);

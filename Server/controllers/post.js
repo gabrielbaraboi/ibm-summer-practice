@@ -47,11 +47,11 @@ const getAllPosts = async (req, res) => {
 const getSpecificPost = async (req, res) => {
 	await Post.findById(req.params.id, (err, Post) => {
 		if (err) {
-			console.log(err);
-			res.status(400).send(err);
+			res.status(400).json({ message: "Can`t get post!" });
 		} else {
-			if (Post) res.status(200).send(Post);
-			else res.status(400).send("no post with that id was found");
+			if (Post) res.status(200).json(Post);
+			else
+				res.status(400).json({ messages: "No post with that id was found!" });
 		}
 	});
 };
@@ -62,7 +62,9 @@ const createPost = async (req, res) => {
 	if (req.body.type == "request") {
 		const user = await User.findById(req.user._id);
 		if (!user)
-			return res.status(400).send("Company account can't create requests");
+			return res
+				.status(400)
+				.json({ message: "Company account can't create requests!" });
 		createdBy = {
 			id: user._id,
 			name: user.firstName + " " + user.lastName,
@@ -70,13 +72,17 @@ const createPost = async (req, res) => {
 	} else if (req.body.type == "offer") {
 		const company = await Company.findById(req.user._id);
 		if (!company)
-			return res.status(400).send("Student account can't create offers");
+			return res
+				.status(400)
+				.json({ message: "Student account can't create offers!" });
 		createdBy = {
 			id: company._id,
 			name: company.companyName,
 		};
 	} else {
-		res.status(400).send("request type not valid for account type");
+		res
+			.status(400)
+			.json({ message: "Request type not valid for account type!" });
 	}
 	const newPost = {
 		type: req.body.type,
@@ -91,9 +97,8 @@ const createPost = async (req, res) => {
 
 	Post.create(newPost, (err, Post) => {
 		if (err) {
-			console.log(err);
-			res.status(400).send(err);
-		} else res.status(200).send("Post created Succesfully");
+			res.status(400).json({ message: "Can`t create post!" });
+		} else res.status(200).json({ message: "Post created Succesfully" });
 	});
 };
 
@@ -104,21 +109,21 @@ const updatePost = async (req, res) => {
 			req.params.id,
 			req.body,
 			(err, updatedPost) => {
-				if (err) res.status(400).send(err);
-				res.status(200).send(updatedPost);
+				if (err) res.status(400).json({ message: "Failed to update post!" });
+				res.status(200).json(updatedPost);
 			}
 		);
 	} else {
-		res.status(400).send("post type can't be modified");
+		res.status(400).json({ message: "Post type can't be modified!" });
 	}
 };
 
 const deletePost = async (req, res) => {
 	try {
 		await Post.deleteOne({ _id: req.params.id });
-		res.status(200).send("post deleted successfully");
+		res.status(200).json({ message: "Post deleted successfully!" });
 	} catch (error) {
-		console.log(error);
+		res.status(400).json({ message: "Failed to delete this comment!" });
 	}
 };
 module.exports = {
