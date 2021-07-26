@@ -8,7 +8,7 @@ const registerUser = async (req, res) => {
 		const email = req.body.email;
 		if (await isEmailAlreadyUsed(email))
 			return res.status(409).json({ message: "This email is taken!" });
-		if (req.body.role === "student") {
+		if (req.body.role === "Student") {
 			//Get user Inputs
 			const { email, firstName, lastName, password, role } = req.body;
 
@@ -26,8 +26,8 @@ const registerUser = async (req, res) => {
 				role,
 			});
 
-			return res.send("User created!");
-		} else if (req.body.role === "company") {
+			res.send("User created!");
+		} else if (req.body.role === "Company") {
 			const { email, password, companyName, role } = req.body;
 
 			if (!(email && companyName && password && role)) {
@@ -73,7 +73,6 @@ const loginUser = async (req, res) => {
 			responseUser.accessToken = generateToken(responseUser);
 			// console.log(req.headers['x-access-token']);
 			res.status(200).json({ user: responseUser });
-			
 		} else if (company && (await bcrypt.compare(password, company.password))) {
 			responseUser = {
 				id: company._id,
@@ -83,7 +82,6 @@ const loginUser = async (req, res) => {
 			};
 			responseUser.accessToken = generateToken(responseUser);
 			res.status(200).json({ user: responseUser });
-
 		} else {
 			res.status(400).json({ message: "Invalid email or password!" });
 		}
@@ -101,7 +99,7 @@ async function encryptPass(pass) {
 
 function generateToken(accType) {
 	const token = jwt.sign({ _id: accType.id }, process.env.TOKEN_KEY, {
-		expiresIn: 86400 // 24 hours
+		expiresIn: 86400, // 24 hours
 	});
 	return token;
 }

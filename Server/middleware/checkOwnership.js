@@ -9,9 +9,9 @@ const checkOwnership = async (req, res, next) => {
 		if (!post) res.status(400).json({ message: "The post wasn't found" });
 		if (post.createdBy.id == req.user._id) next();
 		else
-			res
-				.status(401)
-				.json({ message: "Posts can be deleted only by their creators!" });
+			res.status(401).json({
+				message: `Posts can be modified / deleted only by their creators!`,
+			});
 	} catch (error) {
 		res.status(400).json({ message: "You don`t have permission!" });
 	}
