@@ -1,8 +1,11 @@
 import React from 'react';
+import { PostDiv } from './Posts.styledComponents';
 
 const AllPosts = () => {
     return (
-        `Main`
+        <PostDiv>
+            Main
+        </PostDiv>
     );
 }
 
