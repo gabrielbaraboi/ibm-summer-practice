@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Body, Container, Input, Form, H1, Choose, InputContainer, ButtonSubmit, Label, Div } from "./AddPost.styledComponents"
+import { Body, Container, Input, Form, H1, Choose, InputContainer, ButtonSubmit, Label, Div ,Flex } from "./AddPost.styledComponents"
 import NavBar from '../NavBar/NavBar.component';
 import { Main, Layout } from '../Global.styledComponents';
 
@@ -79,13 +79,9 @@ function AddPost() {
                         <textarea name="description" placeholder="Description" rows="5" cols="100" value={values.description} onChange={handleChange} />
                         <Label>Requirements</Label>
                         <textarea name="requirements" placeholder="Requirements" rows="5" cols="100" value={values.requirements} onChange={handleChange} />
-                        <ButtonSubmit type="submit" value="SUBMIT" />
+                        <Flex><ButtonSubmit type="submit" value="SUBMIT" /></Flex>
                     </Form>
-                    {/*
-                <pre>
-                    {JSON.stringify(values,null,2)}
-                </pre>
-                */}
+                    
                 </Container>
             </Body>
         </>

@@ -5,7 +5,6 @@ export const Body = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	height: 100vh;
     box-sizing: border-box;
 
 `
@@ -18,14 +17,15 @@ export const Container = styled.div`
 	max-width: 100%;
 	min-height: 500px;
     display: flex;
-    margin-bottom:50px;
+    margin-top:20px;
+    
 `
 
 export const InputContainer = styled.div`
-    width: 300px;
     border: 1px;
     background-color: white;
-    
+    max-width: 300px;
+    min-width: 100px;
     padding: 0;
     .input{
         width: 100%;
@@ -81,6 +81,10 @@ export const H1 = styled.h1`
     font-weight: bold;
     text-align:center;
 `
+export const Flex = styled.div`
+    display: flex;
+    justify-content: center;
+`
 
 export const ButtonSubmit = styled.input`
     border-radius: 20px;
@@ -90,7 +94,6 @@ export const ButtonSubmit = styled.input`
 	color: #FFFFFF;
 	font-size: 1.8vh;
 	font-weight: bold;
-    margin-left:320px;
     margin-bottom:10px;
     margin-top:10px;
 	padding: 12px 45px;
