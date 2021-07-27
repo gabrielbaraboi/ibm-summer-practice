@@ -3,9 +3,9 @@ import { useHistory } from 'react-router';
 import useForm from "../../customHooks/userForm";
 import LoginValidationRules from "../../Services/Validation/LoginValidationRules";
 import { login } from "../../Services/auth.service";
-import { Body, Container, LoginForm, Input, H1, A, InputContainer, SignInput, LoginContainer, SignUpInput, Label, Div } from './Auth.styledComponents';
+import { Body, Container, LoginForm, Input, H1, A, InputContainer, SignInput, LoginContainer, Label, Div,SignUpA } from './Auth.styledComponents';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faEnvelopeOpen, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const Login = ({ onSubmit, authError }) => {
     const {
@@ -48,8 +48,8 @@ const Login = ({ onSubmit, authError }) => {
                 </LoginForm>
                 <LoginContainer>
                     <H1> Welcome </H1>
-                    <A>Dont Have an Account?</A>
-                    <SignUpInput type="submit" value="Sign Up" />
+                    <p>Dont Have an Account?</p>
+                    <SignUpA href="/Register">Sign Up</SignUpA>
                 </LoginContainer>
             </Container>
         </Body>

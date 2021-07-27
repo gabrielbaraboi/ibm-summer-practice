@@ -1,5 +1,5 @@
 import React from 'react'
-import { Body,Container,RegisterForm,Input,H1Reg,H1,A, InputContainer, SignInput, RegisterContainer,SignUpInput,LabelReg,Div,Dropdown,DropdownContainer,Option } from './Auth.styledComponents';
+import { Body,Container,RegisterForm,Input,H1Reg,H1, InputContainer, SignInA, RegisterContainer,SignUpInput,LabelReg,Div,Dropdown,DropdownContainer } from './Auth.styledComponents';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope,faLock,faUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +28,7 @@ function Register() {
                     </InputContainer>
                     <DropdownContainer>
                         <Dropdown required>
-                            <Option value="" disabled selected hidden>Select your role</Option>
+                            <option value="" disabled selected hidden>Select your role</option>
                             <option value="Student">Student</option>
                             <option value="Company">Company</option>
                         </Dropdown>
@@ -38,8 +38,8 @@ function Register() {
                 </RegisterForm>
                 <RegisterContainer>
                     <H1> Welcome </H1>
-                    <A>Already have an account?</A>
-                    <SignInput type="submit" value="Sign in" />
+                    <p>Already have an account?</p>
+                    <SignInA href="/Login">Sign in</SignInA>
                 </RegisterContainer>
             </Container>
         </Body>
