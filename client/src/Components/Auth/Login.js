@@ -49,7 +49,7 @@ const Login = ({ onSubmit, authError }) => {
                 <LoginContainer>
                     <H1> Welcome </H1>
                     <p>Dont Have an Account?</p>
-                    <SignUpA href="/Register">Sign Up</SignUpA>
+                    <SignUpA href="/register">Sign Up</SignUpA>
                 </LoginContainer>
             </Container>
         </Body>

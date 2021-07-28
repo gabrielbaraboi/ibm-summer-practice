@@ -17,6 +17,16 @@ export const login = async (data) => {
     }
 };
 
+export const register = async (data) => {
+    try {
+        const res = await axios
+            .post(API_URL + "register", data);
+        return res;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const logout = () => {
     localStorage.removeItem("user");
     window.location.reload();

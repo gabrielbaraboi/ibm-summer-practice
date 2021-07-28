@@ -18,15 +18,14 @@ const App = () => {
         <Main className='main'>
           <PublicRoute
             exact path='/'
-            restricted={false}
             component={AllPosts} />
           <PublicRoute
             path='/register'
-            restricted={true}
+            restricted
             component={Register} />
           <PublicRoute
             path='/login'
-            restricted={true}
+            restricted
             component={Login} />
           <PrivateRoute
             path='/addpost'
