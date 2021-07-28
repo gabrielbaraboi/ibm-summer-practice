@@ -4,32 +4,37 @@ import AllPosts from "./Components/Posts/AllPosts.component"
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import AddPost from "./Components/Posts/AddPost";
-import AuthVerify from "./Services/authVerify.service";
+import AuthVerify from "./Services/auth.service";
 import { Main, Layout } from './Components/Global.styledComponents';
 import NavBar from './Components/NavBar/NavBar.component';
+import PrivateRoute from "./Components/PrivateRoute.component";
+import PublicRoute from "./Components/PublicRoute.component";
 
 const App = () => {
   return (
     <Layout>
-      <NavBar />
-      <Main className='main'>
-        <Router>
-          <Route
+      <Router>
+        <NavBar />
+        <Main className='main'>
+          <PublicRoute
             exact path='/'
+            restricted={false}
             component={AllPosts} />
-          <Route
+          <PublicRoute
             path='/register'
+            restricted={true}
             component={Register} />
-          <Route
+          <PublicRoute
             path='/login'
+            restricted={true}
             component={Login} />
-          <Route
-            exact path='/addpost'
+          <PrivateRoute
+            path='/addpost'
             component={AddPost}
           />
           <AuthVerify />
-        </Router>
-      </Main>
+        </Main>
+      </Router>
     </Layout>
   );
 }

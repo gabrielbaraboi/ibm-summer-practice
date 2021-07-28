@@ -1,4 +1,6 @@
 import axios from "axios";
+import React from "react";
+import { withRouter } from "react-router-dom";
 
 const API_URL = "http://localhost:7055/auth/";
 
@@ -30,3 +32,30 @@ export const isUserData = () => {
         return true;
     return false;
 }
+
+const parseJwt = (token) => {
+    try {
+        return JSON.parse(atob(token.split(".")[1]));
+    } catch (e) {
+        return null;
+    }
+};
+
+const AuthVerify = (props) => {
+    props.history.listen(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (user) {
+            const decodedJwt = parseJwt(user.accessToken);
+
+            if (decodedJwt.exp * 1000 < Date.now()) {
+                logout();
+            }
+        }
+    });
+
+    return <div></div>;
+};
+
+
+export default withRouter(AuthVerify);

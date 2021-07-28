@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobe, faHome, faPlusCircle, faUser, faCog, faBuilding, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react';
 import { logout, getCurrentUser, isUserData } from "../../Services/auth.service"
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     const [openNav, setOpenNav] = useState(true);
@@ -28,43 +29,43 @@ const NavBar = () => {
             </LogoDetails>
             <NavList>
                 <NavItem>
-                    <a href="/">
+                    <Link to={`/`}>
                         <i><FontAwesomeIcon icon={faHome} className="icon" fixedWidth /></i>
                         <LinkName>Home</LinkName>
-                    </a>
+                    </Link>
                     <Tooltip className="tooltip">Home</Tooltip>
                 </NavItem>
                 {isUserData() ?
                     <NavItem>
-                        <a href="#">
+                        <Link to={`#`}>
                             <i><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></i>
                             <LinkName>Profile</LinkName>
-                        </a>
+                        </Link>
                         <Tooltip className="tooltip">Profile</Tooltip>
                     </NavItem> :
                     ``}
                 {isUserData() ?
                     <NavItem>
-                        <a href="/AddPost">
+                        <Link to={`/addpost`}>
                             <i><FontAwesomeIcon icon={faPlusCircle} className="icon" fixedWidth /></i>
                             <LinkName>New post</LinkName>
-                        </a>
+                        </Link>
                         <Tooltip className="tooltip">New post</Tooltip>
                     </NavItem> :
                     ``}
                 <NavItem>
-                    <a href="#">
+                    <Link to={`#`}>
                         <i><FontAwesomeIcon icon={faBuilding} className="icon" fixedWidth /></i>
                         <LinkName>Companies</LinkName>
-                    </a>
+                    </Link>
                     <Tooltip className="tooltip">Companies</Tooltip>
                 </NavItem>
                 {isUserData() ?
                     <NavItem>
-                        <a href="#">
+                        <Link to={`#`}>
                             <i><FontAwesomeIcon icon={faCog} className="icon" fixedWidth /></i>
                             <LinkName>Settings</LinkName>
-                        </a>
+                        </Link>
                         <Tooltip className="tooltip">Settings</Tooltip>
                     </NavItem> :
                     ``}
@@ -76,7 +77,7 @@ const NavBar = () => {
                                 <Name>{user?.companyName} {user?.firstName} {user?.lastName}</Name>
                                 <Role>{user?.role}</Role>
                             </Details>
-                            <a href="/">
+                            <Link to={`/`}>
                                 <FontAwesomeIcon icon={faSignOutAlt} className="icon log-out" fixedWidth onClick={(e) => {
                                     e.preventDefault();
                                     try {
@@ -85,14 +86,14 @@ const NavBar = () => {
                                         console.log(error.message);
                                     }
                                 }} />
-                            </a>
+                            </Link>
                         </ProfileDetails>
                     </NavItem> :
                     <NavItem className="profile signout">
-                        <a href="/login">
+                        <Link to={`/login`}>
                             <i><FontAwesomeIcon icon={faSignInAlt} className="icon" fixedWidth /></i>
                             <LinkName>Sign in</LinkName>
-                        </a>
+                        </Link>
                         <Tooltip className="tooltip">Sign in</Tooltip>
                     </NavItem>
                 }
