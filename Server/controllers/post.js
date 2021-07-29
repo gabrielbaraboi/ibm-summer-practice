@@ -58,34 +58,39 @@ const getSpecificPost = async (req, res) => {
 
 const createPost = async (req, res) => {
 	let createdBy;
-
-	if (req.body.type == "request") {
-		const user = await User.findById(req.user._id);
-		if (!user)
-			return res
-				.status(400)
-				.json({ message: "Company account can't create requests!" });
+	let type;
+	let user;
+	user = await User.findById(req.user._id);
+	if(user)
+	{
+		//Student
 		createdBy = {
 			id: user._id,
 			name: user.firstName + " " + user.lastName,
 		};
-	} else if (req.body.type == "offer") {
-		const company = await Company.findById(req.user._id);
-		if (!company)
-			return res
-				.status(400)
-				.json({ message: "Student account can't create offers!" });
-		createdBy = {
-			id: company._id,
-			name: company.companyName,
-		};
-	} else {
-		res
-			.status(400)
-			.json({ message: "Request type not valid for account type!" });
+		type="request";
+	}
+	else
+	{
+		//Company
+		user = await Company.findByID(req.user._id);
+		if(user)
+		{
+			createdBy = {
+				id: user._id,
+				name: user.firstName + " " + user.lastName,
+			};
+			type="offer";
+		}
+		else
+		{
+			//account id wasn't found in neither Student nor Company Collection
+			res.status(400).json({message:"account id wasn't found"})
+		}
+		
 	}
 	const newPost = {
-		type: req.body.type,
+		type: type,
 		description: req.body.description,
 		createdBy: createdBy,
 		title: req.body.title,
