@@ -4,7 +4,7 @@ const controller = require("../controllers/post");
 const auth = require("../middleware/auth");
 const Ownership = require("../middleware/checkOwnership");
 
-router.post("/posts", auth, controller.createPost);
+router.post("/createPost", auth, controller.createPost);
 router.get("/posts", controller.getAllPosts);
 router.get("/posts/:id", controller.getSpecificPost);
 router.put("/posts/:id", auth, Ownership, controller.updatePost);

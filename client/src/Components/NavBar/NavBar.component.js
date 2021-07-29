@@ -1,4 +1,4 @@
-import { Nav, LogoDetails, LogoName, NavList, NavItem, LinkName, ProfileDetails, Details, Name, Role, Tooltip, ProfileLink } from './NavBar.styledComponents';
+import { Nav, LogoDetails, LogoName, NavList, NavItem, LinkName, ProfileDetails, Details, Name, Role, Tooltip } from './NavBar.styledComponents';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobe, faHome, faPlusCircle, faUser, faCog, faBuilding, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react';
