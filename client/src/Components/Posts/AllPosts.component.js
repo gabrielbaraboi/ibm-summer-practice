@@ -1,16 +1,11 @@
 import React from 'react';
-import { Main, Layout } from '../Global.styledComponents';
-import NavBar from '../NavBar/NavBar.component';
-
+import { PostDiv } from './Posts.styledComponents';
 
 const AllPosts = () => {
     return (
-        <Layout>
-            <NavBar/>
-            <Main className='main'>
-                Main
-            </Main>
-        </Layout>
+        <PostDiv>
+            Main
+        </PostDiv>
     );
 }
 

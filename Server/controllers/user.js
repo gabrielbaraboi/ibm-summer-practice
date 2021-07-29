@@ -2,14 +2,13 @@ const User = require("../models/user");
 const Company = require("../models/company");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { response } = require("../app");
 
 const registerUser = async (req, res) => {
 	try {
 		const email = req.body.email;
 		if (await isEmailAlreadyUsed(email))
 			return res.status(409).json({ message: "This email is taken!" });
-		if (req.body.role === "student") {
+		if (req.body.role === "Student") {
 			//Get user Inputs
 			const { email, firstName, lastName, password, role } = req.body;
 
@@ -27,8 +26,8 @@ const registerUser = async (req, res) => {
 				role,
 			});
 
-			return res.send("User created!");
-		} else if (req.body.role === "company") {
+			res.send("User created!");
+		} else if (req.body.role === "Company") {
 			const { email, password, companyName, role } = req.body;
 
 			if (!(email && companyName && password && role)) {
@@ -42,25 +41,24 @@ const registerUser = async (req, res) => {
 				role,
 			});
 
-			return res.send("Company account created!");
+			return res.json({ message: "Company account created!" });
 		} else {
-			res.status(400).send("Role undefined");
+			res.status(400).json({ message: "Role undefined" });
 		}
 	} catch (err) {
-		console.log(err);
+		res.status(400).json({ message: "Register failed!" });
 	}
 };
 
 const loginUser = async (req, res) => {
 	try {
 		let responseUser;
-		//Get user data
 		const { email, password } = req.body;
-		//Validate data
+
 		if (!(email && password)) {
 			res.status(400).json({ message: "All inputs are required!" });
 		}
-		//Verify if user exist
+
 		const user = await User.findOne({ email });
 		const company = await Company.findOne({ email });
 
@@ -70,24 +68,19 @@ const loginUser = async (req, res) => {
 				email: user.email,
 				firstName: user.firstName,
 				lastName: user.lastName,
-				role: "student",
+				role: "Student",
 			};
-			// save token
-			responseUser.token = generateToken(responseUser);
-			//send user
-			res.cookie("token", responseUser.token, { httpOnly: true });
+			responseUser.accessToken = generateToken(responseUser);
+			// console.log(req.headers['x-access-token']);
 			res.status(200).json({ user: responseUser });
 		} else if (company && (await bcrypt.compare(password, company.password))) {
 			responseUser = {
 				id: company._id,
 				email: company.email,
 				companyName: company.companyName,
-				role: "company",
+				role: "Company",
 			};
-			// save token
-			responseUser.token = generateToken(responseUser);
-			//send user
-			res.cookie("token", responseUser.token, { httpOnly: true });
+			responseUser.accessToken = generateToken(responseUser);
 			res.status(200).json({ user: responseUser });
 		} else {
 			res.status(400).json({ message: "Invalid email or password!" });
@@ -105,7 +98,9 @@ async function encryptPass(pass) {
 }
 
 function generateToken(accType) {
-	const token = jwt.sign({ _id: accType.id }, process.env.TOKEN_KEY);
+	const token = jwt.sign({ _id: accType.id }, process.env.TOKEN_KEY, {
+		expiresIn: 86400, // 24 hours
+	});
 	return token;
 }
 
@@ -117,15 +112,4 @@ async function isEmailAlreadyUsed(email) {
 	return false;
 }
 
-const logout = async (req, res) => {
-	try {
-		res.clearCookie("token", { httpOnly: true });
-		res
-			.status(200)
-			.json({ success: true, message: "User logged out successfully" });
-	} catch (err) {
-		console.log(err.message);
-	}
-};
-
-module.exports = { registerUser, loginUser, logout };
+module.exports = { registerUser, loginUser };

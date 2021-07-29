@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Body = styled.div`
     text-align: center;
-    background: #11101D;
+    background: #1b1830;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -50,6 +50,15 @@ export const LoginContainer = styled.div`
     padding: 0 50px;
     height: 100%;
     text-align: center;
+    a{
+        color: white;
+    }
+    p{
+        color: white;
+        font-size: 13.5px;
+        text-decoration: none;
+        margin: 15px;
+    }
 `
 
 export const RegisterContainer = styled.div`
@@ -61,6 +70,14 @@ export const RegisterContainer = styled.div`
     padding: 0 50px;
     height: 100%;
     text-align: center;
+    a{
+        color: white;
+    }
+    p{
+        font-size: 13.5px;
+        text-decoration: none;
+        margin: 15px;
+    }
 `
 
 export const Label = styled.label`
@@ -139,17 +156,51 @@ export const Dropdown = styled.select`
 	font-size: 14px;
 `
 
-export const Option = styled.option`
-    &:hover{
-        background-color: #f0b24e;
-    }
-`
-
 export const A = styled.a`
 	color: #333;
 	font-size: 14px;
 	text-decoration: none;
     margin: 15px;
+`
+
+export const SignUpA = styled.a`
+    color: white;
+    border-radius: 20px;
+	border: 1px solid white;
+	background-color: transparent;
+	font-size: 1.8vh;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+    cursor: pointer;
+    &:active{
+        transform: scale(0.95);
+    }
+    &:focus{
+        outline: none;
+    }
+`
+
+export const SignInA = styled.a`
+    border-radius: 20px;
+	border: 1px solid #1d1b31;
+	background-color: #1d1b31;
+	color: #FFFFFF;
+	font-size: 1.8vh;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+    cursor: pointer;
+    &:active {
+        transform: scale(0.95);
+    }
+    &:focus {
+        outline: none;
+    }
 `
 
 export const SignInput = styled.input`
@@ -173,7 +224,6 @@ export const SignInput = styled.input`
 `
 
 export const SignUpInput = styled.input`
-    
     border-radius: 20px;
 	border: 1px solid white;
 	background-color: transparent;

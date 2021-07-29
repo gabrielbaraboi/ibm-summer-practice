@@ -47,11 +47,11 @@ const getAllPosts = async (req, res) => {
 const getSpecificPost = async (req, res) => {
 	await Post.findById(req.params.id, (err, Post) => {
 		if (err) {
-			console.log(err);
-			res.status(400).send(err);
+			res.status(400).json({ message: "Can`t get post!" });
 		} else {
-			if (Post) res.status(200).send(Post);
-			else res.status(400).send("no post with that id was found");
+			if (Post) res.status(200).json(Post);
+			else
+				res.status(400).json({ messages: "No post with that id was found!" });
 		}
 	});
 };
@@ -102,9 +102,8 @@ const createPost = async (req, res) => {
 
 	Post.create(newPost, (err, Post) => {
 		if (err) {
-			console.log(err);
-			res.status(400).send(err);
-		} else res.status(200).send("Post created Succesfully");
+			res.status(400).json({ message: "Can`t create post!" });
+		} else res.status(200).json({ message: "Post created Succesfully" });
 	});
 };
 
@@ -115,21 +114,21 @@ const updatePost = async (req, res) => {
 			req.params.id,
 			req.body,
 			(err, updatedPost) => {
-				if (err) res.status(400).send(err);
-				res.status(200).send(updatedPost);
+				if (err) res.status(400).json({ message: "Failed to update post!" });
+				res.status(200).json(updatedPost);
 			}
 		);
 	} else {
-		res.status(400).send("post type can't be modified");
+		res.status(400).json({ message: "Post type can't be modified!" });
 	}
 };
 
 const deletePost = async (req, res) => {
 	try {
 		await Post.deleteOne({ _id: req.params.id });
-		res.status(200).send("post deleted successfully");
+		res.status(200).json({ message: "Post deleted successfully!" });
 	} catch (error) {
-		console.log(error);
+		res.status(400).json({ message: "Failed to delete this comment!" });
 	}
 };
 module.exports = {

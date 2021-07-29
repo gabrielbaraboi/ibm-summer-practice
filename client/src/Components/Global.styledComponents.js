@@ -7,7 +7,7 @@ export const Layout = styled.div`
 export const Main = styled.div`
     height: 100vh;
     background-color: #E4E9F7;
-    padding: 15px;
+    padding: 0px;
     width: calc(100% - 78px);
     margin-left: auto;
     transition: all .3s ease-in-out;
