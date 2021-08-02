@@ -1,48 +1,37 @@
 const User = require("../models/user");
 const Company = require("../models/company");
 const Post = require("../models/post");
+const QueryBuilder =  require('../utils/QueryBuilder');
+const postsPerPage=2;
 
 const getAllPosts = async (req, res) => {
-	const sortingParams = req.query;
-	let allPosts;
+	const filterParams = req.query;
+	const page = parseInt(req.query.page);
+	const startIndex = (page -1) *postsPerPage;
+	const endIndex = page * postsPerPage;
+	const result = {};	
+
 	try {
-		allPosts = await Post.find({});
-		if (sortingParams.type) {
-			allPosts = allPosts.filter((el) => el.type == sortingParams.type);
-		}
-		if (sortingParams.workHours) {
-			allPosts = allPosts.filter(
-				(el) => el.workHours == sortingParams.workHours
-			);
-		}
-		if (sortingParams.workPlace) {
-			allPosts = allPosts.filter(
-				(el) => el.workPlace == sortingParams.workPlace
-			);
-		}
-		if (sortingParams.programmingLanguage) {
-			allPosts = allPosts.filter(
-				(el) => el.programmingLanguage == sortingParams.programmingLanguage
-			);
-		}
+		result.posts = await Post.find(QueryBuilder.getQuery(filterParams))
+		.skip(startIndex)
+		.limit( postsPerPage);
 
-		if (sortingParams.requirements) {
-			const arr = JSON.parse(req.query.requirements);
-			arr.forEach((element) => {
-				allPosts = allPosts.filter(
-					(el) => el.requirements.indexOf(element) >= 0
-				);
-			});
-		}
-
-		if (allPosts.length != 0) {
-			res.status(200).json(allPosts.reverse());
-		} else res.status(400).json({ message: "No posts matching your filters" });
-	} catch (err) {
-		res.status(400).json({ message: "Can`t get posts" });
-		console.log(err);
+		if(result.posts.length === 0)
+			res.status(200).json({message: "no post found matching your filter"});
+		else
+			{
+				if(startIndex > 0)
+					result.previous=page-1;
+				if(endIndex < await Post.countDocuments())
+					result.next = page+1;
+				res.status(200).json(result);	
+			}
+		
+	}catch (error) {
+		console.log(error);
+		res.status(500).json(error.message);
 	}
-};
+}
 
 const getSpecificPost = async (req, res) => {
 	await Post.findById(req.params.id, (err, Post) => {
@@ -71,10 +60,11 @@ const createPost = async (req, res) => {
 	} else {
 		//Company
 		user = await Company.findById(req.user._id);
-		if (user) {
+		if(user)
+		{
 			createdBy = {
 				id: user._id,
-				name: user.companyName,
+				name: user.comapnyName,
 			};
 			type = "offer";
 		} else {
