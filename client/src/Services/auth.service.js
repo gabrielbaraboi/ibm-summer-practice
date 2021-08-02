@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 import { withRouter } from "react-router-dom";
 
 const API_URL = "http://localhost:7055/auth/";
@@ -64,8 +63,17 @@ const AuthVerify = (props) => {
         }
     });
 
-    return <div></div>;
+    return ``;
 };
 
+export function authHeader() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user && user.accessToken) {
+        return { 'x-access-token': user.accessToken };
+    } else {
+        return {};
+    }
+}
 
 export default withRouter(AuthVerify);

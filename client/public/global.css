@@ -160,3 +160,13 @@ a:visited {
 .open~.main {
     width: calc(100% - 250px) !important;
 }
+
+.help {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.help.is-danger {
+    color: #f14668;
+}

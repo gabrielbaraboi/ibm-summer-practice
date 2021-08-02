@@ -50,17 +50,14 @@ const createPost = async (req, res) => {
 	let type;
 	let user;
 	user = await User.findById(req.user._id);
-	if(user)
-	{
+	if (user) {
 		//Student
 		createdBy = {
 			id: user._id,
 			name: user.firstName + " " + user.lastName,
 		};
-		type="request";
-	}
-	else
-	{
+		type = "request";
+	} else {
 		//Company
 		user = await Company.findById(req.user._id);
 		if(user)
@@ -69,14 +66,11 @@ const createPost = async (req, res) => {
 				id: user._id,
 				name: user.comapnyName,
 			};
-			type="offer";
-		}
-		else
-		{
+			type = "offer";
+		} else {
 			//account id wasn't found in neither Student nor Company Collection
-			res.status(400).json({message:"account id wasn't found"})
+			res.status(400).json({ message: "account id wasn't found" });
 		}
-		
 	}
 	const newPost = {
 		type: type,
