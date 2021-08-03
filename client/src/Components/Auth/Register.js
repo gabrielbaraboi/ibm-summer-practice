@@ -44,27 +44,33 @@ const Register = ({ onSubmit, authError }) => {
             <Container>
                 <RegisterForm onSubmit={handleSubmit}>
                     <H1Reg>Sign up</H1Reg>
+                    <DropdownContainer>
+                        <Dropdown required onChange={handleChange} name="role">
+                            <option defaultValue={values.role === "Student"} value={'Student'}>Student</option>
+                            <option defaultValue={values.role === "Company"} value={'Company'}>Company</option>
+                        </Dropdown>
+                    </DropdownContainer>
                     {values.role === 'Student' &&
-                        <InputContainer>
-                            <LabelReg><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></LabelReg>
-                            <Div>
-                                <Input autoComplete="off" placeholder="First Name" className={`input ${errors.firstName && 'is-danger'}`} type="text" name="firstName" onChange={handleChange} value={values.firstName || ''} />
-                                {errors.firstName && (
-                                    <p className="help is-danger">{errors.firstName}</p>
-                                )}
-                            </Div>
-                        </InputContainer>
-                    }
-                    {values.role === 'Student' &&
-                        <InputContainer>
-                            <LabelReg><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></LabelReg>
-                            <Div>
-                                <Input autoComplete="off" placeholder="Last Name" className={`input ${errors.lastName && 'is-danger'}`} type="text" name="lastName" onChange={handleChange} value={values.lastName || ''} />
-                                {errors.lastName && (
-                                    <p className="help is-danger">{errors.lastName}</p>
-                                )}
-                            </Div>
-                        </InputContainer>
+                        <React.Fragment>
+                            <InputContainer>
+                                <LabelReg><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></LabelReg>
+                                <Div>
+                                    <Input autoComplete="off" placeholder="First Name" className={`input ${errors.firstName && 'is-danger'}`} type="text" name="firstName" onChange={handleChange} value={values.firstName || ''} />
+                                    {errors.firstName && (
+                                        <p className="help is-danger">{errors.firstName}</p>
+                                    )}
+                                </Div>
+                            </InputContainer>
+                            <InputContainer>
+                                <LabelReg><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></LabelReg>
+                                <Div>
+                                    <Input autoComplete="off" placeholder="Last Name" className={`input ${errors.lastName && 'is-danger'}`} type="text" name="lastName" onChange={handleChange} value={values.lastName || ''} />
+                                    {errors.lastName && (
+                                        <p className="help is-danger">{errors.lastName}</p>
+                                    )}
+                                </Div>
+                            </InputContainer>
+                        </React.Fragment>
                     }
                     {values.role === 'Company' &&
                         <InputContainer>
@@ -104,12 +110,6 @@ const Register = ({ onSubmit, authError }) => {
                             )}
                         </Div>
                     </InputContainer>
-                    <DropdownContainer>
-                        <Dropdown required onChange={handleChange} name="role">
-                            <option defaultValue={values.role === "Student"} value={'Student'}>Student</option>
-                            <option defaultValue={values.role === "Company"} value={'Company'}>Company</option>
-                        </Dropdown>
-                    </DropdownContainer>
                     <SignUpInput type="submit" value="Sign Up" />
                     <p className="help is-danger">{authError}</p>
                 </RegisterForm>

@@ -30,14 +30,14 @@ const Login = ({ onSubmit, authError }) => {
                     <H1>Login</H1>
                     <InputContainer>
                         <Label><FontAwesomeIcon icon={faEnvelope} className="icon" fixedWidth /></Label>
-                        <Div><Input autoComplete="off" className={`input ${errors.email && 'is-danger'}`} type="email" name="email" onChange={handleChange} value={values.email || ''} />
+                        <Div><Input autoComplete="off" className={`input ${errors.email && 'is-danger'}`} type="email" name="email" onChange={handleChange} placeholder="Email" value={values.email || ''} />
                             {errors.email && (
                                 <p className="help is-danger">{errors.email}</p>
                             )}</Div>
                     </InputContainer>
                     <InputContainer>
                         <Label><FontAwesomeIcon icon={faLock} className="icon" fixedWidth /></Label>
-                        <Div><Input className={`input ${errors.password && 'is-danger'}`} type="password" name="password" onChange={handleChange} value={values.password || ''} />
+                        <Div><Input className={`input ${errors.password && 'is-danger'}`} type="password" name="password" onChange={handleChange} placeholder="Password" value={values.password || ''} />
                             {errors.password && (
                                 <p className="help is-danger">{errors.password}</p>
                             )}</Div>

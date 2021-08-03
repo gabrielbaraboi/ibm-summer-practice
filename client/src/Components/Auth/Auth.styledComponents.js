@@ -36,7 +36,7 @@ export const DropdownContainer = styled.div`
     border: 1px;
     height: 9%;
     background-color: white;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     padding: 0;
 `
 
@@ -233,6 +233,7 @@ export const SignUpInput = styled.input`
 	padding: 12px 45px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+    margin-top: 0.25rem;
 	transition: transform 80ms ease-in;
     cursor: pointer;
     &:active{
