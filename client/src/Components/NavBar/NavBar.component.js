@@ -37,7 +37,7 @@ const NavBar = () => {
                 </NavItem>
                 {isUserData() ?
                     <NavItem>
-                        <Link to={`#`}>
+                        <Link to={`/profile`}>
                             <i><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></i>
                             <LinkName>Profile</LinkName>
                         </Link>

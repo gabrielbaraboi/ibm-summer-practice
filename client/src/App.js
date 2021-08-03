@@ -10,6 +10,7 @@ import NavBar from './Components/NavBar/NavBar.component';
 import PrivateRoute from "./Components/PrivateRoute.component";
 import PublicRoute from "./Components/PublicRoute.component";
 import Posts from "./Components/Posts/Posts";
+import Profile from "./Components/Profile/Profile.component";
 
 const App = () => {
   return (
@@ -35,6 +36,10 @@ const App = () => {
           <PrivateRoute
             path='/posts'
             component={Posts}
+          />
+          <PrivateRoute
+            path='/profile'
+            component={Profile}
           />
           <AuthVerify />
         </Main>
