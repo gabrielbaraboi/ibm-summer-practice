@@ -1,33 +1,32 @@
 const User = require("../models/user");
 const Company = require("../models/company");
 const Post = require("../models/post");
-const QueryBuilder =  require('../utils/QueryBuilder');
-const postsPerPage=2;
+const QueryBuilder = require('../utils/QueryBuilder');
+const postsPerPage = 2;
 
 const getAllPosts = async (req, res) => {
 	const filterParams = req.query;
 	const page = parseInt(req.query.page);
-	const startIndex = (page -1) *postsPerPage;
+	const startIndex = (page - 1) * postsPerPage;
 	const endIndex = page * postsPerPage;
-	const result = {};	
+	const result = {};
 
 	try {
 		result.posts = await Post.find(QueryBuilder.getQuery(filterParams))
-		.skip(startIndex)
-		.limit( postsPerPage);
+			.skip(startIndex)
+			.limit(postsPerPage);
 
-		if(result.posts.length === 0)
-			res.status(200).json({message: "no post found matching your filter"});
-		else
-			{
-				if(startIndex > 0)
-					result.previous=page-1;
-				if(endIndex < await Post.countDocuments())
-					result.next = page+1;
-				res.status(200).json(result);	
-			}
-		
-	}catch (error) {
+		if (result.posts.length === 0)
+			res.status(200).json({ message: "no post found matching your filter" });
+		else {
+			if (startIndex > 0)
+				result.previous = page - 1;
+			if (endIndex < await Post.countDocuments())
+				result.next = page + 1;
+			res.status(200).json(result);
+		}
+
+	} catch (error) {
 		console.log(error);
 		res.status(500).json(error.message);
 	}
@@ -60,8 +59,7 @@ const createPost = async (req, res) => {
 	} else {
 		//Company
 		user = await Company.findById(req.user._id);
-		if(user)
-		{
+		if (user) {
 			createdBy = {
 				id: user._id,
 				name: user.comapnyName,

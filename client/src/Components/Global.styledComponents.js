@@ -5,8 +5,6 @@ export const Layout = styled.div`
 `
 
 export const Main = styled.div`
-    height: 100vh;
-    background-color: #E4E9F7;
     padding: 0px;
     width: calc(100% - 78px);
     margin-left: auto;

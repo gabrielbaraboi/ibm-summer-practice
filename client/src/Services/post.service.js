@@ -7,6 +7,17 @@ export const createPost = async (data) => {
     try {
         const res = await axios
             .post(API_URL + `createPost/`, data, { headers: authHeader() });
+        return res.json();
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getPosts = async (page, programmingLanguage, workHours, workPlace, type, requirements) => {
+    try {
+        const res = await axios.get(API_URL + `getPosts/`, {
+            params: { page, programmingLanguage, workHours, workPlace, type, requirements }
+        });
         return res;
     } catch (err) {
         throw err;
