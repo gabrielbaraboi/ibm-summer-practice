@@ -2,10 +2,18 @@ const User = require("../models/user");
 const Company = require("../models/company");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const ibm = require("./IBMfunctions");
+const fs = require("fs");
 
 const registerUser = async (req, res) => {
 	try {
 		const email = req.body.email;
+		const image = req.file;
+		let imageName = "";
+		if (image) {
+			imageName = image.filename;
+		}
+
 		if (await isEmailAlreadyUsed(email))
 			return res.status(409).json({ message: "This email is taken!" });
 		if (req.body.role === "Student") {
@@ -24,8 +32,9 @@ const registerUser = async (req, res) => {
 				lastName,
 				password: await encryptPass(password),
 				role,
+				profilePic: imageName,
 			});
-
+			await uploadPic(image, imageName);
 			res.send("User created!");
 		} else if (req.body.role === "Company") {
 			const { email, password, companyName, role } = req.body;
@@ -39,8 +48,9 @@ const registerUser = async (req, res) => {
 				password: await encryptPass(password),
 				companyName,
 				role,
+				profilePic: imageName,
 			});
-
+			await uploadPic(image, imageName);
 			return res.json({ message: "Company account created!" });
 		} else {
 			res.status(400).json({ message: "Role undefined" });
@@ -110,6 +120,16 @@ async function isEmailAlreadyUsed(email) {
 	const company = await Company.findOne({ email });
 	if (company) return true;
 	return false;
+}
+async function uploadPic(image, imageName) {
+	if (image) {
+		try {
+			const fileStream = fs.createReadStream(image.path);
+			await ibm.uploadPic(imageName, fileStream);
+		} catch (err) {
+			console.log(err);
+		}
+	}
 }
 
 module.exports = { registerUser, loginUser };
