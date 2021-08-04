@@ -5,6 +5,14 @@ import { getPosts } from '../../Services/post.service';
 
 const AllPosts = (props) => {
     const [page, setPage] = useState(1);
+    const goNextPage = () => {
+        if (nextPage)
+            setPage(page + 1);
+    }
+    const goPrevPage = () => {
+        if (page >= 2)
+            setPage(page - 1);
+    }
     const [nextPage, setNextPage] = useState(1);
     const programmingLanguage = new URLSearchParams(props.location.search).get('programmingLanguage');
     const workHours = new URLSearchParams(props.location.search).get('workHours');
@@ -20,18 +28,22 @@ const AllPosts = (props) => {
             })
             .catch(err => console.log(err))
     }
-        , []);
+        , [posts]);
     let postList;
     console.log(nextPage);
-
     postList = posts.map((post, k) =>
         <PostCard post={post} key={k} />
     );
 
     return (
+        <>
         <PostDiv>
             {postList}
+            <button disabled={page <= 1} onClick={goPrevPage}>Previous Page</button>
+            <span>{page}</span>
+            <button disabled={!nextPage} onClick={goNextPage}>Next Page</button>
         </PostDiv>
+        </>
     );
 }
 
