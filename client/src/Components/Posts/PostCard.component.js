@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import moment from "moment";
+import ReactImageFallback from 'react-image-fallback';
 
 const PostCard = ({ theRef, post }) => {
     const [features] = useState([
@@ -19,6 +20,9 @@ const PostCard = ({ theRef, post }) => {
                 <Div>
                     <Icon>
                         <i><FontAwesomeIcon icon={faUserCircle} className="icon" /></i>
+                        {/* <ReactImageFallback
+                                src={`/profile/${post?.createdBy?.id}/getProfilePic`}
+                                fallbackImage={process.env.PUBLIC_URL + '/iconUser.jpg'}/> */}
                     </Icon>
                 </Div>
                 <Group>

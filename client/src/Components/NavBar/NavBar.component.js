@@ -4,6 +4,7 @@ import { faGlobe, faHome, faPlusCircle, faUser, faCog, faBuilding, faSignOutAlt,
 import { useState, useEffect } from 'react';
 import { logout, getCurrentUser, isUserData } from "../../Services/auth.service"
 import { Link } from 'react-router-dom';
+import ReactImageFallback from "react-image-fallback";
 
 const NavBar = () => {
     const [openNav, setOpenNav] = useState(true);
@@ -72,7 +73,9 @@ const NavBar = () => {
                 {isUserData() ?
                     <NavItem className="profile">
                         <ProfileDetails>
-                        <img src={`/profile/${user?.id}/getProfilePic`}></img>    
+                            <ReactImageFallback
+                                src={`/profile/${user?.id}/getProfilePic`}
+                                fallbackImage={process.env.PUBLIC_URL + '/iconUser.jpg'}/>
                             <Details className="details">
                                 <Name>{user?.companyName} {user?.firstName} {user?.lastName}</Name>
                                 <Role>{user?.role}</Role>

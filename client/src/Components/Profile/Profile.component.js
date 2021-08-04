@@ -1,39 +1,41 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
-import { ProfileCard, ProfileContainer,LinksCard,SpanLink,AboutContainer,Container,NameContainer, Background,Group, EditBtn } from './Profile.styledComponents';
+import { ProfileCard, ProfileContainer, LinksCard, SpanLink, AboutContainer, Container, NameContainer, Background, Group, EditBtn } from './Profile.styledComponents';
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { getCurrentUser } from "../../Services/auth.service"
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProfile } from '../../Services/profile.service';
-import { getUserPicture } from '../../Services/profile.service';
+import ReactImageFallback from 'react-image-fallback';
 
 const Profile = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [userExists, setUserExists] = useState(true);
     const [userData, setUserData] = useState();
 
     useEffect(() =>
-      getProfile(id)
-        .then(res => {
-          setUserData(res.data.user);
-        })
-        .catch(err => {
-          console.log(err.message);
-          setUserExists(false)
-        })
-      , [])
+        getProfile(id)
+            .then(res => {
+                setUserData(res.data.user);
+            })
+            .catch(err => {
+                console.log(err.message);
+                setUserExists(false)
+            })
+        , [])
 
     return (
         <ProfileContainer>
             <ProfileCard>
                 <Background>
-                    <img src={`/profile/${id}/getProfilePic`}></img>    
+                    <ReactImageFallback
+                        src={`/profile/${id}/getProfilePic`}
+                        fallbackImage={process.env.PUBLIC_URL + '/iconUser.jpg'} />
                 </Background>
                 <NameContainer>
                     <span>{userData?.companyName}{userData?.firstName} {userData?.lastName}</span>
                     <span>{userData?.role}</span>
-                </NameContainer>         
+                </NameContainer>
             </ProfileCard>
             <Container>
                 <LinksCard>
@@ -58,7 +60,7 @@ const Profile = () => {
                             <SpanLink> "link here" </SpanLink>
                         </li>
                         <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
                             <span> linkedin </span>
                             <SpanLink> "link here" </SpanLink>
                         </li>
