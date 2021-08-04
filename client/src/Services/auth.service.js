@@ -19,7 +19,11 @@ export const login = async (data) => {
 export const register = async (data) => {
     try {
         const res = await axios
-            .post(API_URL + "register", data);
+            .post(API_URL + "register", data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
         return res;
     } catch (err) {
         throw err;

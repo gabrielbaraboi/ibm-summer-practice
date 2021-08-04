@@ -15,18 +15,18 @@ const Register = ({ onSubmit, authError }) => {
         handleSubmit,
     } = useForm(sendData, RegisterValidationRules);
 
+    const [file, setFile] = useState(null);
+
     if (values.role === undefined)
         values.role = 'Student'
 
     function sendData() {
-
-        console.log(values.role);
+        const formData = new FormData();
         const data = {
             email: values.email,
             password: values.password,
             role: values.role,
         };
-
 
         if (values.role === 'Company') {
             data.companyName = values.companyName
@@ -35,8 +35,9 @@ const Register = ({ onSubmit, authError }) => {
             data.firstName = values.firstName
             data.lastName = values.lastName
         }
-        // console.log(data);
-        onSubmit(data);
+        formData.append('data', JSON.stringify(data));
+        formData.append('profile-picture', file);
+        onSubmit(formData);
     };
 
     return (
@@ -108,6 +109,16 @@ const Register = ({ onSubmit, authError }) => {
                             {errors.confirmPassword && (
                                 <p className="help is-danger">{errors.confirmPassword}</p>
                             )}
+                        </Div>
+                    </InputContainer>
+                    <InputContainer>
+                        <Div>
+                            <input
+                                filename={file}
+                                onChange={e => setFile(e.target.files[0])}
+                                type="file"
+                                accept="image/*"
+                            ></input>
                         </Div>
                     </InputContainer>
                     <SignUpInput type="submit" value="Sign Up" />
