@@ -10,7 +10,6 @@ const getUserProfilePic = async (req, res) => {
 			user = await Company.findById(id);
 		}
 		if (user.profilePic !== "") {
-			// res.status(200).json(await ibm.getPic(user.profilePic));
 			ibm
 				.getPic(user.profilePic)
 				.on("error", (err) => {
@@ -22,8 +21,21 @@ const getUserProfilePic = async (req, res) => {
 				});
 		}
 	} catch (err) {
-		console.log(err);
+		return res.status(404).json({ message: err.message });
 	}
 };
 
-module.exports = { getUserProfilePic };
+const getUserDetails = async (req, res) => {
+	const id = req.params.id;
+	try {
+		let user = await User.findById(id);
+		if (!user) {
+			user = await Company.findById(id);
+		}
+		return res.status(200).json({ user })
+	} catch (err) {
+		return res.status(404).json({ message: err.message });
+	}
+};
+
+module.exports = { getUserProfilePic, getUserDetails };

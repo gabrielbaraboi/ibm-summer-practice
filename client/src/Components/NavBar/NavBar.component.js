@@ -37,7 +37,7 @@ const NavBar = () => {
                 </NavItem>
                 {isUserData() ?
                     <NavItem>
-                        <Link to={`/profile`}>
+                        <Link to={`/profile/${user?.id}`}>
                             <i><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></i>
                             <LinkName>Profile</LinkName>
                         </Link>
@@ -54,7 +54,7 @@ const NavBar = () => {
                     </NavItem> :
                     ``}
                 <NavItem>
-                    <Link to={`#`}>
+                    <Link to={``}>
                         <i><FontAwesomeIcon icon={faBuilding} className="icon" fixedWidth /></i>
                         <LinkName>Companies</LinkName>
                     </Link>
@@ -62,7 +62,7 @@ const NavBar = () => {
                 </NavItem>
                 {isUserData() ?
                     <NavItem>
-                        <Link to={`#`}>
+                        <Link to={``}>
                             <i><FontAwesomeIcon icon={faCog} className="icon" fixedWidth /></i>
                             <LinkName>Settings</LinkName>
                         </Link>
@@ -72,7 +72,7 @@ const NavBar = () => {
                 {isUserData() ?
                     <NavItem className="profile">
                         <ProfileDetails>
-                            <img src="https://i.imgur.com/ngfyBDS.jpeg" alt="profileImg" />
+                        <img src={`/profile/${user?.id}/getProfilePic`}></img>    
                             <Details className="details">
                                 <Name>{user?.companyName} {user?.firstName} {user?.lastName}</Name>
                                 <Role>{user?.role}</Role>

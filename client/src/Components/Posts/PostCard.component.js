@@ -22,7 +22,11 @@ const PostCard = ({ theRef, post }) => {
                     </Icon>
                 </Div>
                 <Group>
-                    <Author>Created by {post?.createdBy.name}</Author>
+                    <Author>Created by
+                        <Link to={`/profile/${post?.createdBy?.id}`}>
+                            {post?.createdBy.name}
+                        </Link>
+                    </Author>
                     <Data>{moment(created_date).fromNow()}</Data>
                 </Group>
                 <PostTitle>

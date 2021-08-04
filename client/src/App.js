@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import AllPosts from "./Components/Posts/AllPosts.component"
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
@@ -32,8 +32,8 @@ const App = () => {
             path='/addpost'
             component={AddPost}
           />
-          <PrivateRoute
-            path='/profile'
+          <PublicRoute
+            path='/profile/:id'
             component={Profile}
           />
           <AuthVerify />

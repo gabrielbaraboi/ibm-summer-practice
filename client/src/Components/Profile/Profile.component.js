@@ -4,26 +4,35 @@ import { ProfileCard, ProfileContainer,LinksCard,SpanLink,AboutContainer,Contain
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { getCurrentUser } from "../../Services/auth.service"
 import { useState, useEffect } from 'react';
-
+import { useParams } from 'react-router-dom';
+import { getProfile } from '../../Services/profile.service';
+import { getUserPicture } from '../../Services/profile.service';
 
 const Profile = () => {
+    const {id} = useParams();
+    const [userExists, setUserExists] = useState(true);
+    const [userData, setUserData] = useState();
 
-    const [user, setUser] = useState({});
-
-    useEffect(() => {
-        const userData = getCurrentUser();
-        setUser(userData);
-    })
+    useEffect(() =>
+      getProfile(id)
+        .then(res => {
+          setUserData(res.data.user);
+        })
+        .catch(err => {
+          console.log(err.message);
+          setUserExists(false)
+        })
+      , [])
 
     return (
         <ProfileContainer>
             <ProfileCard>
                 <Background>
-                    <img src="https://i.imgur.com/ngfyBDS.jpeg"></img>    
+                    <img src={`/profile/${id}/getProfilePic`}></img>    
                 </Background>
                 <NameContainer>
-                    <span>{user?.companyName}{user?.firstName} {user?.lastName}</span>
-                    <span>{user?.role}</span>
+                    <span>{userData?.companyName}{userData?.firstName} {userData?.lastName}</span>
+                    <span>{userData?.role}</span>
                 </NameContainer>         
             </ProfileCard>
             <Container>
