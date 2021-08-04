@@ -9,5 +9,4 @@ router.get("/getPosts", controller.getAllPosts);
 router.get("/post/:id", controller.getSpecificPost);
 router.put("/post/:id", auth, Ownership, controller.updatePost);
 router.delete("/post/:id", auth, Ownership, controller.deletePost);
-
 module.exports = router;

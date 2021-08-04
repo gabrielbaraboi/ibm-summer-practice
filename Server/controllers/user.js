@@ -4,13 +4,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const ibm = require("./IBMfunctions");
 const fs = require("fs");
+const Utils = require("../utils/utilFunctions");
 
 const registerUser = async (req, res) => {
 	try {
-		const data = JSON.parse(req.body.data)
-		const { email, role } = data;
+		const email = req.body.email;
 		const image = req.file;
-		console.log(image);
 		let imageName = "";
 		if (image) {
 			imageName = image.filename;
@@ -18,9 +17,9 @@ const registerUser = async (req, res) => {
 
 		if (await isEmailAlreadyUsed(email))
 			return res.status(409).json({ message: "This email is taken!" });
-		if (role === "Student") {
+		if (req.body.role === "Student") {
 			//Get user Inputs
-			const { email, firstName, lastName, password, role } = data;
+			const { email, firstName, lastName, password, role } = req.body;
 
 			// Validate data
 			if (!(email && firstName && lastName && password && role)) {
@@ -36,7 +35,7 @@ const registerUser = async (req, res) => {
 				role,
 				profilePic: imageName,
 			});
-			await uploadPic(image, imageName);
+			await Utils.uploadPic(image, imageName);
 			res.send("User created!");
 		} else if (req.body.role === "Company") {
 			const { email, password, companyName, role } = req.body;
@@ -52,12 +51,13 @@ const registerUser = async (req, res) => {
 				role,
 				profilePic: imageName,
 			});
-			await uploadPic(image, imageName);
+			await Utils.uploadPic(image, imageName);
 			return res.json({ message: "Company account created!" });
 		} else {
 			res.status(400).json({ message: "Role undefined" });
 		}
 	} catch (err) {
+		console.log(err);
 		res.status(400).json({ message: "Register failed!" });
 	}
 };
@@ -122,16 +122,6 @@ async function isEmailAlreadyUsed(email) {
 	const company = await Company.findOne({ email });
 	if (company) return true;
 	return false;
-}
-async function uploadPic(image, imageName) {
-	if (image) {
-		try {
-			const fileStream = fs.createReadStream(image.path);
-			await ibm.uploadPic(imageName, fileStream);
-		} catch (err) {
-			console.log(err);
-		}
-	}
 }
 
 module.exports = { registerUser, loginUser };
