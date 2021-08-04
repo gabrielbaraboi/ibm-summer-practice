@@ -7,7 +7,7 @@ export const createPost = async (data) => {
     try {
         const res = await axios
             .post(API_URL + `createPost/`, data, { headers: authHeader() });
-        return res.json();
+        return res;
     } catch (err) {
         throw err;
     }

@@ -132,7 +132,8 @@ export default () => {
                 history.push("/");
             })
             .catch(err => {
-                setAuthError(err.response.data.message)
+                // setAuthError(err.response.data.message)
+                console.log(err);
             });
     };
 
