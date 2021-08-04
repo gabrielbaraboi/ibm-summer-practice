@@ -123,3 +123,105 @@ export const ActionButton = styled.button`
 
     &:hover {background: rgba(255, 255, 255, 1);}
 `;
+
+export const Filter = styled.div`
+    width: 25%;
+    height: 500px;
+    background: rgba(255,255,255,.55);
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%), 0 0px 0 1px rgb(10 10 10 / 2%);
+    border-radius: 6px;
+    padding: 20px;
+`
+
+export const FilterTitle = styled.h2`
+    color: #1B2942;
+    font-size: 24px;
+    font-weight: 500;
+    overflow: hidden;
+    &:after {
+        content:"";
+        display: inline-block;
+        height: 0.5em;
+        vertical-align: bottom;
+        width: 100%;
+        margin-right: -100%;
+        margin-left: 10px;
+        border-top: 2px solid #e4e4e4;
+    }
+`
+
+export const FilterCategory = styled.div`
+    margin-left: 10px;
+    label {
+        margin-left: 5px;
+    }
+`
+
+export const FilterCategoryTitle = styled.h3`
+    color: #1B2942;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    margin-left: -10px;
+`
+
+export const FilterField = styled.div`
+    color: #686D88;
+    display: block;
+    position: relative;
+    margin-top: 5px;
+    height: 18px;
+    &:hover label {
+	    color: #000000;
+    }
+    &:hover .check {
+	    border: 2px solid #89CCF6;
+    }
+    input[type=radio] {
+        position: absolute;
+        visibility: hidden;
+    }
+    label {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        margin-left: 25px;
+        font-weight: 500;
+        transition: all .25s ease-in-out;
+    }
+    input[type=radio]:checked ~ .check {
+        border: 2px solid #89CCF6;
+    }
+
+    input[type=radio]:checked ~ .check::before {
+        background: #89CCF6;
+    }
+
+    input[type=radio]:checked ~ label {
+        color: #000000;
+    }
+`
+
+export const Check = styled.div`
+    display: block;
+    position: absolute;
+    top: 1px;
+    border: 2px solid #AAAAAA;
+    border-radius: 100%;
+    height: 18px;
+    width: 18px;
+    transition: all .25s ease-in-out;
+    &:before {
+        display: block;
+        position: absolute;
+        content: '';
+        border-radius: 100%;
+        height: 10px;
+        width: 10px;
+        top: 2px;
+        left: 2px;
+        margin: auto;
+        transition: all .25s ease-in-out;
+    }
+`
