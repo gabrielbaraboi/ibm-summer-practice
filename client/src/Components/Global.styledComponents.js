@@ -9,5 +9,4 @@ export const Main = styled.div`
     width: calc(100% - 78px);
     margin-left: auto;
     transition: all .3s ease-in-out;
-    display: flex;
 `

@@ -4,6 +4,10 @@ export const PostDiv = styled.div`
     padding: 15px;
 `
 
+export const Posts = styled.div`
+    display: flex;
+`
+
 export const PaginationBtn = styled.button`
     background-color:#181342;
     color:white;

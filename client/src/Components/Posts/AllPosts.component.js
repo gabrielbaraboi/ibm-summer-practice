@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { PostDiv, Filter, FilterTitle, FilterCategory, FilterCategoryTitle, FilterField, Check, PaginationBtn, PageSpan } from "./Posts.styledComponents"
-import { Card, Content, Div, Data, Icon, Group, PostTitle, PostItems, Author, FeatureListItem, PostDescription, PostRequirements, ActionButton } from './Posts.styledComponents'
+import { PostDiv, Filter, FilterTitle, FilterCategory, FilterCategoryTitle, FilterField, Check, PaginationBtn, PageSpan, Posts, Card, Content, 
+    Div, Data, Icon, Group, PostTitle, PostItems, Author, FeatureListItem, PostDescription, PostRequirements, ActionButton  } from "./Posts.styledComponents"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
@@ -45,7 +45,7 @@ const AllPosts = () => {
         , [page, values]);
 
     return (
-        <>
+        <Posts>
             <PostDiv>
                 {/* {posts ? posts.map((post, k) =>
                     <PostCard post={post} key={k} />
@@ -150,7 +150,7 @@ const AllPosts = () => {
                 <br />
                 <PaginationBtn onClick={clear}>Clear</PaginationBtn>
             </Filter>
-        </>
+        </Posts>
     );
 }
 
