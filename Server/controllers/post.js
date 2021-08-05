@@ -13,16 +13,19 @@ const getAllPosts = async (req, res) => {
 
 	try {
 		result.posts = await Post.find(QueryBuilder.getQuery(filterParams))
+			.sort({"date" : -1})
 			.skip(startIndex)
-			.limit(postsPerPage);
+			.limit(postsPerPage)
 
 		if (result.posts.length === 0)
 			res.status(200).json({ message: "no post found matching your filter" });
 		else {
+			const count = await Post.countDocuments(QueryBuilder.getQuery(filterParams));
 			if (startIndex > 0)
 				result.previous = page - 1;
-			if (endIndex < await Post.countDocuments())
+			if (endIndex < count)
 				result.next = page + 1;
+			result.total=Math.ceil((count)/postsPerPage)
 			res.status(200).json(result);
 		}
 

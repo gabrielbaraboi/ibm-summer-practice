@@ -65,20 +65,23 @@ const setProfilePic = async (req,res) => {
 		res.status(400).json(e.message);
 	}
 }
+
 const modifySocialMedia = async (req,res) => {
-	try{
-		const user = await Utils.getUserFromID(req.user._id);
-		const keys = Object.keys(req.body);
-		keys.forEach(key => {
-			user[key] = req.body[key];
-		});
-		await user.save();
-		res.status(200).json(user);
-	}catch(err){
-		console.log(err);
-		res.status(500).json(err.message);
-	}
+    const KEYS_TO_INCLUDE=["website","linkedin","github","twitter","facebook"]
+    try{
+        const user = await Utils.getUserFromID(req.user._id);
+        const keys = Object.keys(req.body).filter(key => KEYS_TO_INCLUDE.includes(key));
+        keys.forEach(key => {
+            user[key] = req.body[key];
+        });
+        await user.save();
+        res.status(200).json(user);
+    }catch(err){
+        console.log(err);
+        res.status(500).json(err.message);
+    }
 }
+
 const modifyAboutMe = async (req,res) => {
 	try{
 		const user = await Utils.getUserFromID(req.user._id);
