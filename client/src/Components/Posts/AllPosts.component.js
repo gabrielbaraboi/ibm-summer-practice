@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PostDiv } from './Posts.styledComponents';
+import { PostDiv,PaginationBtn,PageSpan } from './Posts.styledComponents';
 import PostCard from "./PostCard.component"
 import { getPosts } from '../../Services/post.service';
 
@@ -39,9 +39,11 @@ const AllPosts = (props) => {
         <>
         <PostDiv>
             {postList}
-            <button disabled={page <= 1} onClick={goPrevPage}>Previous Page</button>
-            <span>{page}</span>
-            <button disabled={!nextPage} onClick={goNextPage}>Next Page</button>
+            <div>
+                <PaginationBtn disabled={page <= 1} onClick={goPrevPage}> &lt; Previous Page</PaginationBtn>
+                <PageSpan>{page}</PageSpan>
+                <PaginationBtn disabled={!nextPage} onClick={goNextPage}>Next Page &gt;</PaginationBtn>  
+            </div>
         </PostDiv>
         </>
     );
