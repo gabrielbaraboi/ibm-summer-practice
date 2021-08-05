@@ -156,10 +156,8 @@ export const ActionButton = styled.button`
 export const Filter = styled.div`
     width: 25%;
     height: 500px;
-    background: rgba(255,255,255,.55);
-    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%), 0 0px 0 1px rgb(10 10 10 / 2%);
-    border-radius: 6px;
     padding: 20px;
+    margin-top: 15px;
 `
 
 export const FilterTitle = styled.h2`
@@ -167,16 +165,6 @@ export const FilterTitle = styled.h2`
     font-size: 24px;
     font-weight: 500;
     overflow: hidden;
-    &:after {
-        content:"";
-        display: inline-block;
-        height: 0.5em;
-        vertical-align: bottom;
-        width: 100%;
-        margin-right: -100%;
-        margin-left: 10px;
-        border-top: 2px solid #e4e4e4;
-    }
 `
 
 export const FilterCategory = styled.div`

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { PostDiv, Filter, FilterTitle, FilterCategory, FilterCategoryTitle, FilterField, Check, PaginationBtn, PageSpan } from "./Posts.styledComponents"
+import { Card, Content, Div, Data, Icon, Group, PostTitle, PostItems, Author, FeatureListItem, PostDescription, PostRequirements, ActionButton } from './Posts.styledComponents'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
+import moment from "moment";
 import PostCard from "./PostCard.component"
 import { getPosts } from '../../Services/post.service';
 
-const AllPosts = (props) => {
+const AllPosts = () => {
     const [values, setValues] = useState({});
     const [page, setPage] = useState(1);
     const [nextPage, setNextPage] = useState(1);
     const [totalPages, setTotalPages] = useState();
-    const programmingLanguage = values.programmingLanguage;
-    const workHours = values.workHours
-    const workPlace = values.workPlace
-    const type = values.type
-    const requirements = new URLSearchParams(props.location.search).getAll('requirements');
     const [posts, setPosts] = useState([]);
     const goNextPage = () => {
         if (nextPage)
@@ -31,11 +31,10 @@ const AllPosts = (props) => {
         setPage(1);
         event.persist();
         setValues(values => ({ ...values, [event.target.name]: event.target.value }));
-        console.log(values);
     }
 
     useEffect(() => {
-        getPosts(page, programmingLanguage, workHours, workPlace, type, requirements)
+        getPosts(page, values.programmingLanguage, values.workHours, values.workPlace, values.type, values.requirements)
             .then(res => {
                 setPosts(res.data.posts);
                 setNextPage(res.data.next);
@@ -43,25 +42,59 @@ const AllPosts = (props) => {
             })
             .catch(err => console.log(err))
     }
-        , [posts]);
-    let postList = '';
-    if (posts)
-        postList = posts.map((post, k) =>
-            <PostCard post={post} key={k} />
-        );
+        , [page, values]);
 
     return (
         <>
             <PostDiv>
-                {postList.length === 0 ? <p>No posts to show</p> : postList}
+                {/* {posts ? posts.map((post, k) =>
+                    <PostCard post={post} key={k} />
+                ) : <p>No posts to show</p>} */}
+                    {posts ? posts.map((post, index) => (
+                        <Card key={index}>
+                            <Content>
+                                <Div>
+                                    <Icon>
+                                        <i><FontAwesomeIcon icon={faUserCircle} className="icon" /></i>
+                                    </Icon>
+                                </Div>
+                                <Group>
+                                    <Author>Created by
+                                        <Link to={`/profile/${post?.createdBy?.id}`}>
+                                            {post?.createdBy.name}
+                                        </Link>
+                                    </Author>
+                                    <Data>{moment(new Date(post?.date)).fromNow()}</Data>
+                                    <Data>{post?.type}</Data>
+                                </Group>
+                                <PostTitle>
+                                    <Link to={`/post/${post?._id}`}>
+                                        {post?.title.length > 45 ? post?.title.slice(0, 35) + '...' : post?.title}
+                                    </Link>
+                                </PostTitle>
+                                <PostItems>
+                                    <FeatureListItem>
+                                        {`work hours: ` + post?.workHours}
+                                    </FeatureListItem>
+                                    <FeatureListItem>
+                                        {`work place: ` + post?.workPlace}
+                                    </FeatureListItem>
+                                </PostItems>
+                                <PostDescription>Job-Description</PostDescription>
+                                <PostRequirements>
+                                    {post?.requirements.map((req, idx) => (
+                                        <FeatureListItem key={idx}>{req.length > 30 ? req.slice(0, 30) + '...' : req}</FeatureListItem>
+                                    ))}
+                                </PostRequirements>
+                                <ActionButton>Show more</ActionButton>
+                            </Content>
+                        </Card>
+                    )) : <p>No posts to show</p>}
                 <div>
                     <PaginationBtn disabled={page <= 1} onClick={goPrevPage}> &lt; Previous Page</PaginationBtn>
-                    <PageSpan>{page}</PageSpan>
+                    <PageSpan>{page}/{totalPages ? totalPages : 1}</PageSpan>
                     <PaginationBtn disabled={!nextPage} onClick={goNextPage}>Next Page &gt;</PaginationBtn>
-
                 </div>
-                <p>Total pages: {totalPages}</p>
-                <p>Next page: {nextPage}</p>
             </PostDiv>
             <Filter>
                 <FilterTitle>Filter</FilterTitle>
@@ -104,11 +137,18 @@ const AllPosts = (props) => {
                         <Check className="check" />
                     </FilterField>
                     <FilterField>
-                        <input type="radio" id={`workplace-2`} name="workPlace" value="remote" onChange={handleChange} checked={values.workPlace === "remote"} />
-                        <label htmlFor={`workplace-2`}>Remote</label>
+                        <input type="radio" id={`workplace-2`} name="workPlace" value="Iași" onChange={handleChange} checked={values.workPlace === "Iași"} />
+                        <label htmlFor={`workplace-2`}>Iași</label>
+                        <Check className="check" />
+                    </FilterField>
+                    <FilterField>
+                        <input type="radio" id={`workplace-3`} name="workPlace" value="remote" onChange={handleChange} checked={values.workPlace === "remote"} />
+                        <label htmlFor={`workplace-3`}>Remote</label>
                         <Check className="check" />
                     </FilterField>
                 </FilterCategory>
+                <br />
+                <PaginationBtn onClick={clear}>Clear</PaginationBtn>
             </Filter>
         </>
     );

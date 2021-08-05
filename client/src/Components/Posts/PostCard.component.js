@@ -6,14 +6,13 @@ import { Link } from 'react-router-dom';
 import moment from "moment";
 import ReactImageFallback from 'react-image-fallback';
 
-const PostCard = ({ theRef, post }) => {
+const PostCard = ({ post }) => {
     const [features] = useState([
         // post?.programmingLanguage,
         `work hours: ` + post?.workHours,
         `work place: ` + post?.workPlace
     ])
     const created_date = new Date(post?.date);
-
     return (
         <Card>
             <Content>
@@ -33,6 +32,7 @@ const PostCard = ({ theRef, post }) => {
                     </Author>
                     <Data>{moment(created_date).fromNow()}</Data>
                     <Data>{post?.type}</Data>
+                    <Data>{post?._id}</Data>
                 </Group>
                 <PostTitle>
                     <Link to={`/post/${post?._id}`}>
