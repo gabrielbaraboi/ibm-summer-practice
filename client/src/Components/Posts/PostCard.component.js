@@ -8,9 +8,9 @@ import ReactImageFallback from 'react-image-fallback';
 
 const PostCard = ({ theRef, post }) => {
     const [features] = useState([
-        post?.programmingLanguage,
-        post?.workHours,
-        post?.workPlace
+        // post?.programmingLanguage,
+        `work hours: ` + post?.workHours,
+        `work place: ` + post?.workPlace
     ])
     const created_date = new Date(post?.date);
 
