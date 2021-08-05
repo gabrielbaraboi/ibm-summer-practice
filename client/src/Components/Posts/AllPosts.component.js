@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PostDiv, Filter, FilterTitle, FilterCategory, FilterCategoryTitle, FilterField, Check } from "./Posts.styledComponents"
+import { PostDiv, Filter, FilterTitle, FilterCategory, FilterCategoryTitle, FilterField, Check, PaginationBtn, PageSpan } from "./Posts.styledComponents"
 import PostCard from "./PostCard.component"
 import { getPosts } from '../../Services/post.service';
 
@@ -54,10 +54,12 @@ const AllPosts = (props) => {
         <>
             <PostDiv>
                 {postList.length === 0 ? <p>No posts to show</p> : postList}
-                <button disabled={page <= 1} onClick={goPrevPage}>Previous Page</button>
-                <span>{page}</span>
-                <button disabled={!nextPage} onClick={goNextPage}>Next Page</button>
-                <button onClick={clear}>Clear</button>
+                <div>
+                    <PaginationBtn disabled={page <= 1} onClick={goPrevPage}> &lt; Previous Page</PaginationBtn>
+                    <PageSpan>{page}</PageSpan>
+                    <PaginationBtn disabled={!nextPage} onClick={goNextPage}>Next Page &gt;</PaginationBtn>
+
+                </div>
                 <p>Total pages: {totalPages}</p>
                 <p>Next page: {nextPage}</p>
             </PostDiv>
@@ -91,21 +93,21 @@ const AllPosts = (props) => {
                 </FilterCategory>
                 <FilterCategory>
                     <FilterCategoryTitle>Work Place</FilterCategoryTitle>
-                        <FilterField>
-                            <input type="radio" id={`workplace`} name="workPlace" value="Timișoara" onChange={handleChange} checked={values.workPlace === "Timișoara"} />
-                            <label htmlFor={`workplace`}>Timișoara</label>
-                            <Check className="check" />
-                        </FilterField>
-                        <FilterField>
-                            <input type="radio" id={`workplace-1`} name="workPlace" value="Brașov" onChange={handleChange} checked={values.workPlace === "Brașov"} />
-                            <label htmlFor={`workplace-1`}>Brașov</label>
-                            <Check className="check" />
-                        </FilterField>
-                        <FilterField>
-                            <input type="radio" id={`workplace-2`} name="workPlace" value="remote" onChange={handleChange} checked={values.workPlace === "remote"} />
-                            <label htmlFor={`workplace-2`}>Remote</label>
-                            <Check className="check" />
-                        </FilterField>
+                    <FilterField>
+                        <input type="radio" id={`workplace`} name="workPlace" value="Timișoara" onChange={handleChange} checked={values.workPlace === "Timișoara"} />
+                        <label htmlFor={`workplace`}>Timișoara</label>
+                        <Check className="check" />
+                    </FilterField>
+                    <FilterField>
+                        <input type="radio" id={`workplace-1`} name="workPlace" value="Brașov" onChange={handleChange} checked={values.workPlace === "Brașov"} />
+                        <label htmlFor={`workplace-1`}>Brașov</label>
+                        <Check className="check" />
+                    </FilterField>
+                    <FilterField>
+                        <input type="radio" id={`workplace-2`} name="workPlace" value="remote" onChange={handleChange} checked={values.workPlace === "remote"} />
+                        <label htmlFor={`workplace-2`}>Remote</label>
+                        <Check className="check" />
+                    </FilterField>
                 </FilterCategory>
             </Filter>
         </>

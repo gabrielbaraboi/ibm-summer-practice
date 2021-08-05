@@ -4,6 +4,26 @@ export const PostDiv = styled.div`
     padding: 15px;
 `
 
+export const PaginationBtn = styled.button`
+    background-color:#181342;
+    color:white;
+    transition-duration: 0.4s;
+    border:none;
+    border-radius: 0%;
+    padding:8px;
+    &:hover{
+       background-color: #7a77bb;
+       cursor:pointer;
+    }
+`
+
+export const PageSpan = styled.span`
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration:none;
+    border:none;
+`
+
 
 const gradient = degs => css`
     background:
@@ -22,6 +42,7 @@ export const Card = styled.div`
     padding: 1rem 0 ;
     border-radius: 0.5rem;
     color: white;
+    margin-bottom:10px;
     ${gradient()};
     box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.025),
                 0 9px 46px 8px rgba(0, 0, 0, 0.025),
@@ -57,6 +78,9 @@ export const Icon = styled.div`
 
 export const PostTitle = styled.div`
     font-size: 1.75rem;
+    a{
+        color:white;
+    }
 `;
 
 export const PostItems = styled.div`
@@ -84,6 +108,11 @@ export const Data = styled.div`
 
 export const Group = styled.div`
     float: right;
+    a{
+        color: #222133;
+        font-size: 13px;
+        margin-left: 5px;
+    }
 `
 
 export const FeatureListItem = styled.div`
