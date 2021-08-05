@@ -8,8 +8,10 @@ const Utils = require("../utils/utilFunctions");
 
 const registerUser = async (req, res) => {
 	try {
-		const email = req.body.email;
+		const data = JSON.parse(req.body.data)
+		const { email, role } = data;
 		const image = req.file;
+		console.log(image);
 		let imageName = "";
 		if (image) {
 			imageName = image.filename;
@@ -17,9 +19,9 @@ const registerUser = async (req, res) => {
 
 		if (await isEmailAlreadyUsed(email))
 			return res.status(409).json({ message: "This email is taken!" });
-		if (req.body.role === "Student") {
+		if (role === "Student") {
 			//Get user Inputs
-			const { email, firstName, lastName, password, role } = req.body;
+			const { email, firstName, lastName, password, role } = data;
 
 			// Validate data
 			if (!(email && firstName && lastName && password && role)) {
