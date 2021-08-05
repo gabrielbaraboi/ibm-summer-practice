@@ -32,6 +32,7 @@ const PostCard = ({ theRef, post }) => {
                         </Link>
                     </Author>
                     <Data>{moment(created_date).fromNow()}</Data>
+                    <Data>{post?.type}</Data>
                 </Group>
                 <PostTitle>
                     <Link to={`/post/${post?._id}`}>
