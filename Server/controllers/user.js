@@ -39,7 +39,7 @@ const registerUser = async (req, res) => {
 			});
 			await Utils.uploadPic(image, imageName);
 			res.send("User created!");
-		} else if (req.body.role === "Company") {
+		} else if (role === "Company") {
 			const { email, password, companyName, role } = req.body;
 
 			if (!(email && companyName && password && role)) {
