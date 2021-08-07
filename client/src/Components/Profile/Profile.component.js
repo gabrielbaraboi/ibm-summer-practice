@@ -1,12 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
-import { ProfileCard, ProfileContainer, LinksCard, SpanLink, AboutContainer, Container, NameContainer, BackgroundPhoto, Group, EditBtn,ChangePhoto } from './Profile.styledComponents';
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { ProfileCard, ProfileContainer, LinksCard, SpanLink, AboutContainer, Container, NameContainer, BackgroundPhoto, Group, EditBtn, ProfilePicture,ModalStyles,ModalForm, ModalClose } from './Profile.styledComponents';
+import { faEdit,faCamera } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProfile,setProfilePic } from '../../Services/profile.service';
 import ReactImageFallback from 'react-image-fallback';
 import { ProfileModal } from './ProfileModal.component';
+import Modal from 'react-modal';
 
 const Profile = () => {
     const { id } = useParams();
@@ -14,6 +15,8 @@ const Profile = () => {
     const [userData, setUserData] = useState();
     const [showModalAbout, setShowModalAbout] = useState(false);
     const [showModalLink, setShowModalLink] = useState(false);
+    const [showModalProfilePic, setShowModalProfilePic] = useState(false);
+    const [file, setFile] = useState(null);
 
 
     const openModalAbout = () => {
@@ -22,6 +25,13 @@ const Profile = () => {
 
     const openModalLink = () => {
         setShowModalLink(prev => !prev);
+    };
+
+    const openModalProfilePic = (e) => {
+        setShowModalLink(false);
+        setShowModalAbout(false);
+        setFile(null);
+        setShowModalProfilePic(prev => !prev);
     };
 
     useEffect(() =>
@@ -34,19 +44,47 @@ const Profile = () => {
                 setUserExists(false)
             })
         , []);
-    
 
+    const handleSubmitProfilePic = () => {
+        const formData = new FormData();
+        formData.append('profile-picture', file);
+        setProfilePic(formData);
+    }
+    
+    
     return (
         <ProfileContainer>
+            <Modal
+                isOpen={showModalProfilePic}
+                style={ModalStyles}
+                onRequestClose={openModalProfilePic}>
+                <ModalClose onClick={openModalProfilePic}>X</ModalClose>
+                    
+                <ModalForm onSubmit={handleSubmitProfilePic}>
+                    <label htmlFor="profilePic">Select a Photo</label>
+                    <input
+                        filename={file}
+                        onChange={e => setFile(e.target.files[0])}
+                        type="file"
+                        accept="image/*"
+                        id="profilePic"
+                        hidden
+                    ></input>
+                    {file ? (<img src={URL.createObjectURL(file)}/>) : null}
+                    <button type="submit">Save</button>
+                </ModalForm>
+            </Modal>
             <ProfileCard>
                 <BackgroundPhoto>
-                    <ReactImageFallback
-                        src={`/profile/${id}/getProfilePic`}
-                        fallbackImage={process.env.PUBLIC_URL + '/iconUser.jpg'} />
-                    
+                    <ProfilePicture>
+                        <ReactImageFallback
+                            src={`/profile/${id}/getProfilePic`}
+                            fallbackImage={process.env.PUBLIC_URL + '/iconUser.jpg'} />
+                        <button onClick={openModalProfilePic}><FontAwesomeIcon icon={faCamera} className="icon" fixedWidth></FontAwesomeIcon></button>
+                    </ProfilePicture>
                 </BackgroundPhoto>
                 <NameContainer>
-                    <span>{userData?.companyName}{userData?.firstName} {userData?.lastName}</span>
+                    <span>{userData?.companyName}{userData?.firstName}{userData?.lastName}</span>
                     <span>{userData?.role}</span>
                 </NameContainer>
             </ProfileCard>
@@ -54,7 +92,7 @@ const Profile = () => {
                 <LinksCard>
                     <Group>
                         <p>Social media</p>
-                        <EditBtn onClick={openModalLink} type="button"><FontAwesomeIcon icon={faEdit} className="icon" fixedWidth> </FontAwesomeIcon></EditBtn>
+                        <EditBtn onClick={openModalLink} type="button"><FontAwesomeIcon icon={faEdit} className="icon" fixedWidth></FontAwesomeIcon></EditBtn>
                     </Group>
                     <ProfileModal showModal={showModalLink} setShowModal={setShowModalLink} type={"links"}/>
                     <ul>

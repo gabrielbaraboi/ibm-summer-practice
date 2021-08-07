@@ -1,3 +1,4 @@
+import { faExternalLinkAlt, faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
@@ -21,17 +22,108 @@ export const ProfileCard = styled.div`
     -khtml-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
+`
+
+export const ProfilePicture = styled.div`
+    width: 150px;
+    height: 150px;
+    position: relative;
+    display: inline-block;
+    margin-left: 2rem;
+    top: 60%;
     img{
         width: 150px;
         height: 150px;
-        position: relative;
-        margin-left: 2rem;
-        top: 60%;
         border-radius: 30%;
         border: 3px solid white;
+    }
+    button{
+        position: absolute;
+        bottom: -10px;
+        font-size : 25px;
+        right: -10px;
+        padding: 5px 5px;
+        background-color:rgba(96, 96, 245, 0.3);
+        border-radius: 100%;
+        color: #f5f8f5dc;
+        border: none;
         &:hover{
             cursor:pointer;
+            color: white;
+            background-color:rgba(129, 129, 245, 0.3);
+    }
+`
+
+export const ModalStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        minWidth:'300px',
+        minHeight:'300px',
+        background: '#1d1b31'
+    }
+}
+
+export const ModalForm = styled.form`
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    label{
+        color:white;
+        position: relative;
+        text-align:center;
+        border: 0px solid #4CAF50;
+        font-size: 20px;
+        transition-duration: 0.4s;
+        padding: 0px 10px;
+        margin-bottom:10px;
+        &:hover{
+            cursor:pointer;
+            color:#74718b;
         }
+    }
+    img{
+        top:80px;
+        position:absolute;
+        width: 150px;
+        height: 150px;
+        border-radius: 30%;
+        border: 3px solid white;
+    }
+    button{
+        top:160px;
+        position:relative;  
+        padding: 5px;
+        width:80%;
+        background-color:#7a77bb;
+        color:white;
+        transition-duration: 0.4s;
+        border:none;
+        border-radius: 0%;
+        &:hover{
+            background-color: rgba(129, 129, 245, 0.3);
+            cursor:pointer;
+        }
+    }
+`
+
+export const ModalClose = styled.button`
+    position:relative;
+    float:right;
+    background: transparent;
+    color: white;
+    border: 0px solid #4CAF50;
+    font-size: 20px;
+    transition-duration: 0.4s;
+    &:hover{
+        cursor:pointer;
+        opacity: 0.5;
     }
 `
 
@@ -51,26 +143,9 @@ export const BackgroundPhoto = styled.div`
     background-image: url(https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683__340.png);
     height:60%;
     width:100%;
-    &:hover{
-        cursor:pointer;
-    }
 `
 
-export const ChangePhoto = styled.label`
-    background: #74718b;
-    color: #F0FFFF;
-    border: 0px solid #4CAF50;
-    font-size: 15px;
-    transition-duration: 0.4s;
-    padding: 0px 10px;
-    &:hover{
-        cursor:pointer;
-        background:#1d1b31;
-    }
-
-`
-
-export const SpanLink = styled.span`
+export const SpanLink = styled.a`
     color:white;
     float:right;
 `

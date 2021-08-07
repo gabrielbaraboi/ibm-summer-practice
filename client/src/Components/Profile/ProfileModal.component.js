@@ -1,7 +1,6 @@
 import React from 'react'
 import { BackgroundPage,CloseModalButton,ModalContent,ModalWrapper,Group, InputLink } from './ProfileModal.styledcomponent';
-import { modifyAboutMe } from '../../Services/profile.service';
-import { modifySocialMedia } from '../../Services/profile.service';
+import { modifyAboutMe,modifySocialMedia,getProfile } from '../../Services/profile.service';
 
 export const ProfileModal = ({showModal, setShowModal, type, idUser}) => {
 
