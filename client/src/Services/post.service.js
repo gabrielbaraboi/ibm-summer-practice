@@ -23,3 +23,12 @@ export const getPosts = async (page, programmingLanguage, workHours, workPlace, 
         throw err;
     }
 };
+
+export const getWorkPlaces = async () => {
+    try {
+        const res = await axios.get(API_URL + `getWorkPlaces`);
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};

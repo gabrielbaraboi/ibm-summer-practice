@@ -115,10 +115,21 @@ const deletePost = async (req, res) => {
 		res.status(400).json({ message: "Failed to delete this comment!" });
 	}
 };
+
+const getWorkPlaces = async (req, res) => {
+    try {
+        const workPlaces = await Post.find({}, 'workPlace');
+        return res.status(200).json({ workPlaces });
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
 	getAllPosts,
 	getSpecificPost,
 	createPost,
 	deletePost,
 	updatePost,
+	getWorkPlaces
 };

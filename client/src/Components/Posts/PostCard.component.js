@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import moment from "moment";
-import ReactImageFallback from 'react-image-fallback';
+// import ReactImageFallback from 'react-image-fallback';
 
 const PostCard = ({ post }) => {
     const [features] = useState([
@@ -32,7 +32,6 @@ const PostCard = ({ post }) => {
                     </Author>
                     <Data>{moment(created_date).fromNow()}</Data>
                     <Data>{post?.type}</Data>
-                    <Data>{post?._id}</Data>
                 </Group>
                 <PostTitle>
                     <Link to={`/post/${post?._id}`}>
@@ -54,7 +53,7 @@ const PostCard = ({ post }) => {
                         <FeatureListItem key={idx}>{req.length > 30 ? req.slice(0, 30) + '...' : req}</FeatureListItem>
                     ))}
                 </PostRequirements>
-                <ActionButton>Show more</ActionButton>
+                <Link to={`/post/${post?._id}`}><ActionButton>Show more</ActionButton></Link>
             </Content>
         </Card>
     )

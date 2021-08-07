@@ -2,6 +2,7 @@ const ibm = require("../controllers/IBMfunctions")
 const User = require("../models/user");
 const Company = require("../models/company");
 const fs = require("fs")
+
 async function uploadPic(image, imageName) {
 	if (image) {
 		try {
