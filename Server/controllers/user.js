@@ -40,7 +40,7 @@ const registerUser = async (req, res) => {
 			await Utils.uploadPic(image, imageName);
 			res.send("User created!");
 		} else if (role === "Company") {
-			const { email, password, companyName, role } = req.body;
+			const { email, password, companyName, role } = data;
 
 			if (!(email && companyName && password && role)) {
 				res.status(400).json({ message: "All inputs are required!" });
