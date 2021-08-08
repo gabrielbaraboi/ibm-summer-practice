@@ -6,7 +6,7 @@ export const Nav = styled.div`
     top: 0;
     height: 100%;
     width: 78px;
-    background: #11101D;
+    background: #11101d;
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.3s ease-in-out;
@@ -52,9 +52,8 @@ export const Nav = styled.div`
                 background-color: white;
             }
         }
-
     }
-`
+`;
 
 export const LogoDetails = styled.div`
     height: 60px;
@@ -69,7 +68,7 @@ export const LogoDetails = styled.div`
         position: relative;
         top: 2px;
     }
-`
+`;
 
 export const LogoName = styled.div`
     color: #fff;
@@ -78,12 +77,12 @@ export const LogoName = styled.div`
     opacity: 0;
     transition: all 0.4s ease-out;
     white-space: nowrap;
-`
+`;
 
 export const NavList = styled.ul`
     margin-top: 20px;
     height: 100%;
-`
+`;
 
 export const NavItem = styled.li`
     position: relative;
@@ -106,16 +105,17 @@ export const NavItem = styled.li`
         align-items: center;
         text-decoration: none;
         transition: all 0.3s ease-in-out;
-        background: #11101D;
+        background: #11101d;
         &:hover {
-            background: #FFF;
+            background: #fff;
         }
-        &:hover div, &:hover svg {
+        &:hover div,
+        &:hover svg {
             transition: all 0.3s ease-in-out;
-            color: #11101D;
+            color: #11101d;
         }
     }
-`
+`;
 
 export const LinkName = styled.div`
     color: #fff;
@@ -126,12 +126,12 @@ export const LinkName = styled.div`
     opacity: 0;
     pointer-events: none;
     transition: 0.3s;
-`
+`;
 
 export const ProfileDetails = styled.div`
     display: flex;
     flex-wrap: nowrap;
-`
+`;
 
 export const Details = styled.div`
     color: #fff;
@@ -139,19 +139,19 @@ export const Details = styled.div`
     display: flex;
     flex-direction: column;
     white-space: nowrap;
-`
+`;
 
 export const Name = styled.div`
     font-size: 15px;
     display: inline-block;
     line-height: normal;
-`
+`;
 
 export const Role = styled.div`
     font-size: 12px;
     display: inline-block;
     line-height: normal;
-`
+`;
 
 export const Tooltip = styled.span`
     position: absolute;
@@ -170,4 +170,4 @@ export const Tooltip = styled.span`
     opacity: 0;
     pointer-events: none;
     transition: 0s;
-`
+`;

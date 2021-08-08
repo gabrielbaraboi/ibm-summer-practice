@@ -1,41 +1,35 @@
-import styled,{ css } from "styled-components";
+import styled, { css } from "styled-components";
 
 export const PostDiv = styled.div`
     padding: 15px;
-`
+`;
 
 export const Posts = styled.div`
     display: flex;
-`
+`;
 
 export const PaginationBtn = styled.button`
-    background-color:#181342;
-    color:white;
+    background-color: #181342;
+    color: white;
     transition-duration: 0.4s;
-    border:none;
+    border: none;
     border-radius: 0%;
-    padding:8px;
-    &:hover{
-       background-color: #7a77bb;
-       cursor:pointer;
+    padding: 8px;
+    &:hover {
+        background-color: #7a77bb;
+        cursor: pointer;
     }
-`
+`;
 
 export const PageSpan = styled.span`
     margin-left: 10px;
     margin-right: 10px;
-    text-decoration:none;
-    border:none;
-`
+    text-decoration: none;
+    border: none;
+`;
 
-
-const gradient = degs => css`
-    background:
-        linear-gradient(
-            ${degs || 130}deg,
-            black 0%,
-            #7cb5e4 100%
-        );
+const gradient = (degs) => css`
+    background: linear-gradient(${degs || 130}deg, black 0%, #7cb5e4 100%);
 `;
 
 export const Card = styled.div`
@@ -43,14 +37,14 @@ export const Card = styled.div`
     overflow: hidden;
     width: 800px;
     height: 180px;
-    padding: 1rem 0 ;
+    padding: 1rem 0;
     border-radius: 0.5rem;
     color: white;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     ${gradient()};
     box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.025),
-                0 9px 46px 8px rgba(0, 0, 0, 0.025),
-                0 11px 15px -7px rgba(0, 0, 0, 0.025);
+        0 9px 46px 8px rgba(0, 0, 0, 0.025),
+        0 11px 15px -7px rgba(0, 0, 0, 0.025);
 `;
 
 export const Content = styled.div`
@@ -59,7 +53,6 @@ export const Content = styled.div`
 `;
 
 export const Div = styled.div`
-     
     margin-right: 10px;
     float: left;
 `;
@@ -77,13 +70,13 @@ export const Icon = styled.div`
     font-size: 80px;
     color: white;
     ${gradient()};
-    box-shadow:  0 11px 15px -7px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
 `;
 
 export const PostTitle = styled.div`
     font-size: 1.75rem;
-    a{
-        color:white;
+    a {
+        color: white;
     }
 `;
 
@@ -102,27 +95,27 @@ export const Data = styled.div`
     }
     a {
         color: black;
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
     a:hover {
-        color: #6672B4;
-        text-decoration: underline
+        color: #6672b4;
+        text-decoration: underline;
     }
 `;
 
 export const Group = styled.div`
     float: right;
-    a{
+    a {
         color: #222133;
         font-size: 13px;
         margin-left: 5px;
     }
-`
+`;
 
 export const FeatureListItem = styled.div`
     margin-bottom: 0.325rem;
     padding-left: 10px;
-    display: inline-block; 
+    display: inline-block;
     margin-right: 10px;
     border-left: 2px solid white;
 `;
@@ -133,13 +126,13 @@ export const PostDescription = styled.div`
 
 export const PostRequirements = styled.div`
     font-size: 0.75rem;
-`
+`;
 
 export const Author = styled.div`
     font-size: 0.75rem;
     float: right;
     padding-right: 30px;
-`
+`;
 
 export const ActionButton = styled.button`
     flex: 0 0 auto;
@@ -154,7 +147,9 @@ export const ActionButton = styled.button`
     box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
     transition: background 0.25;
 
-    &:hover {background: rgba(255, 255, 255, 1);}
+    &:hover {
+        background: rgba(255, 255, 255, 1);
+    }
 `;
 
 export const Filter = styled.div`
@@ -162,44 +157,44 @@ export const Filter = styled.div`
     height: 500px;
     padding: 20px;
     margin-top: 15px;
-`
+`;
 
 export const FilterTitle = styled.h2`
-    color: #1B2942;
+    color: #1b2942;
     font-size: 24px;
     font-weight: 500;
     overflow: hidden;
-`
+`;
 
 export const FilterCategory = styled.div`
     margin-left: 10px;
     label {
         margin-left: 5px;
     }
-`
+`;
 
 export const FilterCategoryTitle = styled.h3`
-    color: #1B2942;
+    color: #1b2942;
     font-size: 18px;
     font-weight: 500;
     margin-top: 15px;
     margin-bottom: 8px;
     margin-left: -10px;
-`
+`;
 
 export const FilterField = styled.div`
-    color: #686D88;
+    color: #686d88;
     display: block;
     position: relative;
     margin-top: 5px;
     height: 18px;
     &:hover label {
-	    color: #000000;
+        color: #000000;
     }
     &:hover .check {
-	    border: 2px solid #89CCF6;
+        border: 2px solid #89ccf6;
     }
-    input[type=radio] {
+    input[type="radio"] {
         position: absolute;
         visibility: hidden;
     }
@@ -209,40 +204,40 @@ export const FilterField = styled.div`
         cursor: pointer;
         margin-left: 25px;
         font-weight: 500;
-        transition: all .25s ease-in-out;
+        transition: all 0.25s ease-in-out;
     }
-    input[type=radio]:checked ~ .check {
-        border: 2px solid #89CCF6;
-    }
-
-    input[type=radio]:checked ~ .check::before {
-        background: #89CCF6;
+    input[type="radio"]:checked ~ .check {
+        border: 2px solid #89ccf6;
     }
 
-    input[type=radio]:checked ~ label {
+    input[type="radio"]:checked ~ .check::before {
+        background: #89ccf6;
+    }
+
+    input[type="radio"]:checked ~ label {
         color: #000000;
     }
-`
+`;
 
 export const Check = styled.div`
     display: block;
     position: absolute;
     top: 1px;
-    border: 2px solid #AAAAAA;
+    border: 2px solid #aaaaaa;
     border-radius: 100%;
     height: 18px;
     width: 18px;
-    transition: all .25s ease-in-out;
+    transition: all 0.25s ease-in-out;
     &:before {
         display: block;
         position: absolute;
-        content: '';
+        content: "";
         border-radius: 100%;
         height: 10px;
         width: 10px;
         top: 2px;
         left: 2px;
         margin: auto;
-        transition: all .25s ease-in-out;
+        transition: all 0.25s ease-in-out;
     }
-`
+`;

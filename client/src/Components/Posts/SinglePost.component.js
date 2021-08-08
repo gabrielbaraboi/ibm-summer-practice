@@ -8,7 +8,6 @@ const SinglePost = () => {
     const { id } = useParams();
     const [post, setPost] = useState();
     const [userData, setUserData] = useState();
-    const [commentsCount, setCommentsCount] = useState(0);
 
     useEffect(() => {
         const currentUserData = getCurrentUser();
@@ -41,10 +40,7 @@ const SinglePost = () => {
             <br />
             {post?.programmingLanguage}
             <br />
-            <CommentSection
-                userData={userData}
-                commentsCount={commentsCount}
-            />
+            <CommentSection userData={userData} />
         </>
     );
 };

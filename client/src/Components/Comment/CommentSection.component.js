@@ -16,15 +16,15 @@ import { createComment, getAllComments } from "../../Services/comment.service";
 import { useParams } from "react-router-dom";
 import { Comment } from "./Comment.component";
 
-const CommentSection = ({ userData, commentsCount }) => {
+const CommentSection = ({ userData }) => {
     const { id } = useParams();
     const [comments, setComments] = useState([]);
     const [commentValue, setCommentValue] = useState("");
+    const [commentsCount, setCommentsCount] = useState(0);
     const submitComment = (e) => {
         e.preventDefault();
         const comment = commentValue;
         if (/\S/.test(comment)) {
-            console.log(comment);
             createComment(id, { comment });
             window.location.reload();
         }
@@ -34,7 +34,8 @@ const CommentSection = ({ userData, commentsCount }) => {
         () =>
             getAllComments(id)
                 .then((res) => {
-                    setComments(res.data);
+                    setComments(res.data.comments);
+                    setCommentsCount(res.data.count)
                 })
                 .catch((err) => {
                     console.log(err.message);
@@ -49,7 +50,7 @@ const CommentSection = ({ userData, commentsCount }) => {
                 <CommentsCountDiv>
                     <CommentsCount>{commentsCount}</CommentsCount>
                     <CommentsCountText>
-                        {commentsCount > 1 ? `Comentarii` : `Comentariu`}
+                        {commentsCount > 1 ? `Comments` : `Comment`}
                     </CommentsCountText>
                 </CommentsCountDiv>
             </CommentInfo>
@@ -85,6 +86,7 @@ const CommentSection = ({ userData, commentsCount }) => {
                     <Comment
                         key={comment._id}
                         comment={comment}
+                        userData={userData}
                     ></Comment>
                 ))
             )}

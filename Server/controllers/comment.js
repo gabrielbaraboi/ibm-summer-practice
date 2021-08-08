@@ -50,12 +50,15 @@ const createComment = async (req, res) => {
 };
 const sendAllComments = async (req, res) => {
 	const postId = req.params.id;
+	const result = {}
 
-	await Comment.find({ parentPostId: postId }, (err, comment) => {
+	await Comment.find({ parentPostId: postId }, (err, comments) => {
 		if (err) {
 			res.status(400).json({ message: "Can`t get comments!" });
 		} else {
-			res.json(comment.reverse());
+			result.comments = comments.reverse();
+			result.count = comments.length;
+			res.json(result);
 		}
 	});
 };

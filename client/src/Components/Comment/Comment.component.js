@@ -1,24 +1,22 @@
-// import { deleteComment, updateComment } from "../../services/CommentsServices";
+import { deleteComment, updateComment } from "../../Services/comment.service";
 import {
     Container,
     ImageDiv,
     CommentDiv,
     CommentUserName,
     CommentText,
-    ImageCircleStyle
+    ImageCircleStyle,
 } from "./Comment.styledComponents";
 import ReactImageFallback from "react-image-fallback";
 
-export const Comment = ({ comment }) => {
-    // const deleteThisComment = () => {
-    //     deleteComment(comment._id)
-    //         .then(() => {
-    //             window.location.reload();
-    //         })
-    //         .catch((err) => console.log(err));
-    // };
-
-    console.log(comment?.created);
+export const Comment = ({ comment, userData }) => {
+    const deleteThisComment = () => {
+        deleteComment(comment._id)
+            .then(() => {
+                window.location.reload();
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <Container>
@@ -36,6 +34,15 @@ export const Comment = ({ comment }) => {
                     </a>
                 </CommentUserName>
                 <CommentText>{comment?.comment}</CommentText>
+                {userData && userData.id === comment?.createdBy?.id && (
+                    <button
+                        onClick={(e) => {
+                            deleteThisComment();
+                        }}
+                    >
+                        Delete
+                    </button>
+                )}
             </CommentDiv>
         </Container>
     );

@@ -28,6 +28,7 @@ const App = () => {
                     <PrivateRoute path="/addpost" component={AddPost} />
                     <PublicRoute path="/profile/:id" component={Profile} />
                     <PublicRoute path="/post/:id" component={SinglePost} />
+                    {/* <PublicRoute path="/messages" component={SinglePost} /> */}
                     <AuthVerify />
                 </Main>
             </Router>
