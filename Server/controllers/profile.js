@@ -13,12 +13,12 @@ const getUserProfilePic = async (req, res) => {
 					.getPic(user.profilePic)
 					.on("error", (err) => {
 						console.log("ERORR 1");
-						return res.status(404).json({ message: err.message });
+						res.status(404).json({ message: err.message });
 					})
 					.pipe(res)
 					.on("error", (err) => {
-						console.log("ERORR 1");
-						return res.status(404).json({ message: err.message });
+						res.status(404).json({ message: err.message });
+						return;
 					});
 			}
 		}

@@ -45,7 +45,7 @@ app.use("/auth", authenticantion, function (req, res, next) {
 	next();
 });
 app.use("/posts", posts);
-app.use(comments);
+app.use("/comments", comments);
 app.use(messages);
 app.use("/profile", profile);
 // app.use('/user', userRoutes);

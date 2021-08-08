@@ -17,7 +17,12 @@ import {
     ModalClose,
 } from "./Profile.styledComponents";
 import { faEdit, faCamera, faGlobe } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faTwitter, faLinkedin, faGithub} from "@fortawesome/free-brands-svg-icons"
+import {
+    faFacebook,
+    faTwitter,
+    faLinkedin,
+    faGithub,
+} from "@fortawesome/free-brands-svg-icons";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProfile, setProfilePic } from "../../Services/profile.service";

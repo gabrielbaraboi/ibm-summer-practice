@@ -85,7 +85,6 @@ const loginUser = async (req, res) => {
 				role: "Student",
 			};
 			responseUser.accessToken = generateToken(responseUser);
-			// console.log(req.headers['x-access-token']);
 			res.status(200).json({ user: responseUser });
 		} else if (company && (await bcrypt.compare(password, company.password))) {
 			responseUser = {

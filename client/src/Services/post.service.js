@@ -39,6 +39,15 @@ export const getPosts = async (
     }
 };
 
+export const getPost = async (id) => {
+    try {
+        const res = await axios.get(API_URL + `post/` + id);
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const getWorkPlaces = async () => {
     try {
         const res = await axios.get(API_URL + `getWorkPlaces`);
