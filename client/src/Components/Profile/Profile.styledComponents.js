@@ -1,4 +1,3 @@
-import { faExternalLinkAlt, faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 export const ProfileContainer = styled.div`

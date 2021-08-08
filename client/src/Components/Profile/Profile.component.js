@@ -5,6 +5,7 @@ import { faEdit,faCamera } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProfile,setProfilePic } from '../../Services/profile.service';
+import { getCurrentUser,isUserData } from '../../Services/auth.service';
 import ReactImageFallback from 'react-image-fallback';
 import { ProfileModal } from './ProfileModal.component';
 import Modal from 'react-modal';
@@ -13,6 +14,7 @@ const Profile = () => {
     const { id } = useParams();
     const [userExists, setUserExists] = useState(true);
     const [userData, setUserData] = useState();
+    const [currentUser,setCurrentUser] = useState([]);
     const [showModalAbout, setShowModalAbout] = useState(false);
     const [showModalLink, setShowModalLink] = useState(false);
     const [showModalProfilePic, setShowModalProfilePic] = useState(false);
@@ -43,7 +45,16 @@ const Profile = () => {
                 console.log(err.message);
                 setUserExists(false)
             })
-        , []);
+        , []
+    );
+
+    useEffect(() => {
+        const userData = getCurrentUser();
+        setCurrentUser(userData);
+        console.log(userData);
+    }, [])
+    
+    
 
     const handleSubmitProfilePic = () => {
         const formData = new FormData();
@@ -80,7 +91,11 @@ const Profile = () => {
                         <ReactImageFallback
                             src={`/profile/${id}/getProfilePic`}
                             fallbackImage={process.env.PUBLIC_URL + '/iconUser.jpg'} />
-                        <button onClick={openModalProfilePic}><FontAwesomeIcon icon={faCamera} className="icon" fixedWidth></FontAwesomeIcon></button>
+                        {getCurrentUser() && currentUser.id === id ?
+                            <button onClick={openModalProfilePic}>
+                                <FontAwesomeIcon icon={faCamera} className="icon" fixedWidth/>
+                            </button>
+                        : null}
                     </ProfilePicture>
                 </BackgroundPhoto>
                 <NameContainer>
@@ -92,7 +107,11 @@ const Profile = () => {
                 <LinksCard>
                     <Group>
                         <p>Social media</p>
-                        <EditBtn onClick={openModalLink} type="button"><FontAwesomeIcon icon={faEdit} className="icon" fixedWidth></FontAwesomeIcon></EditBtn>
+                        {getCurrentUser() ?
+                            <EditBtn onClick={openModalLink} type="button">
+                                <FontAwesomeIcon icon={faEdit} className="icon" fixedWidth/>
+                            </EditBtn>
+                        : null}
                     </Group>
                     <ProfileModal showModal={showModalLink} setShowModal={setShowModalLink} type={"links"}/>
                     <ul>
@@ -126,7 +145,11 @@ const Profile = () => {
                 <AboutContainer>
                     <Group>
                         <p>About</p>
-                        <EditBtn onClick={openModalAbout} type="button"><FontAwesomeIcon icon={faEdit} className="icon" fixedWidth></FontAwesomeIcon></EditBtn>
+                        {getCurrentUser() ?
+                            <EditBtn onClick={openModalAbout} type="button">
+                                <FontAwesomeIcon icon={faEdit} className="icon" fixedWidth></FontAwesomeIcon>
+                            </EditBtn>
+                        : null}
                     </Group>
                     <ProfileModal showModal={showModalAbout} setShowModal={setShowModalAbout} type={"about"}/>
                     <span>{userData?.about}</span>
