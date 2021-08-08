@@ -5,8 +5,9 @@ const API_URL = "http://localhost:7055/auth/";
 
 export const login = async (data) => {
     try {
-        const res = await axios
-            .post(API_URL + "login", data, { withCredentials: true });
+        const res = await axios.post(API_URL + "login", data, {
+            withCredentials: true,
+        });
         if (res.data.user.accessToken) {
             localStorage.setItem("user", JSON.stringify(res.data.user));
         }
@@ -18,12 +19,11 @@ export const login = async (data) => {
 
 export const register = async (data) => {
     try {
-        const res = await axios
-            .post(API_URL + "register", data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+        const res = await axios.post(API_URL + "register", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
         return res;
     } catch (err) {
         throw err;
@@ -41,10 +41,9 @@ export const getCurrentUser = () => {
 
 export const isUserData = () => {
     const data = localStorage.getItem("user");
-    if (data)
-        return true;
+    if (data) return true;
     return false;
-}
+};
 
 const parseJwt = (token) => {
     try {
@@ -71,10 +70,10 @@ const AuthVerify = (props) => {
 };
 
 export function authHeader() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
 
     if (user && user.accessToken) {
-        return { 'x-access-token': user.accessToken };
+        return { "x-access-token": user.accessToken };
     } else {
         return {};
     }
