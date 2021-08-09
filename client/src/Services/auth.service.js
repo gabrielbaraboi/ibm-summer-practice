@@ -35,6 +35,15 @@ export const logout = () => {
     window.location.reload();
 };
 
+export const getAllUsers = async () => {
+    try {
+        const res = await axios.get(API_URL + "/getAllUsers");
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user"));
 };

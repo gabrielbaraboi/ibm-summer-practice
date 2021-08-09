@@ -118,7 +118,7 @@ const NavBar = () => {
                 )}
                 {isUserData() ? (
                     <NavItem>
-                        <Link to={`/messages`}>
+                        <Link to={`/inbox`}>
                             <i>
                                 <FontAwesomeIcon
                                     icon={faFacebookMessenger}

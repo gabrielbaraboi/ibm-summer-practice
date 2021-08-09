@@ -11,6 +11,8 @@ import PrivateRoute from "./Components/PrivateRoute.component";
 import PublicRoute from "./Components/PublicRoute.component";
 import Profile from "./Components/Profile/Profile.component";
 import SinglePost from "./Components/Posts/SinglePost.component";
+import AllConversations from "./Components/Inbox/AllConversations.component";
+import Conversation from "./Components/Inbox/Conversation.component";
 
 const App = () => {
     return (
@@ -28,7 +30,8 @@ const App = () => {
                     <PrivateRoute path="/addpost" component={AddPost} />
                     <PublicRoute path="/profile/:id" component={Profile} />
                     <PublicRoute path="/post/:id" component={SinglePost} />
-                    {/* <PublicRoute path="/messages" component={SinglePost} /> */}
+                    <PublicRoute path="/inbox" component={AllConversations} />
+                    <PublicRoute path="/conversation/:id" component={Conversation} />
                     <AuthVerify />
                 </Main>
             </Router>

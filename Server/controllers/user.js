@@ -105,9 +105,9 @@ const loginUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
 	try {
 		const users = await User.find();
-		users.push(await Company.find());
-		if (users) {
-			res.status(200).json(users);
+		const companies = await Company.find();
+		if (users || companies) {
+			res.status(200).json({users, companies});
 		} else {
 			res.status(400).json({ message: "Can`t find any User" });
 		}
