@@ -13,7 +13,7 @@ const getAllPosts = async (req, res) => {
 
 	try {
 		result.posts = await Post.find(QueryBuilder.getQuery(filterParams))
-			.sort({ date: -1 })
+			.sort({ updatedAt: -1 })
 			.skip(startIndex)
 			.limit(postsPerPage);
 		if (result.posts.length === 0)
