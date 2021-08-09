@@ -30,10 +30,10 @@ const App = () => {
                     <PublicRoute path="/login" restricted component={Login} />
                     <PrivateRoute path="/addpost" component={AddPost} />
                     <PublicRoute path="/profile/:id" component={Profile} />
-                    <PublicRoute path="/settings/:id" component={Settings} />
+                    <PrivateRoute path="/settings/:id" component={Settings} />
                     <PublicRoute path="/post/:id" component={SinglePost} />
-                    <PublicRoute path="/inbox" component={AllConversations} />
-                    <PublicRoute path="/conversation/:id" component={Conversation} />
+                    <PrivateRoute path="/inbox" component={AllConversations} />
+                    <PrivateRoute path="/conversation/:id" component={Conversation} />
                     <AuthVerify />
                 </Main>
             </Router>
