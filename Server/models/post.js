@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("./user");
 
 var PostSchema = new mongoose.Schema(
 	{
@@ -7,6 +8,7 @@ var PostSchema = new mongoose.Schema(
 		createdBy: {
 			id: {
 				type: mongoose.Schema.Types.ObjectID,
+				ref: User,
 			},
 			name: String,
 		},

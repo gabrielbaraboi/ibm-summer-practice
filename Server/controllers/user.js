@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const Company = require("../models/company");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const ibm = require("./IBMfunctions");
@@ -11,7 +10,7 @@ const registerUser = async (req, res) => {
 		const data = JSON.parse(req.body.data);
 		const { email, role } = data;
 		const image = req.file;
-		console.log(image);
+
 		let imageName = "";
 		if (image) {
 			imageName = image.filename;
@@ -46,7 +45,7 @@ const registerUser = async (req, res) => {
 				res.status(400).json({ message: "All inputs are required!" });
 			}
 
-			const company = await Company.create({
+			const company = await User.create({
 				email: email.toLowerCase(),
 				password: await encryptPass(password),
 				companyName,
@@ -74,25 +73,21 @@ const loginUser = async (req, res) => {
 		}
 
 		const user = await User.findOne({ email });
-		const company = await Company.findOne({ email });
 
 		if (user && (await bcrypt.compare(password, user.password))) {
 			responseUser = {
 				id: user._id,
 				email: user.email,
-				firstName: user.firstName,
-				lastName: user.lastName,
-				role: "Student",
+				// firstName: user.firstName,
+				// lastName: user.lastName,
 			};
-			responseUser.accessToken = generateToken(responseUser);
-			res.status(200).json({ user: responseUser });
-		} else if (company && (await bcrypt.compare(password, company.password))) {
-			responseUser = {
-				id: company._id,
-				email: company.email,
-				companyName: company.companyName,
-				role: "Company",
-			};
+			if (user.role === "Student") {
+				responseUser.firstName = user.firstName;
+				responseUser.lastName = user.lastName;
+			} else if (user.role === "Company") {
+				responseUser.companyName = user.companyName;
+			}
+
 			responseUser.accessToken = generateToken(responseUser);
 			res.status(200).json({ user: responseUser });
 		} else {
@@ -105,9 +100,9 @@ const loginUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
 	try {
 		const users = await User.find();
-		const companies = await Company.find();
-		if (users || companies) {
-			res.status(200).json({users, companies});
+
+		if (users) {
+			res.status(200).json({ users });
 		} else {
 			res.status(400).json({ message: "Can`t find any User" });
 		}
@@ -133,8 +128,7 @@ function generateToken(accType) {
 async function isEmailAlreadyUsed(email) {
 	const user = await User.findOne({ email });
 	if (user) return true;
-	const company = await Company.findOne({ email });
-	if (company) return true;
+
 	return false;
 }
 

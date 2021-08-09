@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const Company = require("../models/company");
+
 const Post = require("../models/post");
 const QueryBuilder = require("../utils/QueryBuilder");
 const postsPerPage = 3;
@@ -13,7 +13,7 @@ const getAllPosts = async (req, res) => {
 
 	try {
 		result.posts = await Post.find(QueryBuilder.getQuery(filterParams))
-			.sort({ updatedAt: -1 })
+			.sort({ dUpdatedDate: -1 })
 			.skip(startIndex)
 			.limit(postsPerPage);
 		if (result.posts.length === 0)
@@ -52,41 +52,38 @@ const createPost = async (req, res) => {
 	user = await User.findById(req.user._id);
 	if (user) {
 		//Student
-		createdBy = {
-			id: user._id,
-			name: user.firstName + " " + user.lastName,
-		};
-		type = "request";
-	} else {
-		//Company
-		user = await Company.findById(req.user._id);
-		if (user) {
+		if (user.role === "Student") {
 			createdBy = {
 				id: user._id,
-				name: user.comapnyName,
+				name: user.firstName + " " + user.lastName,
+			};
+			type = "request";
+		} else {
+			createdBy = {
+				id: user._id,
+				name: user.companyName,
 			};
 			type = "offer";
-		} else {
-			//account id wasn't found in neither Student nor Company Collection
-			res.status(400).json({ message: "account id wasn't found" });
 		}
+		const newPost = {
+			type: type,
+			description: req.body.description,
+			createdBy: createdBy,
+			title: req.body.title,
+			programmingLanguage: req.body.programmingLanguage,
+			workHours: req.body.workHours,
+			workPlace: req.body.workPlace,
+			requirements: req.body.requirements,
+		};
+		Post.create(newPost, (err, Post) => {
+			if (err) {
+				res.status(400).json({ message: "Can`t create post!" });
+			} else res.status(200).json({ message: "Post created Succesfully" });
+		});
+	} else {
+		//account id wasn't found in neither Student nor Company Collection
+		res.status(400).json({ message: "account id wasn't found" });
 	}
-	const newPost = {
-		type: type,
-		description: req.body.description,
-		createdBy: createdBy,
-		title: req.body.title,
-		programmingLanguage: req.body.programmingLanguage,
-		workHours: req.body.workHours,
-		workPlace: req.body.workPlace,
-		requirements: req.body.requirements,
-	};
-
-	Post.create(newPost, (err, Post) => {
-		if (err) {
-			res.status(400).json({ message: "Can`t create post!" });
-		} else res.status(200).json({ message: "Post created Succesfully" });
-	});
 };
 
 const updatePost = async (req, res) => {

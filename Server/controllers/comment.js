@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const Company = require("../models/company");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
 const commentsPerPage = 3;
@@ -14,41 +13,41 @@ const createComment = async (req, res) => {
 			res.status(400).json({ message: "Post doesn`t exist!" });
 		} else {
 			let user = await User.findById(req.user._id).exec();
-			if (!user) {
-				user = await Company.findById(req.user._id).exec();
-			}
-
-			if (user.role === "Student") {
-				name = user.firstName + " " + user.lastName;
-			} else if (user.role === "Company") {
-				name = user.companyName;
-			}
-
-			const createdBy = {
-				id: user.id,
-				name: name,
-			};
-
-			const newComment = {
-				comment: req.body.comment,
-				createdBy: createdBy,
-				parentPostId: postId,
-			};
-
-			Comment.create(newComment, (err, comment) => {
-				if (err) {
-					console.log(err);
-					res.status(400).json({ message: "Can`t create comment" });
-				} else {
-					res.status(200).json({ message: "Comment created successfully" });
+			if (user) {
+				if (user.role === "Student") {
+					name = user.firstName + " " + user.lastName;
+				} else if (user.role === "Company") {
+					name = user.companyName;
 				}
-			});
+
+				const createdBy = {
+					id: user.id,
+					name: name,
+				};
+
+				const newComment = {
+					comment: req.body.comment,
+					createdBy: createdBy,
+					parentPostId: postId,
+				};
+
+				Comment.create(newComment, (err, comment) => {
+					if (err) {
+						console.log(err);
+						res.status(400).json({ message: "Can`t create comment" });
+					} else {
+						res.status(200).json({ message: "Comment created successfully" });
+					}
+				});
+			} else {
+				res.status(400).json({ message: "User not found" });
+			}
 		}
 	} catch (err) {
 		res.status(400).json({ message: "Invalid post id!" });
 	}
 };
-const sendAllComments = async (req, res) => {
+const getAllComments = async (req, res) => {
 	const postId = req.params.id;
 	const page = parseInt(req.query.page);
 	const startIndex = (page - 1) * commentsPerPage;
@@ -58,7 +57,7 @@ const sendAllComments = async (req, res) => {
 	try {
 		result.comments = await Comment.find({ parentPostId: postId })
 			.sort({
-				updatedAt: -1,
+				dUpdatedDate: -1,
 			})
 			.skip(startIndex)
 			.limit(commentsPerPage);
@@ -151,7 +150,7 @@ async function checkPermissions(userId, comment, type) {
 }
 module.exports = {
 	createComment,
-	sendAllComments,
+	getAllComments,
 	updateComment,
 	deleteComment,
 };
