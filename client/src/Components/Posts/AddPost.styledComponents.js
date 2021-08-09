@@ -10,7 +10,10 @@ export const Body = styled.div`
     text-align: center;
 	height: fit-content;
 `
-
+export const Form = styled.div`
+   text-align: center;
+`
+    
 export const InputContainer = styled.div`
     border: 1px;
     background-color: white;

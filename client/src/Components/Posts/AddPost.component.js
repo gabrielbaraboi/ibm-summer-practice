@@ -5,12 +5,12 @@ import AddPostValidationRules from "../../Services/Validation/AddPostValidationR
 import { createPost } from "../../Services/post.service";
 import {
     Body,
+    Form,
     CardStyle,
     TitleCard,
     ReqButton,
     SubmitButton,
     Input,
-    Form,
     Choose,
     InputContainer,
     Label,
