@@ -5,19 +5,22 @@ import AddPostValidationRules from "../../Services/Validation/AddPostValidationR
 import { createPost } from "../../Services/post.service";
 import {
     Body,
-    Container,
+    CardStyle,
+    TitleCard,
+    ReqButton,
+    SubmitButton,
     Input,
     Form,
-    H1,
     Choose,
     InputContainer,
-    ButtonSubmit,
     Label,
     Div,
-    Flex,
     InputRequirements,
     InputRequirement,
 } from "./AddPost.styledComponents";
+import { Box,Content} from '../Settings/Settings.styledComponents'
+
+
 
 const AddPost = ({ onSubmit, authError }) => {
     const { values, errors, handleChange, handleSubmit } = useForm(
@@ -60,9 +63,11 @@ const AddPost = ({ onSubmit, authError }) => {
     return (
         <>
             <Body>
-                <Container>
-                    <Form onSubmit={handleSubmit}>
-                        <H1>Create a new post</H1>
+                <Form onSubmit={handleSubmit}>
+                        <TitleCard>Create new Post</TitleCard>
+                    <Box>
+                      <CardStyle>
+                         <Content>
                         <Label>Title</Label>
                         <InputContainer>
                             <Div>
@@ -152,6 +157,7 @@ const AddPost = ({ onSubmit, authError }) => {
                             }`}
                             name="description"
                             rows="5"
+                            cols="115"
                             onChange={handleChange}
                             value={values.description || ""}
                         />
@@ -169,13 +175,13 @@ const AddPost = ({ onSubmit, authError }) => {
                                 reqInput = c;
                             }}
                         />
-                        <button
+                        <ReqButton
                             type="button"
                             onClick={inputKeyDown}
                             className="button is-info"
                         >
                             Add Requirement
-                        </button>
+                        </ReqButton>
                         <InputRequirements>
                             {reqs.map((tag, i) => (
                                 <InputRequirement key={tag}>
@@ -191,12 +197,13 @@ const AddPost = ({ onSubmit, authError }) => {
                                 </InputRequirement>
                             ))}
                         </InputRequirements>
-                        <Flex>
-                            <ButtonSubmit type="submit" value="SUBMIT" />
-                        </Flex>
+                        </Content>
+                        </CardStyle>
+                        <SubmitButton type="submit" value="SUBMIT"> Submit
+                        </SubmitButton>
                         <p className="help is-danger">{authError}</p>
+                        </Box>
                     </Form>
-                </Container>
             </Body>
         </>
     );

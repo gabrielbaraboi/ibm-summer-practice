@@ -1,22 +1,15 @@
 import styled from "styled-components";
 
+
 export const Body = styled.div`
-    display: flex;
+    padding-top: 30px;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    box-sizing: border-box;
-`;
-export const Container = styled.div`
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    width: 950px;
-    max-width: 100%;
-    min-height: 500px;
-    display: flex;
-    margin-top: 20px;
-`;
+	align-items: center;
+	flex-direction: column;
+    background: #1d1b31;
+    text-align: center;
+	height: fit-content;
+`
 
 export const InputContainer = styled.div`
     border: 1px;
@@ -51,16 +44,8 @@ export const InputDescription = styled.div`
 export const Div = styled.div`
     overflow: hidden;
     margin-bottom: 5px;
-`;
-
-export const Form = styled.form`
-    background-color: #d7e4f7;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 50px;
     height: 100%;
-    width: 100%;
+    text-align: center;
 `;
 
 export const Input = styled.input`
@@ -73,45 +58,13 @@ export const Input = styled.input`
     }
 `;
 
-export const H1 = styled.h1`
-    padding-top: 10px;
-    font-weight: bold;
-    text-align: center;
-`;
-export const Flex = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-export const ButtonSubmit = styled.input`
-    border-radius: 20px;
-    width: 200px;
-    border: 1px solid #1d1b31;
-    background-color: #1d1b31;
-    color: #ffffff;
-    font-size: 1.8vh;
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    cursor: pointer;
-    &:active {
-        transform: scale(0.95);
-    }
-    &:focus {
-        outline: none;
-    }
-`;
-
 export const Label = styled.div`
-    color: #363636;
     display: block;
     font-size: 1rem;
     font-weight: 500;
     padding: 6px 0 3px 0;
+    color: gray;
+    padding-top: 10px;
 `;
 export const Choose = styled.div`
     width: 300px;
@@ -153,3 +106,48 @@ export const InputRequirement = styled.div`
         width: 15px;
     }
 `;
+
+export const CardStyle = styled.div`
+    color: white;
+    background : #29283a;
+    width: 800px;
+    align-items: left;
+    border-radius: 0.5rem;
+    box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.025),
+                0 9px 46px 8px rgba(0, 0, 0, 0.025),
+                0 11px 15px -7px rgba(0, 0, 0, 0.025);
+`
+export const TitleCard = styled.div`
+    font-size: 30px;
+    color: white;
+   margin-bottom: 30px;
+`
+
+export const ReqButton = styled.button`
+    margin-left: 20px;
+    background: #6C7A89;
+    border: 0;
+    padding: 0 1rem;
+    color: white;
+    border-radius: 5px;
+    &:hover {background: white;
+            color: #29283a;
+            }
+`
+
+export const SubmitButton = styled.button`
+    flex: 0 0 auto;
+    height: 40px;
+    padding: 0 2rem;
+    margin-top: 30px;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    background: #29283a;
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
+    transition: background 0.25;
+    &:hover {background: white;
+            color: #29283a;
+            }
+    margin-bottom: 20px;
+`
