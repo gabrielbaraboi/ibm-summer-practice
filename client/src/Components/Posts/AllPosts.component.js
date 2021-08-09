@@ -55,7 +55,12 @@ const AllPosts = () => {
                 setNextPage(res.data.next);
                 setTotalPages(res.data.total);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+                setPosts([])
+                setTotalPages(1)
+                setNextPage(1)
+            });
     }, [page, values]);
 
     useEffect(() => {
@@ -75,7 +80,7 @@ const AllPosts = () => {
     return (
         <Posts>
             <PostDiv>
-                {posts ? (
+                {posts.length > 0 ? (
                     posts.map((post, k) => (
                         <PostCard post={post} key={post?._id} />
                     ))
