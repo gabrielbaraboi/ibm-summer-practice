@@ -48,7 +48,7 @@ const AllConversations = () => {
     }, []);
 
     useEffect(() => {
-        getMessages(currentChat?._id)
+        getMessages(currentChat)
             .then((res) => {
                 setMessages(res.data);
             })
@@ -74,7 +74,7 @@ const AllConversations = () => {
         e.preventDefault();
         const content = message;
         if (/\S/.test(content)) {
-            newMessage(currentChat?._id, { content });
+            newMessage(currentChat, { content });
             window.location.reload();
         }
     };
@@ -97,10 +97,10 @@ const AllConversations = () => {
                                 conversation?.member2?._id !== userData.id ? (
                                     <div
                                         onClick={() =>
-                                            setCurrentChat(conversation)
+                                            setCurrentChat(conversation?._id)
                                         }
                                     >
-                                        <div className="conversation" key={idx}>
+                                        <div className={`${currentChat === conversation?._id && 'chat-active' } conversation`} key={idx}>
                                             <img
                                                 className="conversationImg"
                                                 src={`/profile/${conversation?.member2?._id}/getProfilePic`}
@@ -124,7 +124,7 @@ const AllConversations = () => {
                                 ) : (
                                     <div
                                         onClick={() =>
-                                            setCurrentChat(conversation)
+                                            setCurrentChat(conversation?._id)
                                         }
                                     >
                                         <div className="conversation" key={idx}>
@@ -196,6 +196,7 @@ const AllConversations = () => {
                                             setMessage(e.target.value)
                                         }
                                         value={message}
+                                        rows="2"
                                     ></textarea>
                                     <button
                                         className="chatSubmitButton"

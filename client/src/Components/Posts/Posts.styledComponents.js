@@ -180,7 +180,7 @@ export const FilterCategory = styled.div`
 `;
 
 export const FilterCategoryTitle = styled.h3`
-    color: #1b2942;
+    color: white;
     font-size: 18px;
     font-weight: 500;
     margin-top: 15px;

@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #e4e9f7;
+    background-color: #1d1b31;
 }
 
 a {
@@ -181,6 +181,23 @@ a:visited {
     color: #f14668;
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b425e;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3b425e8f;
+}
+
 .messenger {
     height: calc(100vh - 70px);
     display: flex;
@@ -215,16 +232,28 @@ a:visited {
 }
 
 .chatBoxBottom {
-    margin-top: 5px;
+    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .chatMessageInput {
-    width: 80%;
-    height: 90px;
+    width: 90%;
     padding: 10px;
+    border-radius: 0.5rem;
+    background: #29283a;
+    color: white;
+    border: none;
+    resize: none;
+}
+
+.chatMessageInput:focus {
+    outline: none;
+}
+
+.chatMessageInput::placeholder {
+    color: rgba(255, 255, 255, 0.425);
 }
 
 .chatSubmitButton {
@@ -233,17 +262,12 @@ a:visited {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: teal;
+    background-color: #414052;
     color: white;
 }
 
-.chatOnline {
-    flex: 3;
-}
-
 .chatMenuWrapper,
-.chatBoxWrapper,
-.chatOnlineWrapper {
+.chatBoxWrapper {
     padding: 10px;
     height: 100%;
 }
@@ -262,10 +286,19 @@ a:visited {
     padding: 10px;
     cursor: pointer;
     margin-top: 20px;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.conversation.chat-active {
+    background-color: #29283a;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%),
+        0 0px 0 1px rgb(10 10 10 / 2%);
 }
 
 .conversation:hover {
-    background-color: rgb(245, 243, 243);
+    background-color: #29283a;
 }
 
 .conversationImg {
@@ -278,6 +311,7 @@ a:visited {
 
 .conversationName {
     font-weight: 500;
+    color: white;
 }
 
 .message {
@@ -299,16 +333,20 @@ a:visited {
 }
 
 .messageText {
-    padding: 10px;
-    border-radius: 20px;
-    background-color: #1877f2;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 0.5rem;
+    background-color: #414052;
     color: white;
     max-width: 300px;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%),
+    0 0px 0 1px rgb(10 10 10 / 2%);
 }
 
 .messageBottom {
     font-size: 12px;
     margin-top: 10px;
+    color: white;
 }
 
 .message.own {
@@ -316,6 +354,6 @@ a:visited {
 }
 
 .message.own .messageText {
-    background-color: rgb(245, 241, 241);
-    color: black;
+    background-color: #29283a;
+    color: white;
 }
