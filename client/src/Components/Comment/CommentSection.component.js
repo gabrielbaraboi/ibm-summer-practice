@@ -10,17 +10,27 @@ import {
     CommentsCountDiv,
     CommentsCount,
     CommentsCountText,
-    ImageCircleStyle
+    ImageCircleStyle,
 } from "./Comment.styledComponents";
 import { createComment, getAllComments } from "../../Services/comment.service";
 import { useParams } from "react-router-dom";
 import { Comment } from "./Comment.component";
+import { PageSpan, PaginationBtn } from "../Posts/Posts.styledComponents";
 
 const CommentSection = ({ userData }) => {
     const { id } = useParams();
     const [comments, setComments] = useState([]);
     const [commentValue, setCommentValue] = useState("");
     const [commentsCount, setCommentsCount] = useState(0);
+    const [page, setPage] = useState(1);
+    const [nextPage, setNextPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const goNextPage = () => {
+        if (nextPage) setPage(nextPage);
+    };
+    const goPrevPage = () => {
+        if (page >= 2) setPage(page - 1);
+    };
     const submitComment = (e) => {
         e.preventDefault();
         const comment = commentValue;
@@ -30,17 +40,23 @@ const CommentSection = ({ userData }) => {
         }
     };
 
+    console.log(nextPage);
+
+
     useEffect(
         () =>
-            getAllComments(id)
+            getAllComments(id, page)
                 .then((res) => {
+                    console.log(res.data);
                     setComments(res.data.comments);
-                    setCommentsCount(res.data.count)
+                    setNextPage(res.data.next);
+                    setTotalPages(res.data.total);
+                    setCommentsCount(res.data.count);
                 })
                 .catch((err) => {
                     console.log(err.message);
                 }),
-        []
+        [page]
     );
 
     return (
@@ -90,6 +106,18 @@ const CommentSection = ({ userData }) => {
                     ></Comment>
                 ))
             )}
+            <div>
+                <PaginationBtn disabled={page <= 1} onClick={goPrevPage}>
+                    {" "}
+                    &lt; Previous Page
+                </PaginationBtn>
+                <PageSpan>
+                    {page}/{totalPages ? totalPages : 1}
+                </PageSpan>
+                <PaginationBtn disabled={!nextPage} onClick={goNextPage}>
+                    Next Page &gt;
+                </PaginationBtn>
+            </div>
         </>
     );
 };
