@@ -148,7 +148,7 @@ const NavBar = () => {
                 </NavItem>
                 {isUserData() ? (
                     <NavItem>
-                        <Link to={``}>
+                        <Link to={`/settings/${user?.id}`}>
                             <i>
                                 <FontAwesomeIcon
                                     icon={faCog}

@@ -13,6 +13,7 @@ import Profile from "./Components/Profile/Profile.component";
 import SinglePost from "./Components/Posts/SinglePost.component";
 import AllConversations from "./Components/Inbox/AllConversations.component";
 import Conversation from "./Components/Inbox/Conversation.component";
+import Settings from "./Components/Settings/Settings.component"
 
 const App = () => {
     return (
@@ -29,6 +30,7 @@ const App = () => {
                     <PublicRoute path="/login" restricted component={Login} />
                     <PrivateRoute path="/addpost" component={AddPost} />
                     <PublicRoute path="/profile/:id" component={Profile} />
+                    <PublicRoute path="/settings/:id" component={Settings} />
                     <PublicRoute path="/post/:id" component={SinglePost} />
                     <PublicRoute path="/inbox" component={AllConversations} />
                     <PublicRoute path="/conversation/:id" component={Conversation} />
