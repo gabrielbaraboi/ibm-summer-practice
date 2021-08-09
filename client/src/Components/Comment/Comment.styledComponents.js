@@ -2,22 +2,33 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    margin: 1rem 0;
-    border-bottom: 1px solid #c4c4c4;
-    padding: 1rem 0.5rem 2rem 0.5rem;
+    margin: 0rem 0;
+    padding: 0.25rem 10rem;
     position: relative;
+`;
+
+export const ButtonWrapper = styled.div`
+    margin-left: auto;
 `;
 
 export const AddComment = styled.div`
     display: flex;
-    margin: 1rem 0;
-    padding: 0 0.5rem;
+    height: 11rem;
+    min-height: 150px;
+    margin: 0rem 0rem;
+    padding: 0.5rem 10rem;
+    @media (max-width: 1000px) {
+        width: 50px;
+        height: 50px;
+        margin: 0 0.5rem 0 0;
+    }
 `;
 
 export const ImageDiv = styled.div`
     width: 80px;
     height: 80px;
     flex-shrink: 0;
+    border: 1px solid white;
     border-radius: 100%;
     background-color: #c4c4c4;
     text-align: center;
@@ -36,7 +47,7 @@ export const CommentInputContainer = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin: 0 0 0 1.3rem;
+    margin: 0 0 0 0.5rem;
     height: 200px;
 `;
 
@@ -44,16 +55,21 @@ export const CommentInputTextArea = styled.textarea`
     font-size: 1.2rem;
     padding: 0.2rem 0 0 0.5rem;
     width: 100%;
-    height: 100%;
+    height: 50%;
+    min-width: 150px;
     @media (max-width: 1000px) {
         height: 150px;
     }
+    resize:none;    
 `;
 
 export const CommentDiv = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 0 2rem;
+    padding: 0.25rem 1rem;
+    border: 1px solid #c4c4c4;
+    border-radius: 0.5rem;
+    width: 100%;
     @media (max-width: 1000px) {
         padding: 0 1rem;
     }
@@ -62,13 +78,19 @@ export const CommentDiv = styled.div`
 export const CommentUserName = styled.div`
     font-weight: bold;
     margin: 0 0 0.5rem 0;
+    a{
+        transition: 0.5s ease;
+        &:hover{
+            color:rgba(30, 30, 218);
+        }
+    }
     @media (max-width: 1000px) {
         font-size: 1rem;
     }
 `;
 
 export const CommentText = styled.div`
-    color: #7c7c7c;
+    color: black;
     word-break: break-all;
     @media (max-width: 1000px) {
         font-size: 1rem;
@@ -76,14 +98,73 @@ export const CommentText = styled.div`
 `;
 
 export const PostCommentButton = styled.button`
-    padding: 1rem 0;
-    margin: 1rem 0;
+    padding: 0.25rem 0;
+    margin: 0.5rem 0;
+    margin-left: auto;
+    border:none;
+    border-radius: 0.5rem;
     font-weight: bold;
     transition: 0.5s ease;
+    background-color:#1e1c36;
+    color:white;
     font-size: 1rem;
+    height:20%;
+    width:15%;
     &:hover {
         cursor: pointer;
         transform: translateY(5px);
+    }
+    @media (max-width: 1000px) {
+        padding: 0.5rem 0;
+        font-size: 0.8rem;
+    }
+`;
+
+export const DeleteCommentButton = styled.button`
+    padding: 0.25rem 0.4rem;
+    border:none;
+    border-radius: 0.5rem;
+    background:red;
+    color:white;
+    transition: 0.5s ease;
+    &:hover {
+        cursor: pointer;
+        transform: translateY(1px);
+    }
+    @media (max-width: 1000px) {
+        padding: 0.5rem 0;
+        font-size: 0.8rem;
+    }
+`;
+
+export const EditCommentButton = styled.button`
+    padding: 0.25rem 0.4rem;
+    border:none;
+    border-radius: 0.5rem;
+    background:orange;
+    margin-left: 3px;
+    transition: 0.5s ease;
+    &:hover {
+        cursor: pointer;
+        transform: translateY(1px);
+    }
+    @media (max-width: 1000px) {
+        padding: 0.5rem 0;
+        font-size: 0.8rem;
+    }
+`;
+
+export const SaveCommentButton = styled.button`
+    padding: 0.25rem 0.4rem;
+    border:none;
+    border-radius: 0.5rem;
+    background: #1e1c36;
+    color:white;
+    margin: 0.25rem 0 0 auto;
+    transition: 0.5s ease;
+    &:hover {
+        cursor: pointer;
+        transform: translateY(1px);
     }
     @media (max-width: 1000px) {
         padding: 0.5rem 0;
@@ -95,7 +176,7 @@ export const CommentInfo = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
+    padding: 0.5rem 10rem;
 `;
 
 export const CommentsCountDiv = styled.div`

@@ -6,8 +6,13 @@ import {
     CommentUserName,
     CommentText,
     ImageCircleStyle,
+    DeleteCommentButton,
+    EditCommentButton,
+    SaveCommentButton,
 } from "./Comment.styledComponents";
 import ReactImageFallback from "react-image-fallback";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 export const Comment = ({ comment, userData }) => {
@@ -44,6 +49,26 @@ export const Comment = ({ comment, userData }) => {
                     <a href={`/profile/${comment?.createdBy?.id}`}>
                         {comment?.createdBy?.name}
                     </a>
+                    {userData && userData.id === comment?.createdBy?.id && (
+                        <div style={{float:"right"}}>
+                            <DeleteCommentButton
+                                onClick={() => {
+                                    deleteThisComment();
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faTrash} className="icon" fixedWidth />
+                            </DeleteCommentButton>
+                            {!edit && (
+                                <EditCommentButton
+                                    onClick={() => {
+                                        setEdit(true);
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faEdit} className="icon" fixedWidth />
+                                </EditCommentButton>
+                            )}
+                        </div>
+                    )}
                 </CommentUserName>
                 {!edit ? (
                     <CommentText>{comment?.comment}</CommentText>
@@ -55,34 +80,14 @@ export const Comment = ({ comment, userData }) => {
                             }}
                             value={newComment}
                         />
-                        <button
+                        <SaveCommentButton
                             type="submit"
                             onClick={(e) => {
                                 editThisComment(e);
                             }}
                         >
                             Save
-                        </button>
-                    </>
-                )}
-                {userData && userData.id === comment?.createdBy?.id && (
-                    <>
-                        <button
-                            onClick={() => {
-                                deleteThisComment();
-                            }}
-                        >
-                            Delete
-                        </button>
-                        {!edit && (
-                            <button
-                                onClick={() => {
-                                    setEdit(true);
-                                }}
-                            >
-                                Edit
-                            </button>
-                        )}
+                        </SaveCommentButton>
                     </>
                 )}
             </CommentDiv>

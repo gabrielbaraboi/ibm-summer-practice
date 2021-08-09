@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { getPost } from "../../Services/post.service";
 import CommentSection from "../Comment/CommentSection.component";
 import { getCurrentUser } from "../../Services/auth.service";
+import PostCard from "./PostCard.component";
+import { PostDiv } from "./Posts.styledComponents";
 
 const SinglePost = () => {
     const { id } = useParams();
@@ -27,21 +29,10 @@ const SinglePost = () => {
     );
 
     return (
-        <>
-            {post?.title}
-            <br />
-            {post?.description}
-            <br />
-            {post?.createdBy?.name}
-            <br />
-            {post?.workHours}
-            <br />
-            {post?.workPlace}
-            <br />
-            {post?.programmingLanguage}
-            <br />
+        <PostDiv>
+            <PostCard post={post}/>
             <CommentSection userData={userData} />
-        </>
+        </PostDiv>
     );
 };
 

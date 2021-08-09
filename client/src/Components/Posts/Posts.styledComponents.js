@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const PostDiv = styled.div`
-    padding: 15px;
+    padding: 0.5rem;
 `;
 
 export const Posts = styled.div`
@@ -13,7 +13,7 @@ export const PaginationBtn = styled.button`
     color: white;
     transition-duration: 0.4s;
     border: none;
-    border-radius: 0%;
+    border-radius: 0.5rem;
     padding: 8px;
     &:hover {
         background-color: #7a77bb;
@@ -35,8 +35,9 @@ const gradient = (degs) => css`
 export const Card = styled.div`
     position: relative;
     overflow: hidden;
-    width: 800px;
-    height: 180px;
+    width: 100%;
+    min-width: 800px;
+    min-height: 180px;
     padding: 1rem 0;
     border-radius: 0.5rem;
     color: white;
@@ -71,6 +72,11 @@ export const Icon = styled.div`
     color: white;
     ${gradient()};
     box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
+    img{
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+    }
 `;
 
 export const PostTitle = styled.div`

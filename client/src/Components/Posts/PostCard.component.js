@@ -18,7 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import moment from "moment";
-// import ReactImageFallback from 'react-image-fallback';
+import ReactImageFallback from 'react-image-fallback';
 
 const PostCard = ({ post }) => {
     const [features] = useState([
@@ -26,21 +26,22 @@ const PostCard = ({ post }) => {
         `work hours: ` + post?.workHours,
         `work place: ` + post?.workPlace,
     ]);
+
     const created_date = new Date(post?.date);
     return (
         <Card>
             <Content>
                 <Div>
                     <Icon>
-                        <i>
+                        {/* <i>
                             <FontAwesomeIcon
                                 icon={faUserCircle}
                                 className="icon"
                             />
-                        </i>
-                        {/* <ReactImageFallback
+                        </i> */}
+                        <ReactImageFallback
                                 src={`/profile/${post?.createdBy?.id}/getProfilePic`}
-                                fallbackImage={process.env.PUBLIC_URL + '/iconUser.jpg'}/> */}
+                                fallbackImage={process.env.PUBLIC_URL + '/iconUser.jpg'}/>
                     </Icon>
                 </Div>
                 <Group>

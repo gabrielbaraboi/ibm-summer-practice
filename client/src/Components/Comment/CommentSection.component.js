@@ -11,11 +11,13 @@ import {
     CommentsCount,
     CommentsCountText,
     ImageCircleStyle,
+    ButtonWrapper,
 } from "./Comment.styledComponents";
 import { createComment, getAllComments } from "../../Services/comment.service";
 import { useParams } from "react-router-dom";
 import { Comment } from "./Comment.component";
 import { PageSpan, PaginationBtn } from "../Posts/Posts.styledComponents";
+import { Container } from "./Comment.styledComponents";
 
 const CommentSection = ({ userData }) => {
     const { id } = useParams();
@@ -62,7 +64,7 @@ const CommentSection = ({ userData }) => {
     return (
         <>
             <CommentInfo>
-                <h3>Comentarii</h3>
+                <h3>Comments</h3>
                 <CommentsCountDiv>
                     <CommentsCount>{commentsCount}</CommentsCount>
                     <CommentsCountText>
@@ -90,7 +92,7 @@ const CommentSection = ({ userData }) => {
                             onChange={(e) => setCommentValue(e.target.value)}
                         ></CommentInputTextArea>
                         <PostCommentButton onClick={submitComment}>
-                            Posteaza
+                            Post
                         </PostCommentButton>
                     </CommentInputContainer>
                 </AddComment>
@@ -106,18 +108,20 @@ const CommentSection = ({ userData }) => {
                     ></Comment>
                 ))
             )}
-            <div>
-                <PaginationBtn disabled={page <= 1} onClick={goPrevPage}>
-                    {" "}
-                    &lt; Previous Page
-                </PaginationBtn>
-                <PageSpan>
-                    {page}/{totalPages ? totalPages : 1}
-                </PageSpan>
-                <PaginationBtn disabled={!nextPage} onClick={goNextPage}>
-                    Next Page &gt;
-                </PaginationBtn>
-            </div>
+            <Container>
+                <ButtonWrapper>
+                    <PaginationBtn disabled={page <= 1} onClick={goPrevPage}>
+                        {" "}
+                        &lt; Previous Page
+                    </PaginationBtn>
+                    <PageSpan>
+                        {page}/{totalPages ? totalPages : 1}
+                    </PageSpan>
+                    <PaginationBtn disabled={!nextPage} onClick={goNextPage}>
+                        Next Page &gt;
+                    </PaginationBtn>
+                </ButtonWrapper>
+            </Container>
         </>
     );
 };
