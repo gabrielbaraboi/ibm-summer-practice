@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllUsers, getCurrentUser } from "../../Services/auth.service";
 import {
@@ -7,6 +7,7 @@ import {
     getMessages,
     newMessage,
 } from "../../Services/inbox.service";
+import moment from "moment";
 
 const AllConversations = () => {
     const [userData, setUserData] = useState();
@@ -16,6 +17,7 @@ const AllConversations = () => {
     const [currentChat, setCurrentChat] = useState();
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
+    const scrollRef = useRef();
 
     let allUsersFiltered;
 
@@ -54,6 +56,10 @@ const AllConversations = () => {
                 console.log(err);
             });
     }, [currentChat]);
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
     const submitConversation = (e) => {
         e.preventDefault();
@@ -153,10 +159,11 @@ const AllConversations = () => {
                             <>
                                 <div className="chatBoxTop">
                                     {messages.map((message) => (
-                                        // <div ref={scrollRef}>
+                                        <div ref={scrollRef}>
                                             <div
                                                 className={
-                                                    message?.senderID?._id === userData?.id
+                                                    message?.senderID?._id ===
+                                                    userData?.id
                                                         ? "message own"
                                                         : "message"
                                                 }
@@ -171,10 +178,14 @@ const AllConversations = () => {
                                                     </p>
                                                 </div>
                                                 <div className="messageBottom">
-                                                    {/* {format(message?.createdAt)} */}
+                                                    {moment(
+                                                        new Date(
+                                                            message?.dCreatedDate
+                                                        )
+                                                    ).fromNow()}
                                                 </div>
                                             </div>
-                                        // </div>
+                                        </div>
                                     ))}
                                 </div>
                                 <div className="chatBoxBottom">
@@ -202,7 +213,7 @@ const AllConversations = () => {
                     </div>
                 </div>
 
-                {/* {allUsers.length === 0 ? (
+                {allUsers.length === 0 ? (
                     <center>No Users Yet!</center>
                 ) : (
                     <div>
@@ -226,7 +237,7 @@ const AllConversations = () => {
                             New conversation
                         </button>
                     </div>
-                )} */}
+                )}
             </div>
         </>
     );

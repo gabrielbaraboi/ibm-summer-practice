@@ -35,12 +35,6 @@ const PostCard = ({ post }) => {
 			<Content>
 				<Div>
 					<Icon>
-						{/* <i>
-                            <FontAwesomeIcon
-                                icon={faUserCircle}
-                                className="icon"
-                            />
-                        </i> */}
 						<ReactImageFallback
 							src={`/profile/${post?.createdBy?.id}/getProfilePic`}
 							fallbackImage={process.env.PUBLIC_URL + "/iconUser.jpg"}
