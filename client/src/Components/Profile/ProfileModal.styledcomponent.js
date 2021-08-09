@@ -11,10 +11,10 @@ export const BackgroundPage = styled.div`
 `;
 
 export const Group = styled.div`
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     p {
         float: left;
-        margin-top: 10px;
+        
     }
 `;
 
@@ -33,6 +33,7 @@ export const ModalWrapper = styled.div`
 export const ModalContent = styled.div`
     display: block;
     form {
+        display:block;
         width: 100%;
         height: 100%;
     }
@@ -45,6 +46,7 @@ export const ModalContent = styled.div`
         border: none;
         cursor: pointer;
         margin-left: 5px;
+        margin-top: 10px;
         float: left;
         &:hover {
             background-color: whitesmoke;
@@ -55,6 +57,8 @@ export const ModalContent = styled.div`
         resize: none;
         width: 90%;
         height: 160px;
+        min-width 300px;
+        min-height: 150px;
     }
 `;
 
@@ -64,7 +68,7 @@ export const CloseModalButton = styled.button`
     color: black;
     cursor: pointer;
     position: absolute;
-    top: 15px;
+    top: 5px;
     right: 10px;
     width: 24px;
     height: 24px;

@@ -77,6 +77,8 @@ const Profile = () => {
     };
 
     return (
+        <>
+        {isUserData() ? 
         <ProfileContainer>
             <Modal
                 isOpen={showModalProfilePic}
@@ -84,7 +86,6 @@ const Profile = () => {
                 onRequestClose={openModalProfilePic}
             >
                 <ModalClose onClick={openModalProfilePic}>X</ModalClose>
-
                 <ModalForm onSubmit={handleSubmitProfilePic}>
                     <label htmlFor="profilePic">Select a Photo</label>
                     <input
@@ -292,12 +293,14 @@ const Profile = () => {
                             )
                         ) : (
                             ""
-                        )}
-                        <span>{userData?.about}</span>
+                        )} 
                     </Group>
+                    <span>{userData?.about}</span>
                 </AboutContainer>
             </Container>
         </ProfileContainer>
+        : ""}
+        </>
     );
 };
 

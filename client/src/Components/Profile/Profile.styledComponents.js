@@ -157,9 +157,10 @@ export const LinksCard = styled.div`
     overflow: hidden;
     position: relative;
     width: 50%;
-    height: 38vh;
+    height: 20vw;
     ul {
         height: 75%;
+        margin-bottom: 30px;
         list-style-type: none;
         padding: 10px 15px 15px 15px;
     }
