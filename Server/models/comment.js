@@ -12,10 +12,6 @@ var commentSchema = new mongoose.Schema(
 		parentPostId: {
 			type: String,
 		},
-		date: {
-			type: Date,
-			default: Date.now,
-		},
 	},
 	{
 		timestamps: {

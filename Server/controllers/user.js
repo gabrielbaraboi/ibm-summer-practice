@@ -8,7 +8,7 @@ const Utils = require("../utils/utilFunctions");
 
 const registerUser = async (req, res) => {
 	try {
-		const data = JSON.parse(req.body.data)
+		const data = JSON.parse(req.body.data);
 		const { email, role } = data;
 		const image = req.file;
 		console.log(image);
@@ -102,6 +102,19 @@ const loginUser = async (req, res) => {
 		console.log(err);
 	}
 };
+const getAllUsers = async (req, res) => {
+	try {
+		const users = await User.find();
+		users.push(await Company.find());
+		if (users) {
+			res.status(200).json(users);
+		} else {
+			res.status(400).json({ message: "Can`t find any User" });
+		}
+	} catch (err) {
+		res.status(400).json({ message: "Can`t get any user" });
+	}
+};
 
 //FUNCTIONS
 // encrypt password function
@@ -125,4 +138,4 @@ async function isEmailAlreadyUsed(email) {
 	return false;
 }
 
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser, getAllUsers };
