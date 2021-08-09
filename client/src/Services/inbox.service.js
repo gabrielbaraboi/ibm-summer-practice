@@ -24,3 +24,26 @@ export const getAllConversations = async () => {
         throw error;
     }
 };
+
+
+export const newMessage = async (id, data) => {
+    try {
+        const res = await axios.post(API_URL + id, data, {
+            headers: authHeader(),
+        });
+        return res;
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getMessages = async (id) => {
+    try {
+        const res = await axios.get(API_URL + id, {
+            headers: authHeader()
+        });
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};

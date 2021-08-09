@@ -1,5 +1,0 @@
-const ConversationCard = () => {
-    return (
-        "Conversation"
-    );
-}

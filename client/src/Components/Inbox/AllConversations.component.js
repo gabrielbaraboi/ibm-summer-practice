@@ -12,6 +12,8 @@ const AllConversations = () => {
     const [allCompanies, setAllCompanies] = useState([]);
     const [member, setMember] = useState("");
     const [conversations, setConversations] = useState([]);
+    let allUsersFiltered;
+    let allCompaniesFiltered;
 
     useEffect(() => {
         const currentUserData = getCurrentUser();
@@ -19,10 +21,9 @@ const AllConversations = () => {
     }, []);
 
     useEffect(() => {
-        getAllUsers()
+        getAllConversations(userData?.id)
             .then((res) => {
-                setAllUsers(res.data.users);
-                setAllCompanies(res.data.companies);
+                setConversations(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -30,9 +31,10 @@ const AllConversations = () => {
     }, []);
 
     useEffect(() => {
-        getAllConversations(userData?.id)
+        getAllUsers()
             .then((res) => {
-                setConversations(res.data);
+                setAllUsers(res.data.users);
+                setAllCompanies(res.data.companies);
             })
             .catch((err) => {
                 console.log(err);
@@ -47,6 +49,14 @@ const AllConversations = () => {
             window.location.reload();
         }
     };
+
+    allUsersFiltered = allUsers.filter(
+        (ar) => !conversations.find((rm) => rm.member2 === ar._id)
+    );
+    allCompaniesFiltered = allCompanies.filter(
+        (ar) => !conversations.find((rm) => rm.member2 === ar._id)
+    );
+
 
     return (
         <>
@@ -63,7 +73,7 @@ const AllConversations = () => {
                                     }}
                                 >
                                     <option value="">Select a member!</option>
-                                    {allUsers?.map(
+                                    {allUsersFiltered?.map(
                                         (user, idx) =>
                                             user?._id !== userData.id && (
                                                 <option
@@ -74,7 +84,7 @@ const AllConversations = () => {
                                                 </option>
                                             )
                                     )}
-                                    {allCompanies?.map(
+                                    {allCompaniesFiltered?.map(
                                         (company, idx) =>
                                             company?._id !== userData.id && (
                                                 <option
