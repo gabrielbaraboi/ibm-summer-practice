@@ -74,16 +74,10 @@ const updateComment = async (req, res) => {
 		const postExist = await Post.findById(req.params.id);
 		if (postExist) {
 			if (authorization === 1) {
-				await Comment.findByIdAndUpdate(
-					req.params.commentId,
-					req.body,
-					(err, updatedComment) => {
-						if (err) {
-							res.status(400).json({ message: "Can`t update comment" });
-						}
-						res.status(200).json(updatedComment);
-					}
-				);
+				const comment = await Comment.findById(req.params.commentId);
+				comment.comment = req.body.comment;
+				await comment.save();
+				res.status(200).json({ message: "Comment updated!" });
 			} else if (authorization === 3) {
 				res.status(400).json({ message: "Comment dosen`t exist!" });
 			} else {

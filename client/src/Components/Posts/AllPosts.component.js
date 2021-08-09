@@ -58,15 +58,19 @@ const AllPosts = () => {
             .catch((err) => console.log(err));
     }, [page, values]);
 
-    getWorkPlaces()
-        .then((res) => {
-            setWorkPlaces(
-                Array.from(new Set(res.data.workPlaces.map((a) => a.workPlace)))
-            );
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    useEffect(() => {
+        getWorkPlaces()
+            .then((res) => {
+                setWorkPlaces(
+                    Array.from(
+                        new Set(res.data.workPlaces.map((a) => a.workPlace))
+                    )
+                );
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     return (
         <Posts>

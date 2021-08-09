@@ -8,14 +8,26 @@ import {
     ImageCircleStyle,
 } from "./Comment.styledComponents";
 import ReactImageFallback from "react-image-fallback";
+import { useState } from "react";
 
 export const Comment = ({ comment, userData }) => {
+    const [edit, setEdit] = useState(false);
+    const [newComment, setNewComment] = useState(comment?.comment);
     const deleteThisComment = () => {
         deleteComment(comment._id)
             .then(() => {
                 window.location.reload();
             })
             .catch((err) => console.log(err));
+    };
+
+    const editThisComment = (e) => {
+        e.preventDefault();
+        const newCommentText = newComment;
+        if (/\S/.test(newCommentText)) {
+            updateComment(comment?.parentPostId, comment?._id, { comment: newCommentText });
+            window.location.reload();
+        }
     };
 
     return (
@@ -33,15 +45,45 @@ export const Comment = ({ comment, userData }) => {
                         {comment?.createdBy?.name}
                     </a>
                 </CommentUserName>
-                <CommentText>{comment?.comment}</CommentText>
+                {!edit ? (
+                    <CommentText>{comment?.comment}</CommentText>
+                ) : (
+                    <>
+                        <input
+                            onChange={(e) => {
+                                setNewComment(e.target.value);
+                            }}
+                            value={newComment}
+                        />
+                        <button
+                            type="submit"
+                            onClick={(e) => {
+                                editThisComment(e);
+                            }}
+                        >
+                            Save
+                        </button>
+                    </>
+                )}
                 {userData && userData.id === comment?.createdBy?.id && (
-                    <button
-                        onClick={(e) => {
-                            deleteThisComment();
-                        }}
-                    >
-                        Delete
-                    </button>
+                    <>
+                        <button
+                            onClick={() => {
+                                deleteThisComment();
+                            }}
+                        >
+                            Delete
+                        </button>
+                        {!edit && (
+                            <button
+                                onClick={() => {
+                                    setEdit(true);
+                                }}
+                            >
+                                Edit
+                            </button>
+                        )}
+                    </>
                 )}
             </CommentDiv>
         </Container>

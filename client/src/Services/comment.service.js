@@ -41,16 +41,16 @@ export const deleteComment = async (commentId) => {
     }
 };
 
-export const updateComment = async (commentId, data) => {
+export const updateComment = async (id, commentId, data) => {
     try {
         const res = await axios.put(
-            API_URL + commentId, data,
+            API_URL + `posts/${id}/comments/` + commentId, data,
             {
                 headers: authHeader(),
             }
         );
         return res;
     } catch (error) {
-        throw error;
+        console.log(error);
     }
 };

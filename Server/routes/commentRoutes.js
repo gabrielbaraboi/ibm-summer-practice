@@ -6,7 +6,7 @@ const OwnerShip = require("../middleware/checkOwnership");
 
 router.post("/posts/:id/comments", auth, controller.createComment);
 router.get("/posts/:id/comments", controller.sendAllComments);
-router.put("/:commentId", auth, controller.updateComment);
+router.put("/posts/:id/comments/:commentId", auth, controller.updateComment);
 router.delete("/:commentId", auth, controller.deleteComment);
 
 module.exports = router;
