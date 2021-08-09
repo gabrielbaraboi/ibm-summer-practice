@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const Company = require("../models/company");
 const Post = require("../models/post");
-const QueryBuilder = require('../utils/QueryBuilder');
+const QueryBuilder = require("../utils/QueryBuilder");
 const postsPerPage = 3;
 
 const getAllPosts = async (req, res) => {
@@ -13,27 +13,25 @@ const getAllPosts = async (req, res) => {
 
 	try {
 		result.posts = await Post.find(QueryBuilder.getQuery(filterParams))
-			.sort({ "date": -1 })
+			.sort({ date: -1 })
 			.skip(startIndex)
-			.limit(postsPerPage)
-
+			.limit(postsPerPage);
 		if (result.posts.length === 0)
-			res.status(200).json({ message: "no post found matching your filter" });
+			res.status(404).json({ message: "No post found matching your filter" });
 		else {
-			const count = await Post.countDocuments(QueryBuilder.getQuery(filterParams));
-			if (startIndex > 0)
-				result.previous = page - 1;
-			if (endIndex < count)
-				result.next = page + 1;
-			result.total = Math.ceil((count) / postsPerPage)
+			const count = await Post.countDocuments(
+				QueryBuilder.getQuery(filterParams)
+			);
+			if (startIndex > 0) result.previous = page - 1;
+			if (endIndex < count) result.next = page + 1;
+			result.total = Math.ceil(count / postsPerPage);
 			res.status(200).json(result);
 		}
-
 	} catch (error) {
 		console.log(error);
 		res.status(500).json(error.message);
 	}
-}
+};
 
 const getSpecificPost = async (req, res) => {
 	await Post.findById(req.params.id, (err, Post) => {
@@ -117,13 +115,13 @@ const deletePost = async (req, res) => {
 };
 
 const getWorkPlaces = async (req, res) => {
-    try {
-        const workPlaces = await Post.find({}, 'workPlace');
-        return res.status(200).json({ workPlaces });
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
-    }
-}
+	try {
+		const workPlaces = await Post.find({}, "workPlace");
+		return res.status(200).json({ workPlaces });
+	} catch (error) {
+		return res.status(400).json({ message: error.message });
+	}
+};
 
 module.exports = {
 	getAllPosts,
@@ -131,5 +129,5 @@ module.exports = {
 	createPost,
 	deletePost,
 	updatePost,
-	getWorkPlaces
+	getWorkPlaces,
 };
