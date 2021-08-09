@@ -1,5 +1,18 @@
 import React, { useState } from 'react'
-import { Body, Container, RegisterForm, Input, H1Reg, H1, InputContainer, SignInA, RegisterContainer, SignUpInput, LabelReg, Div, Dropdown, DropdownContainer } from './Auth.styledComponents';
+import { AuthContainer, 
+    Container, 
+    RegisterForm, 
+    Input,
+    TitleReg, 
+    TitleLog, 
+    InputContainer, 
+    SignInLink, 
+    RegisterContainer, 
+    SignUpInput,
+    InputWrapper, 
+    Dropdown,
+    IconReg,
+    DropdownContainer } from './Auth.styledComponents';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router';
@@ -41,10 +54,10 @@ const Register = ({ onSubmit, authError }) => {
     };
 
     return (
-        <Body>
+        <AuthContainer>
             <Container>
                 <RegisterForm onSubmit={handleSubmit}>
-                    <H1Reg>Sign up</H1Reg>
+                    <TitleReg>Sign up</TitleReg>
                     <DropdownContainer>
                         <Dropdown required onChange={handleChange} name="role">
                             <option defaultValue={values.role === "Student"} value={'Student'}>Student</option>
@@ -54,83 +67,128 @@ const Register = ({ onSubmit, authError }) => {
                     {values.role === 'Student' &&
                         <React.Fragment>
                             <InputContainer>
-                                <LabelReg><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></LabelReg>
-                                <Div>
-                                    <Input autoComplete="off" placeholder="First Name" className={`input ${errors.firstName && 'is-danger'}`} type="text" name="firstName" onChange={handleChange} value={values.firstName || ''} />
+                                <IconReg>
+                                    <FontAwesomeIcon icon={faUser} className="icon" fixedWidth />
+                                </IconReg>
+                                <InputWrapper>
+                                    <Input 
+                                        autoComplete="off" 
+                                        placeholder="First Name" 
+                                        className={`input ${errors.firstName && 'is-danger'}`} 
+                                        type="text" 
+                                        name="firstName" 
+                                        onChange={handleChange} 
+                                        value={values.firstName || ''} 
+                                    />
                                     {errors.firstName && (
                                         <p className="help is-danger">{errors.firstName}</p>
                                     )}
-                                </Div>
+                                </InputWrapper>
                             </InputContainer>
                             <InputContainer>
-                                <LabelReg><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></LabelReg>
-                                <Div>
-                                    <Input autoComplete="off" placeholder="Last Name" className={`input ${errors.lastName && 'is-danger'}`} type="text" name="lastName" onChange={handleChange} value={values.lastName || ''} />
+                                <IconReg>
+                                    <FontAwesomeIcon icon={faUser} className="icon" fixedWidth />
+                                </IconReg>
+                                <InputWrapper>
+                                    <Input 
+                                        autoComplete="off" 
+                                        placeholder="Last Name" 
+                                        className={`input ${errors.lastName && 'is-danger'}`} 
+                                        type="text" 
+                                        name="lastName" 
+                                        onChange={handleChange} 
+                                        value={values.lastName || ''} />
                                     {errors.lastName && (
                                         <p className="help is-danger">{errors.lastName}</p>
                                     )}
-                                </Div>
+                                </InputWrapper>
                             </InputContainer>
                         </React.Fragment>
                     }
                     {values.role === 'Company' &&
                         <InputContainer>
-                            <LabelReg><FontAwesomeIcon icon={faUser} className="icon" fixedWidth /></LabelReg>
-                            <Div>
-                                <Input autoComplete="off" placeholder="Company Name" className={`input ${errors.companyName && 'is-danger'}`} type="text" name="companyName" onChange={handleChange} value={values.companyName || ''} />
+                            <IconReg>
+                                <FontAwesomeIcon icon={faUser} className="icon" fixedWidth />
+                            </IconReg>
+                            <InputWrapper>
+                                <Input 
+                                autoComplete="off" 
+                                placeholder="Company Name" 
+                                className={`input ${errors.companyName && 'is-danger'}`}
+                                type="text" 
+                                name="companyName" 
+                                onChange={handleChange} 
+                                value={values.companyName || ''} />
                                 {errors.companyName && (
                                     <p className="help is-danger">{errors.companyName}</p>
                                 )}
-                            </Div>
+                            </InputWrapper>
                         </InputContainer>
                     }
                     <InputContainer>
-                        <LabelReg><FontAwesomeIcon icon={faEnvelope} className="icon" fixedWidth /></LabelReg>
-                        <Div>
-                            <Input autoComplete="off" placeholder="Email" className={`input ${errors.email && 'is-danger'}`} type="email" name="email" onChange={handleChange} value={values.email || ''} />
+                        <IconReg>
+                            <FontAwesomeIcon icon={faEnvelope} className="icon" fixedWidth />
+                        </IconReg>
+                        <InputWrapper>
+                            <Input 
+                                autoComplete="off" 
+                                placeholder="Email" 
+                                className={`input ${errors.email && 'is-danger'}`} 
+                                type="email" 
+                                name="email" 
+                                onChange={handleChange} 
+                                value={values.email || ''} 
+                            />
                             {errors.email && (
                                 <p className="help is-danger">{errors.email}</p>
                             )}
-                        </Div>
+                        </InputWrapper>
                     </InputContainer>
                     <InputContainer>
-                        <LabelReg><FontAwesomeIcon icon={faLock} className="icon" fixedWidth /></LabelReg>
-                        <Div>
+                        <IconReg>
+                            <FontAwesomeIcon icon={faLock} className="icon" fixedWidth />
+                        </IconReg>
+                        <InputWrapper>
                             <Input autoComplete="off" placeholder="Password" className={`input ${errors.password && 'is-danger'}`} type="password" name="password" onChange={handleChange} value={values.password || ''} />
                             {errors.password && (
                                 <p className="help is-danger">{errors.password}</p>
                             )}
-                        </Div>
+                        </InputWrapper>
                     </InputContainer>
                     <InputContainer>
-                        <LabelReg><FontAwesomeIcon icon={faLock} className="icon" fixedWidth /></LabelReg>
-                        <Div>
+                        <IconReg>
+                            <FontAwesomeIcon icon={faLock} className="icon" fixedWidth />
+                        </IconReg>
+                        <InputWrapper>
                             <Input autoComplete="off" placeholder="Confirm Password" className={`input ${errors.confirmPassword && 'is-danger'}`} type="password" name="confirmPassword" onChange={handleChange} value={values.confirmPassword || ''} />
                             {errors.confirmPassword && (
                                 <p className="help is-danger">{errors.confirmPassword}</p>
                             )}
-                        </Div>
+                        </InputWrapper>
                     </InputContainer>
                     <InputContainer>
-                        <Div>
+                        <InputWrapper>
+                            <label htmlFor="profilePic">Select a Photo</label>
                             <input
                                 filename={file}
                                 onChange={e => setFile(e.target.files[0])}
                                 type="file"
                                 accept="image/*"
+                                id="profilePic"
+                                hidden
                             ></input>
-                        </Div>
+                        </InputWrapper>
                     </InputContainer>
                     <SignUpInput type="submit" value="Sign Up" />
                     <p className="help is-danger">{authError}</p>
                 </RegisterForm>
                 <RegisterContainer>
-                    <H1> Welcome </H1>
+                    <TitleLog> Welcome </TitleLog>
                     <p>Already have an account?</p>
-                    <SignInA href="/login">Sign in</SignInA>
+                    <SignInLink href="/login">Sign in</SignInLink>
                 </RegisterContainer>
             </Container>
-        </Body>
+        </AuthContainer>
     )
 }
 

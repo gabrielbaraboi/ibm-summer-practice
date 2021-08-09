@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import AllPosts from "./Components/Posts/AllPosts.component";
-import Login from "./Components/Auth/Login";
-import Register from "./Components/Auth/Register";
+import Login from "./Components/Auth/Login.component";
+import Register from "./Components/Auth/Register.component";
 import AddPost from "./Components/Posts/AddPost.component";
 import AuthVerify from "./Services/auth.service";
 import { Main, Layout } from "./Components/Global.styledComponents";

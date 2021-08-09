@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Body = styled.div`
+export const AuthContainer = styled.div`
     text-align: center;
     background: #1b1830;
     display: flex;
@@ -79,7 +79,7 @@ export const RegisterContainer = styled.div`
     }
 `;
 
-export const Label = styled.label`
+export const IconLogin = styled.label`
     float: left;
     border: 0;
     font-size: 18px;
@@ -87,7 +87,7 @@ export const Label = styled.label`
     padding: 1vh 1vh;
 `;
 
-export const LabelReg = styled.label`
+export const IconReg = styled.label`
     color: #7cb5e4;
     float: left;
     border: 0;
@@ -96,7 +96,7 @@ export const LabelReg = styled.label`
     padding: 1vh 1vh;
 `;
 
-export const Div = styled.div`
+export const InputWrapper = styled.div`
     overflow: hidden;
     margin-bottom: 0px;
 `;
@@ -110,6 +110,12 @@ export const LoginForm = styled.form`
     height: 100%;
     text-align: center;
     width: 50%;
+    a{
+        color: #333;
+        font-size: 14px;
+        text-decoration: none;
+        margin: 15px;
+    }
 `;
 
 export const RegisterForm = styled.form`
@@ -134,16 +140,14 @@ export const Input = styled.input`
     }
 `;
 
-export const H1 = styled.h1`
+export const TitleLog = styled.h1`
     font-weight: bold;
-    margin: 0;
     margin-bottom: 10px;
 `;
 
-export const H1Reg = styled.h1`
+export const TitleReg = styled.h1`
     color: white;
     font-weight: bold;
-    margin: 0;
     margin-bottom: 10px;
 `;
 
@@ -153,13 +157,6 @@ export const Dropdown = styled.select`
     outline: none;
     color: #333;
     font-size: 14px;
-`;
-
-export const A = styled.a`
-    color: #333;
-    font-size: 14px;
-    text-decoration: none;
-    margin: 15px;
 `;
 
 export const SignUpA = styled.a`
@@ -182,7 +179,7 @@ export const SignUpA = styled.a`
     }
 `;
 
-export const SignInA = styled.a`
+export const SignInLink = styled.a`
     border-radius: 20px;
     border: 1px solid #1d1b31;
     background-color: #1d1b31;
@@ -214,6 +211,7 @@ export const SignInput = styled.input`
     text-transform: uppercase;
     transition: transform 80ms ease-in;
     cursor: pointer;
+    margin-top: 10px;
     &:active {
         transform: scale(0.95);
     }
