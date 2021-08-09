@@ -2,7 +2,7 @@ const User = require("../models/user");
 const Company = require("../models/company");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
-
+const commentsPerPage = 3;
 const createComment = async (req, res) => {
 	let name;
 	const postId = req.params.id;
@@ -50,17 +50,34 @@ const createComment = async (req, res) => {
 };
 const sendAllComments = async (req, res) => {
 	const postId = req.params.id;
-	const result = {}
+	const page = parseInt(req.query.page);
+	const startIndex = (page - 1) * commentsPerPage;
+	const endIndex = page * commentsPerPage;
+	const result = {};
 
-	await Comment.find({ parentPostId: postId }, (err, comments) => {
-		if (err) {
-			res.status(400).json({ message: "Can`t get comments!" });
+	try {
+		result.comments = await Comment.find({ parentPostId: postId })
+			.sort({
+				updatedAt: -1,
+			})
+			.skip(startIndex)
+			.limit(commentsPerPage);
+
+		if (result.comments.length === 0) {
+			res.status(404).json({ message: "This post has no comments yet" });
 		} else {
-			result.comments = comments.reverse();
-			result.count = comments.length;
-			res.json(result);
+			const count = await Comment.countDocuments({
+				parentPostId: postId,
+			});
+			if (startIndex > 0) result.previous = page - 1;
+			if (endIndex < count) result.next = page + 1;
+			result.total = Math.ceil(count / commentsPerPage);
+			res.status(200).json(result);
 		}
-	});
+	} catch (err) {
+		res.status(400).json({ message: "Can`t get comments!" });
+		console.log(err);
+	}
 };
 
 const updateComment = async (req, res) => {
