@@ -27,7 +27,9 @@ const PostCard = ({ post }) => {
 		`work place: ` + post?.workPlace,
 	]);
 
-	const created_date = new Date(post?.date);
+	console.log(post);
+
+	const created_date = new Date(post?.dCreatedDate);
 	return (
 		<Card>
 			<Content>
@@ -75,9 +77,9 @@ const PostCard = ({ post }) => {
 						</FeatureListItem>
 					))}
 				</PostRequirements>
-				{/* <Link to={`/post/${post?._id}`}>
+				<Link to={`/post/${post?._id}`}>
                     <ActionButton>Show more</ActionButton>
-                </Link> */}
+                </Link>
 			</Content>
 		</Card>
 	);

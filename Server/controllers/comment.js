@@ -53,6 +53,7 @@ const getAllComments = async (req, res) => {
 	const startIndex = (page - 1) * commentsPerPage;
 	const endIndex = page * commentsPerPage;
 	const result = {};
+	result.commentsPerPage = commentsPerPage;
 
 	try {
 		result.comments = await Comment.find({ parentPostId: postId })
@@ -71,6 +72,7 @@ const getAllComments = async (req, res) => {
 			if (startIndex > 0) result.previous = page - 1;
 			if (endIndex < count) result.next = page + 1;
 			result.total = Math.ceil(count / commentsPerPage);
+			result.count = count;
 			res.status(200).json(result);
 		}
 	} catch (err) {

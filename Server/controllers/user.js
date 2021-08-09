@@ -78,8 +78,7 @@ const loginUser = async (req, res) => {
 			responseUser = {
 				id: user._id,
 				email: user.email,
-				// firstName: user.firstName,
-				// lastName: user.lastName,
+				role: user.role
 			};
 			if (user.role === "Student") {
 				responseUser.firstName = user.firstName;

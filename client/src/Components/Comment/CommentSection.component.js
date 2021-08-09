@@ -42,14 +42,10 @@ const CommentSection = ({ userData }) => {
         }
     };
 
-    console.log(nextPage);
-
-
     useEffect(
         () =>
             getAllComments(id, page)
                 .then((res) => {
-                    console.log(res.data);
                     setComments(res.data.comments);
                     setNextPage(res.data.next);
                     setTotalPages(res.data.total);

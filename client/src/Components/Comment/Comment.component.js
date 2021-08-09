@@ -20,9 +20,7 @@ export const Comment = ({ comment, userData }) => {
     const [newComment, setNewComment] = useState(comment?.comment);
     const deleteThisComment = () => {
         deleteComment(comment._id)
-            .then(() => {
-                window.location.reload();
-            })
+            .then()
             .catch((err) => console.log(err));
     };
 
@@ -31,7 +29,6 @@ export const Comment = ({ comment, userData }) => {
         const newCommentText = newComment;
         if (/\S/.test(newCommentText)) {
             updateComment(comment?.parentPostId, comment?._id, { comment: newCommentText });
-            window.location.reload();
         }
     };
 

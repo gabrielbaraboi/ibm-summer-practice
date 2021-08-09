@@ -32,6 +32,7 @@ export const deleteComment = async (commentId) => {
         const res = await axios.delete(API_URL + commentId, {
             headers: authHeader(),
         });
+        window.location.reload();
         return res;
     } catch (error) {
         throw error;
@@ -43,6 +44,7 @@ export const updateComment = async (id, commentId, data) => {
         const res = await axios.put(API_URL + id + "/" + commentId, data, {
             headers: authHeader(),
         });
+        window.location.reload();
         return res;
     } catch (error) {
         console.log(error);
