@@ -1,5 +1,5 @@
 const User = require("../models/user");
-
+const mongoose = require("mongoose");
 const Post = require("../models/post");
 const QueryBuilder = require("../utils/QueryBuilder");
 const postsPerPage = 3;
@@ -14,6 +14,7 @@ const getAllPosts = async (req, res) => {
 	try {
 		result.posts = await Post.find(QueryBuilder.getQuery(filterParams))
 			.sort({ dUpdatedDate: -1 })
+			.populate("createdBy", "firstName lastName companyName")
 			.skip(startIndex)
 			.limit(postsPerPage);
 		if (result.posts.length === 0)
@@ -53,22 +54,14 @@ const createPost = async (req, res) => {
 	if (user) {
 		//Student
 		if (user.role === "Student") {
-			createdBy = {
-				id: user._id,
-				name: user.firstName + " " + user.lastName,
-			};
 			type = "request";
 		} else {
-			createdBy = {
-				id: user._id,
-				name: user.companyName,
-			};
 			type = "offer";
 		}
 		const newPost = {
 			type: type,
 			description: req.body.description,
-			createdBy: createdBy,
+			createdBy: mongoose.Types.ObjectId(user._id),
 			title: req.body.title,
 			programmingLanguage: req.body.programmingLanguage,
 			workHours: req.body.workHours,

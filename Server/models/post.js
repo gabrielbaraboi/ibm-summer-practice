@@ -6,11 +6,8 @@ var PostSchema = new mongoose.Schema(
 		type: { type: String, required: true, enum: [`offer`, "request"] },
 		description: { type: String, required: true },
 		createdBy: {
-			id: {
-				type: mongoose.Schema.Types.ObjectID,
-				ref: User,
-			},
-			name: String,
+			type: mongoose.Schema.Types.ObjectID,
+			ref: User,
 		},
 		title: { type: String, required: true },
 		programmingLanguage: { type: String, required: true },

@@ -55,7 +55,9 @@ const PostCard = ({ post }) => {
 					<Author>
 						Created by
 						<Link to={`/profile/${post?.createdBy?.id}`}>
-							{post?.createdBy.name}
+							{post?.createdBy?.firstName}
+							{post?.createdBy?.lastName}
+							{post?.createdBy?.companyName}
 						</Link>
 					</Author>
 					<Data>{moment(created_date).fromNow()}</Data>
