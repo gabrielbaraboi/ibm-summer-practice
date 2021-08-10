@@ -15,20 +15,16 @@ import {
 	ActionButton,
 	CardDivider,
 } from "./Posts.styledComponents";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import ReactImageFallback from "react-image-fallback";
 
 const PostCard = ({ post }) => {
 	const [features] = useState([
-		// post?.programmingLanguage,
-		`work hours: ` + post?.workHours,
-		`work place: ` + post?.workPlace,
+		post?.programmingLanguage,
+		post?.workHours,
+		post?.workPlace
 	]);
-
-	console.log(post);
 
 	const created_date = new Date(post?.dCreatedDate);
 	return (
@@ -37,7 +33,7 @@ const PostCard = ({ post }) => {
 				<Div>
 					<Icon>
 						<ReactImageFallback
-							src={`/profile/${post?.createdBy?.id}/getProfilePic`}
+							src={`/profile/${post?.createdBy?._id}/getProfilePic`}
 							fallbackImage={process.env.PUBLIC_URL + "/iconUser.jpg"}
 						/>
 					</Icon>
@@ -70,7 +66,7 @@ const PostCard = ({ post }) => {
 						<FeatureListItem>{item}</FeatureListItem>
 					))}
 				</PostItems>
-				<PostDescription>Job-Description</PostDescription>
+				<PostDescription>{post?.description.length > 100 ? post?.description.slice(0, 100) + "..." : post?.description}</PostDescription>
 				<PostRequirements>
 					{post?.requirements.map((req, idx) => (
 						<FeatureListItem key={idx}>

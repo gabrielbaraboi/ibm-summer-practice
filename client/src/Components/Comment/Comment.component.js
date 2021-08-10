@@ -36,17 +36,19 @@ export const Comment = ({ comment, userData }) => {
         <Container>
             <ImageDiv>
                 <ReactImageFallback
-                    src={`/profile/${comment?.createdBy?.id}/getProfilePic`}
+                    src={`/profile/${comment?.createdBy?._id}/getProfilePic`}
                     fallbackImage={process.env.PUBLIC_URL + "/iconUser.jpg"}
                     style={ImageCircleStyle}
                 />
             </ImageDiv>
             <CommentDiv>
                 <CommentUserName>
-                    <a href={`/profile/${comment?.createdBy?.id}`}>
-                        {comment?.createdBy?.name}
+                    <a href={`/profile/${comment?.createdBy?._id}`}>
+                        {comment?.createdBy?.firstName}
+                        {comment?.createdBy?.lastName}
+                        {comment?.createdBy?.companyName}
                     </a>
-                    {userData && userData.id === comment?.createdBy?.id && (
+                    {userData && userData.id === comment?.createdBy?._id && (
                         <div style={{float:"right"}}>
                             <DeleteCommentButton
                                 onClick={() => {
