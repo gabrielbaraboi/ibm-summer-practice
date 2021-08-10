@@ -4,7 +4,12 @@ const jwt = require("jsonwebtoken");
 const ibm = require("./IBMfunctions");
 const fs = require("fs");
 const Utils = require("../utils/utilFunctions");
+const Key = require("../models/key");
+const Mailer = require("../config/nodemailer");
+const Post = require("../models/post");
+const Comment = require("../models/comment");
 
+//nodemailer setup
 const registerUser = async (req, res) => {
 	try {
 		const data = JSON.parse(req.body.data);
@@ -110,6 +115,92 @@ const getAllUsers = async (req, res) => {
 	}
 };
 
+const generateSecurityKey = async (req, res) => {
+	try
+	{
+		const secret = genRandomString();
+		console.log(secret);
+		const user = await User.findById(req.user._id);
+		Mailer.transporter.sendMail(Mailer.setOptions(user.email,secret),async (err,data)=>{
+			if(err)
+			{
+				console.log(err);
+				res.status(400).json({message: "can't send the security key to your email"})
+			}
+			else
+			{	
+				const ExistingKey = await Key.findOne({OwnerID: req.user._id})
+				if(ExistingKey)
+				{
+					ExistingKey.content = secret;
+					await ExistingKey.save();
+					res.status(200).json({message: "key sent"});
+				}
+				else
+				{
+					await Key.create({
+						content:secret,
+						OwnerID:req.user._id
+					})
+					res.status(200).json({message: "key sent"})
+				}
+			}
+		})
+	}
+	catch(e)
+	{
+		console.log(e);
+		res.status(400).json(e.message);
+	}
+}
+const changePassword = async (req,res) => {
+	try {
+		const user = await User.findById(req.user._id);
+		if(req.body.password)
+		{
+			user.password = await encryptPass(req.body.password);
+			await user.save();
+			res.status(200).json({message: "password changed succesfully"});
+		}
+		else
+		{
+			res.status(400).json({message: "password can't be null"});
+		}
+	} catch (e) {
+		console.log(e);
+		res.status(400).json(e.message);
+	}
+}
+const deleteAccount = async (req,res) => {
+	try{
+		//delete all comments sent by user
+		await Comment.deleteMany({'createdBy' : req.user._id})
+		//get all posts created by user
+		const posts = await Post.find({'createdBy' : req.user._id})
+		posts.forEach(async el => {
+			//iterate through each post created by the user
+			//deleted all comments added on that particular post
+			console.log(el._id);
+			await Comment.deleteMany({'parentPostId': el._id});
+			//delete the post itself 
+			
+			await Post.findByIdAndDelete(el._id);	
+		});
+		await User.findByIdAndDelete(req.user._id);
+		res.status(200).json({message: "account deleted successfully"});
+	}catch(e)
+	{
+		console.log(e);
+		res.status(500).json(e.message);
+	}
+}
+const Test = (req,res) => {
+	res.status(200).json({message: "check key middleware works"});
+}
+function genRandomString()
+{
+	return Math.random().toString(36).substr(2,5);
+}
 //FUNCTIONS
 // encrypt password function
 async function encryptPass(pass) {
@@ -131,4 +222,4 @@ async function isEmailAlreadyUsed(email) {
 	return false;
 }
 
-module.exports = { registerUser, loginUser, getAllUsers };
+module.exports = { registerUser, loginUser, getAllUsers,generateSecurityKey,Test,changePassword,deleteAccount };
