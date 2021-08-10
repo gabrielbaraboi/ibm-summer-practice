@@ -1,14 +1,9 @@
 const mongoose = require("mongoose");
-
+const User = require("./user");
 var commentSchema = new mongoose.Schema(
 	{
 		comment: String,
-		createdBy: {
-			id: {
-				type: mongoose.Schema.Types.ObjectId,
-			},
-			name: String,
-		},
+		createdBy: { type: mongoose.Schema.Types.ObjectId, ref: User },
 		parentPostId: {
 			type: String,
 		},

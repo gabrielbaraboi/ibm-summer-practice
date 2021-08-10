@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const mongoose = require("mongoose");
 const commentsPerPage = 3;
 const createComment = async (req, res) => {
 	let name;
@@ -27,7 +28,7 @@ const createComment = async (req, res) => {
 
 				const newComment = {
 					comment: req.body.comment,
-					createdBy: createdBy,
+					createdBy: mongoose.Types.ObjectId(user._id),
 					parentPostId: postId,
 				};
 
@@ -60,6 +61,7 @@ const getAllComments = async (req, res) => {
 			.sort({
 				dUpdatedDate: -1,
 			})
+			.populate("createdBy", "firstName lastName companyName")
 			.skip(startIndex)
 			.limit(commentsPerPage);
 
