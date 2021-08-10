@@ -231,7 +231,10 @@ a:visited {
 }
 
 .chatBox {
-    flex: 6.5;
+    flex: 7.5;
+    background: #29283a;
+    margin-top: 20px;
+    border-radius: 0.5rem;
 }
 
 .chatBoxWrapper {
@@ -258,7 +261,7 @@ a:visited {
     width: 90%;
     padding: 10px;
     border-radius: 0.5rem;
-    background: #29283a;
+    background: #414052;
     color: white;
     border: none;
     resize: none;
@@ -278,14 +281,18 @@ a:visited {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #29283a;
+    background: #414052;
     font-weight: 600;
     color: white;
 }
 
-.chatMenuWrapper,
+.chatMenuWrapper {
+    padding: 10px 0 10px 10px;
+    height: 100%;
+}
+
 .chatBoxWrapper {
-    padding: 10px;
+    padding: 20px;
     height: 100%;
 }
 
@@ -303,13 +310,13 @@ a:visited {
     padding: 10px;
     cursor: pointer;
     margin-top: 10px;
-    border-radius: 0.5rem;
+    border-radius: 0.5rem 0 0 0.5rem;
     transition: all 0.2s ease-in-out;
 }
 
 .conversation.chat-active {
     background-color: #29283a;
-    border-radius: 0.5rem;
+    border-radius: 0.5rem 0 0 0.5rem;
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%),
         0 0px 0 1px rgb(10 10 10 / 2%);
 }
@@ -370,7 +377,16 @@ a:visited {
     align-items: flex-end;
 }
 
+.message.own .messageTop {
+    flex-direction: row-reverse;
+}
+
+.message.own .messageImg {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
 .message.own .messageText {
-    background-color: #29283a;
+    background-color: teal;
     color: white;
 }

@@ -8,6 +8,7 @@ import {
 } from "../../Services/inbox.service";
 import moment from "moment";
 import { io } from "socket.io-client";
+import ReactImageFallback from "react-image-fallback";
 
 const AllConversations = () => {
     const [userData, setUserData] = useState();
@@ -16,10 +17,11 @@ const AllConversations = () => {
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState();
     const [messages, setMessages] = useState([]);
-    const [message, setMessage] = useState("");
+    const [newMessageText, setNewMessageText] = useState("");
     const scrollRef = useRef();
     const socket = useRef();
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
 
     let allUsersFiltered;
 
@@ -29,27 +31,34 @@ const AllConversations = () => {
     }, []);
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
+        socket.current = io("ws://ibm-summer-practice.herokuapp.com/");
         socket.current.on("getMessage", (data) => {
+            const senderID = { _id: data.senderId };
             setArrivalMessage({
-                sender: data.senderId,
-                text: data.text,
-                createdAt: Date.now(),
+                senderID: senderID,
+                content: data.content,
+                dCreatedDate: Date.now(),
             });
         });
     }, []);
 
     useEffect(() => {
-        arrivalMessage &&
-            currentChat?.members.includes(arrivalMessage.sender) &&
-            setMessages((prev) => [...prev, arrivalMessage]);
+        arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage, currentChat]);
+
+    useEffect(() => {
+        socket.current.emit("addUser", userData?.id);
+        socket.current.on("getUsers", (users) => {
+            setOnlineUsers(users);
+        });
+    }, [userData]);
+
+    console.log(onlineUsers);
 
     useEffect(() => {
         getAllConversations(userData?.id)
             .then((res) => {
                 setConversations(res.data.conversations);
-                console.log(conversations);
             })
             .catch((err) => {
                 console.log(err);
@@ -67,7 +76,7 @@ const AllConversations = () => {
     }, []);
 
     useEffect(() => {
-        getMessages(currentChat)
+        getMessages(currentChat?._id)
             .then((res) => {
                 setMessages(res.data);
             })
@@ -91,10 +100,26 @@ const AllConversations = () => {
 
     const submitMessage = (e) => {
         e.preventDefault();
-        const content = message;
+        const receiverId =
+            currentChat?.member2?._id !== userData.id
+                ? currentChat?.member2?._id
+                : currentChat?.member1?._id;
+        const content = newMessageText;
         if (/\S/.test(content)) {
-            newMessage(currentChat, { content });
-            window.location.reload();
+            socket.current.emit("sendMessage", {
+                senderId: userData.id,
+                receiverId,
+                content: newMessageText,
+            });
+
+            newMessage(currentChat?._id, { content })
+                .then((res) => {
+                    setMessages([...messages, res.data]);
+                    setNewMessageText("");
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     };
 
@@ -116,20 +141,24 @@ const AllConversations = () => {
                                 conversation?.member2?._id !== userData.id ? (
                                     <div
                                         onClick={() =>
-                                            setCurrentChat(conversation?._id)
+                                            setCurrentChat(conversation)
                                         }
                                     >
                                         <div
                                             className={`${
-                                                currentChat ===
+                                                currentChat?._id ===
                                                     conversation?._id &&
                                                 "chat-active"
                                             } conversation`}
                                             key={idx}
                                         >
-                                            <img
+                                            <ReactImageFallback
                                                 className="conversationImg"
                                                 src={`/profile/${conversation?.member2?._id}/getProfilePic`}
+                                                fallbackImage={
+                                                    process.env.PUBLIC_URL +
+                                                    "/iconUser.jpg"
+                                                }
                                             />
                                             <span className="conversationName">
                                                 {
@@ -150,13 +179,24 @@ const AllConversations = () => {
                                 ) : (
                                     <div
                                         onClick={() =>
-                                            setCurrentChat(conversation?._id)
+                                            setCurrentChat(conversation)
                                         }
                                     >
-                                        <div className="conversation" key={idx}>
-                                            <img
+                                        <div
+                                            className={`${
+                                                currentChat?._id ===
+                                                    conversation?._id &&
+                                                "chat-active"
+                                            } conversation`}
+                                            key={idx}
+                                        >
+                                            <ReactImageFallback
                                                 className="conversationImg"
                                                 src={`/profile/${conversation?.member1?._id}/getProfilePic`}
+                                                fallbackImage={
+                                                    process.env.PUBLIC_URL +
+                                                    "/iconUser.jpg"
+                                                }
                                             />
                                             <span className="conversationName">
                                                 {
@@ -189,17 +229,35 @@ const AllConversations = () => {
                                             <div ref={scrollRef}>
                                                 <div
                                                     className={
-                                                        message?.senderID
-                                                            ?._id ===
-                                                        userData?.id
+                                                        message?.senderID?._id
+                                                            ? message?.senderID
+                                                                  ?._id ===
+                                                              userData?.id
+                                                                ? "message own"
+                                                                : "message"
+                                                            : message?.senderID ===
+                                                              userData?.id
                                                             ? "message own"
                                                             : "message"
                                                     }
                                                 >
                                                     <div className="messageTop">
-                                                        <img
+                                                        <ReactImageFallback
                                                             className="messageImg"
-                                                            src={`/profile/${message?.senderID?._id}/getProfilePic`}
+                                                            src={`/profile/${
+                                                                message
+                                                                    ?.senderID
+                                                                    ?._id
+                                                                    ? message
+                                                                          ?.senderID
+                                                                          ?._id
+                                                                    : message?.senderID
+                                                            }/getProfilePic`}
+                                                            fallbackImage={
+                                                                process.env
+                                                                    .PUBLIC_URL +
+                                                                "/iconUser.jpg"
+                                                            }
                                                         />
                                                         <p className="messageText">
                                                             {message?.content}
@@ -226,9 +284,9 @@ const AllConversations = () => {
                                         className="chatMessageInput"
                                         placeholder="write something..."
                                         onChange={(e) =>
-                                            setMessage(e.target.value)
+                                            setNewMessageText(e.target.value)
                                         }
-                                        value={message}
+                                        value={newMessageText}
                                         rows="2"
                                     ></textarea>
                                     <button

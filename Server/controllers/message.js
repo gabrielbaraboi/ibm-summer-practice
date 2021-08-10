@@ -53,13 +53,13 @@ const sendMessage = async (req, res) => {
         const content = req.body.content;
         if (checkEmptyMessage(content)) {
             if (await checkMembership(req.user._id, req.params.id)) {
-                await Message.create({
+                const newMessage = await Message.create({
                     content: req.body.content,
                     senderID: req.user._id,
                     conversationID: req.params.id,
                 });
 
-                res.status(200).json({ message: "Message sent succesfully" });
+                res.status(200).json(newMessage);
             } else {
                 res.status(403).json({
                     message:
