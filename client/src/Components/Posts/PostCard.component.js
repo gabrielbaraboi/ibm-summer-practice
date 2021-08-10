@@ -13,6 +13,7 @@ import {
 	PostDescription,
 	PostRequirements,
 	ActionButton,
+	CardDivider,
 } from "./Posts.styledComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
@@ -41,6 +42,15 @@ const PostCard = ({ post }) => {
 						/>
 					</Icon>
 				</Div>
+
+				<PostTitle>
+					<Link to={`/post/${post?._id}`}>
+						{post?.title.length > 45
+							? post?.title.slice(0, 35) + "..."
+							: post?.title}
+					</Link>
+				</PostTitle>
+
 				<Group>
 					<Author>
 						Created by
@@ -51,13 +61,8 @@ const PostCard = ({ post }) => {
 					<Data>{moment(created_date).fromNow()}</Data>
 					<Data>{post?.type}</Data>
 				</Group>
-				<PostTitle>
-					<Link to={`/post/${post?._id}`}>
-						{post?.title.length > 45
-							? post?.title.slice(0, 35) + "..."
-							: post?.title}
-					</Link>
-				</PostTitle>
+			</Content>
+			<CardDivider>
 				<PostItems>
 					{features.map((item) => (
 						<FeatureListItem>{item}</FeatureListItem>
@@ -71,10 +76,11 @@ const PostCard = ({ post }) => {
 						</FeatureListItem>
 					))}
 				</PostRequirements>
-				<Link to={`/post/${post?._id}`}>
-                    <ActionButton>Show more</ActionButton>
-                </Link>
-			</Content>
+			</CardDivider>
+
+			<Link to={`/post/${post?._id}`}>
+				<ActionButton>Show more</ActionButton>
+			</Link>
 		</Card>
 	);
 };
