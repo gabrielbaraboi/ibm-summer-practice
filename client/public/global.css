@@ -171,6 +171,22 @@ a:visited {
     width: calc(100% - 250px) !important;
 }
 
+.button:focus,
+.button:active,
+.input:focus,
+.input:active {
+    outline: none;
+}
+
+.is-danger {
+    border-color: #f14668 !important;
+}
+
+.is-danger.input:focus,
+.is-danger.input:active {
+    box-shadow: 0 0 0 0.125em rgba(241, 70, 104, 0.25) !important;
+}
+
 .help {
     display: block;
     font-size: 0.75rem;
@@ -178,7 +194,7 @@ a:visited {
 }
 
 .help.is-danger {
-    color: #f14668;
+    color: #f14668 !important;
 }
 
 ::-webkit-scrollbar {
@@ -262,7 +278,8 @@ a:visited {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #414052;
+    background-color: #29283a;
+    font-weight: 600;
     color: white;
 }
 
@@ -285,7 +302,7 @@ a:visited {
     align-items: center;
     padding: 10px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 0.5rem;
     transition: all 0.2s ease-in-out;
 }
@@ -340,12 +357,12 @@ a:visited {
     color: white;
     max-width: 300px;
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%),
-    0 0px 0 1px rgb(10 10 10 / 2%);
+        0 0px 0 1px rgb(10 10 10 / 2%);
 }
 
 .messageBottom {
-    font-size: 12px;
-    margin-top: 10px;
+    font-size: 11px;
+    margin-top: 5px;
     color: white;
 }
 
