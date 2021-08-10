@@ -72,6 +72,8 @@ const getAllComments = async (req, res) => {
 
 const updateComment = async (req, res) => {
 	try {
+		console.log(req.params);
+
 		const comment = await Comment.findById(req.params.commentId).exec();
 		const authorization = await checkPermissions(
 			req.user._id,
@@ -128,12 +130,12 @@ const deleteComment = async (req, res) => {
 
 async function checkPermissions(userId, comment, type) {
 	if (!comment) return 3;
-	if (userId == comment.createdBy.id) {
+	if (userId == comment.createdBy._id) {
 		return 1;
 	}
 	if (type === "delete") {
 		const post = await Post.findById(comment.parentPostId).exec();
-		if (userId == post.createdBy.id) {
+		if (userId == post.createdBy._id) {
 			return 1;
 		}
 	}
