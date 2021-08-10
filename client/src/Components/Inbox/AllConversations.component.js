@@ -164,11 +164,11 @@ const AllConversations = () => {
                                                 {
                                                     conversation?.member2
                                                         ?.companyName
-                                                }{" "}
+                                                }
                                                 {
                                                     conversation?.member2
-                                                        ?.firstName
-                                                }{" "}
+                                                        ?.firstName + " "
+                                                }
                                                 {
                                                     conversation?.member2
                                                         ?.lastName
@@ -202,11 +202,11 @@ const AllConversations = () => {
                                                 {
                                                     conversation?.member1
                                                         ?.companyName
-                                                }{" "}
+                                                }
                                                 {
                                                     conversation?.member1
                                                         ?.firstName
-                                                }{" "}
+                                                }
                                                 {
                                                     conversation?.member1
                                                         ?.lastName
@@ -215,7 +215,7 @@ const AllConversations = () => {
                                         </div>
                                     </div>
                                 )
-                            )}{" "}
+                            )}
                         </div>
                     </div>
                 )}
@@ -319,7 +319,7 @@ const AllConversations = () => {
                                 (user, idx) =>
                                     user?._id !== userData.id && (
                                         <option key={idx} value={user?._id}>
-                                            {user?.companyName}{" "}
+                                            {user?.companyName}
                                             {user?.firstName} {user?.lastName}
                                         </option>
                                     )

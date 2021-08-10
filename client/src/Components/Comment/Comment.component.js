@@ -9,6 +9,7 @@ import {
     DeleteCommentButton,
     EditCommentButton,
     SaveCommentButton,
+    CommentBox,
 } from "./Comment.styledComponents";
 import ReactImageFallback from "react-image-fallback";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,12 +29,14 @@ export const Comment = ({ comment, userData }) => {
         e.preventDefault();
         const newCommentText = newComment;
         if (/\S/.test(newCommentText)) {
-            updateComment(comment?.parentPostId, comment?._id, { comment: newCommentText });
+            updateComment(comment?.parentPostId, comment?._id, {
+                comment: newCommentText,
+            });
         }
     };
 
     return (
-        <Container>
+        <CommentBox>
             <ImageDiv>
                 <ReactImageFallback
                     src={`/profile/${comment?.createdBy?._id}/getProfilePic`}
@@ -44,18 +47,22 @@ export const Comment = ({ comment, userData }) => {
             <CommentDiv>
                 <CommentUserName>
                     <a href={`/profile/${comment?.createdBy?._id}`}>
-                        {comment?.createdBy?.firstName}
+                        {comment?.createdBy?.firstName}{" "}
                         {comment?.createdBy?.lastName}
                         {comment?.createdBy?.companyName}
                     </a>
                     {userData && userData.id === comment?.createdBy?._id && (
-                        <div style={{float:"right"}}>
+                        <div style={{ float: "right" }}>
                             <DeleteCommentButton
                                 onClick={() => {
                                     deleteThisComment();
                                 }}
                             >
-                                <FontAwesomeIcon icon={faTrash} className="icon" fixedWidth />
+                                <FontAwesomeIcon
+                                    icon={faTrash}
+                                    className="icon"
+                                    fixedWidth
+                                />
                             </DeleteCommentButton>
                             {!edit && (
                                 <EditCommentButton
@@ -63,7 +70,11 @@ export const Comment = ({ comment, userData }) => {
                                         setEdit(true);
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={faEdit} className="icon" fixedWidth />
+                                    <FontAwesomeIcon
+                                        icon={faEdit}
+                                        className="icon"
+                                        fixedWidth
+                                    />
                                 </EditCommentButton>
                             )}
                         </div>
@@ -90,6 +101,6 @@ export const Comment = ({ comment, userData }) => {
                     </>
                 )}
             </CommentDiv>
-        </Container>
+        </CommentBox>
     );
 };

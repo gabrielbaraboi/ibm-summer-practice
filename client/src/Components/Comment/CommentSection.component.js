@@ -60,57 +60,63 @@ const CommentSection = ({ userData }) => {
 
     return (
         <>
-            <CommentInfo>
-                <h3>Comments</h3>
-                <CommentsCountDiv>
-                    <CommentsCount>{commentsCount}</CommentsCount>
-                    <CommentsCountText>
-                        {commentsCount > 1 ? `Comments` : `Comment`}
-                    </CommentsCountText>
-                </CommentsCountDiv>
-            </CommentInfo>
-            {userData && (
-                <AddComment>
-                    <ImageDiv>
-                        <ReactImageFallback
-                            src={`/profile/${userData?.id}/getProfilePic`}
-                            fallbackImage={
-                                process.env.PUBLIC_URL + "/iconUser.jpg"
-                            }
-                            style={ImageCircleStyle}
-                        />
-                    </ImageDiv>
-                    <CommentInputContainer>
-                        <CommentInputTextArea
-                            placeholder="Add a comment..."
-                            name="comment"
-                            type="text"
-                            value={commentValue}
-                            onChange={(e) => setCommentValue(e.target.value)}
-                        ></CommentInputTextArea>
-                        <PostCommentButton onClick={submitComment}>
-                            Post
-                        </PostCommentButton>
-                    </CommentInputContainer>
-                </AddComment>
-            )}
-            {comments.length === 0 ? (
-                <Center>
-                    <center>No comments yet!</center>
-                </Center> 
-            ) : (
-                comments?.map((comment, idx) => (
-                    <Comment
-                        key={comment._id}
-                        comment={comment}
-                        userData={userData}
-                    ></Comment>
-                ))
-            )}
+            <Container>
+                <CommentInfo>
+                    <h3>Comments</h3>
+                    <CommentsCountDiv>
+                        <CommentsCount>{commentsCount}</CommentsCount>
+                        <CommentsCountText>
+                            {commentsCount > 1 ? `Comments` : `Comment`}
+                        </CommentsCountText>
+                    </CommentsCountDiv>
+                </CommentInfo>
+            </Container>
+            <Container>
+                {userData && (
+                    <AddComment>
+                        <ImageDiv>
+                            <ReactImageFallback
+                                src={`/profile/${userData?.id}/getProfilePic`}
+                                fallbackImage={
+                                    process.env.PUBLIC_URL + "/iconUser.jpg"
+                                }
+                                style={ImageCircleStyle}
+                            />
+                        </ImageDiv>
+                        <CommentInputContainer>
+                            <CommentInputTextArea
+                                placeholder="Add a comment..."
+                                name="comment"
+                                type="text"
+                                value={commentValue}
+                                onChange={(e) =>
+                                    setCommentValue(e.target.value)
+                                }
+                            ></CommentInputTextArea>
+                            <PostCommentButton onClick={submitComment}>
+                                Post
+                            </PostCommentButton>
+                        </CommentInputContainer>
+                    </AddComment>
+                )}
+
+                {comments.length === 0 ? (
+                    <Center>
+                        <center>No comments yet!</center>
+                    </Center>
+                ) : (
+                    comments?.map((comment, idx) => (
+                        <Comment
+                            key={comment._id}
+                            comment={comment}
+                            userData={userData}
+                        ></Comment>
+                    ))
+                )}
+            </Container>
             <Container>
                 <ButtonWrapper>
                     <PaginationBtn disabled={page <= 1} onClick={goPrevPage}>
-                        {" "}
                         &lt; Previous Page
                     </PaginationBtn>
                     <PageSpan>

@@ -1,352 +1,357 @@
 import styled, { css } from "styled-components";
 
 export const PostDiv = styled.div`
-	padding: 0.5rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 80%;
-	@media (max-width: 768px) {
-		width: 100%;
-	}
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 `;
 
 export const PostDivSinglePost = styled.div`
-	padding: 0.5rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	@media (max-width: 768px) {
-		width: 100%;
-	}
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 `;
 
 export const Posts = styled.div`
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	margin: auto;
-	@media (max-width: 768px) {
-		flex-direction: column-reverse;
-	}
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: auto;
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+    }
 `;
 
 export const PaginationBtn = styled.button`
-	background-color: #181342;
-	color: white;
-	transition-duration: 0.4s;
-	border: none;
-	border-radius: 0.5rem;
-	padding: 8px;
-	&:hover {
-		background-color: #7a77bb;
-		cursor: pointer;
-	}
+    background: #6c7a89;
+    padding: 2px 1rem;
+    color: white;
+    border-radius: 0.5rem;
+    color: white;
+    transition: all 0.2s ease-in-out;
+    border: none;
+	font-size: 1rem;
+    &:hover {
+        background-color: white;
+        color: black;
+        cursor: pointer;
+    }
 `;
 
 export const ClearBtn = styled.button`
-	background-color: #181342;
-	color: white;
-	transition-duration: 0.4s;
-	border: none;
-	border-radius: 0.5rem;
-	padding: 8px;
-	&:hover {
-		background-color: #7a77bb;
-		cursor: pointer;
-	}
-	@media (max-width: 768px) {
-		width: 33%;
-	}
-	@media (max-width: 600px) {
-		width: 100%;
-	}
+    background-color: #181342;
+    color: white;
+    transition-duration: 0.4s;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 8px;
+    &:hover {
+        background-color: #7a77bb;
+        cursor: pointer;
+    }
+    @media (max-width: 768px) {
+        width: 33%;
+    }
+    @media (max-width: 600px) {
+        width: 100%;
+    }
 `;
 
 export const PageSpan = styled.span`
-	margin-left: 10px;
-	margin-right: 10px;
-	text-decoration: none;
-	border: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    border: none;
+	color: white;
 `;
 
 const gradient = (degs) => css`
-	background: linear-gradient(${degs || 130}deg, black 0%, #7cb5e4 100%);
+    background: linear-gradient(${degs || 130}deg, black 0%, #7cb5e4 100%);
 `;
 
 export const CardDivider = styled.div`
-	display: flex;
-	flex-direction: column;
-	margin-left: 3rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem;
 `;
 
 export const Card = styled.div`
-	position: relative;
-	overflow: hidden;
-	width: 100%;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 
-	min-height: 180px;
-	padding: 1rem 0;
-	border-radius: 0.5rem;
-	color: white;
-	margin-bottom: 10px;
-	${gradient()};
-	box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.025),
-		0 9px 46px 8px rgba(0, 0, 0, 0.025), 0 11px 15px -7px rgba(0, 0, 0, 0.025);
+    min-height: 180px;
+    padding: 1rem 0;
+    border-radius: 0.5rem;
+    color: white;
+    margin-bottom: 10px;
+    ${gradient()};
+    box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.025),
+        0 9px 46px 8px rgba(0, 0, 0, 0.025),
+        0 11px 15px -7px rgba(0, 0, 0, 0.025);
 `;
 
 export const Content = styled.div`
-	position: relative;
-	z-index: 3;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `;
 
 export const Div = styled.div`
-	margin-right: 1rem;
-	width: 10%;
-	@media (max-width: 768px) {
-		width: 20%;
-	}
+    margin-right: 1rem;
+    width: 10%;
+    @media (max-width: 768px) {
+        width: 20%;
+    }
 `;
 
 export const Icon = styled.div`
-	margin-left: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 70px;
-	height: 70px;
-	flex: 0 0 auto;
-	margin-bottom: 2rem;
-	border-radius: 50%;
-	font-size: 80px;
-	color: white;
-	${gradient()};
-	box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
-	img {
-		width: 70px;
-		height: 70px;
-		border-radius: 50%;
-	}
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    flex: 0 0 auto;
+    margin-bottom: 2rem;
+    border-radius: 50%;
+    font-size: 80px;
+    color: white;
+    ${gradient()};
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
+    img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+    }
 `;
 
 export const PostTitle = styled.div`
-	font-size: 1.75rem;
-	self-align: left;
-	width: 50%;
-	max-width: 60%;
-	a {
-		color: white;
-	}
-	@media (max-width: 768px) {
-		font-size: 1rem;
-	}
+    font-size: 1.75rem;
+    self-align: left;
+    width: 50%;
+    max-width: 60%;
+    a {
+        color: white;
+    }
+    @media (max-width: 768px) {
+        font-size: 1rem;
+    }
 `;
 
 export const PostItems = styled.div`
-	font-size: 0.75rem;
+    font-size: 0.75rem;
 `;
 
 export const Data = styled.div`
-	font-size: 11px;
-	text-align: right;
-	margin-right: 0.8rem;
-	margin-top: 5px;
-	&:nth-child(1) {
-		margin-top: 0;
-		font-size: 14px;
-	}
-	a {
-		color: black;
-		transition: all 0.2s ease-in-out;
-	}
-	a:hover {
-		color: #6672b4;
-		text-decoration: underline;
-	}
-	@media (max-width: 768px) {
-		font-size: 0.6rem;
-	}
+    font-size: 11px;
+    text-align: right;
+    margin-right: 0.8rem;
+    margin-top: 5px;
+    &:nth-child(1) {
+        margin-top: 0;
+        font-size: 14px;
+    }
+    a {
+        color: black;
+        transition: all 0.2s ease-in-out;
+    }
+    a:hover {
+        color: #6672b4;
+        text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+        font-size: 0.6rem;
+    }
 `;
 
 export const Group = styled.div`
-	width: 32%;
-	self-align: right;
-	a {
-		color: #222133;
-		font-size: 13px;
-		margin-left: 4px;
-		@media (max-width: 768px) {
-			font-size: 0.6rem;
-		}
-	}
-	@media (max-width: 768px) {
-		width: 50%;
-	}
+    width: 32%;
+    self-align: right;
+    a {
+        color: #222133;
+        font-size: 13px;
+        margin-left: 4px;
+        @media (max-width: 768px) {
+            font-size: 0.6rem;
+        }
+    }
+    @media (max-width: 768px) {
+        width: 50%;
+    }
 `;
 
 export const FeatureListItem = styled.div`
-	margin-bottom: 0.325rem;
-	padding-left: 10px;
-	display: inline-block;
-	margin-right: 10px;
-	border-left: 2px solid white;
+    margin-bottom: 0.325rem;
+    padding-left: 10px;
+    display: inline-block;
+    margin-right: 10px;
+    border-left: 2px solid white;
 `;
 
 export const PostDescription = styled.div`
-	font-size: 1.2rem;
+    font-size: 1.2rem;
 `;
 
 export const PostRequirements = styled.div`
-	font-size: 0.75rem;
+    font-size: 0.75rem;
 `;
 
 export const Author = styled.div`
-	font-size: 0.75rem;
-	margin-right: 0.8rem;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	@media (max-width: 768px) {
-		font-size: 0.6rem;
-	}
+    font-size: 0.75rem;
+    margin-right: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    @media (max-width: 768px) {
+        font-size: 0.6rem;
+    }
 `;
 
 export const ActionButton = styled.button`
-	flex: 0 0 auto;
-	margin-right: 20px;
-	height: 40px;
-	padding: 0 2rem;
-	float: right;
-	border: 0;
-	border-radius: 20px;
-	color: rgba(0, 0, 0, 0.85);
-	background: rgba(225, 255, 255, 0.85);
-	box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
-	transition: background 0.25;
+    flex: 0 0 auto;
+    margin-right: 20px;
+    height: 40px;
+    padding: 0 2rem;
+    float: right;
+    border: 0;
+    border-radius: 20px;
+    color: rgba(0, 0, 0, 0.85);
+    background: rgba(225, 255, 255, 0.85);
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
+    transition: background 0.25;
 
-	&:hover {
-		background: rgba(255, 255, 255, 1);
-	}
+    &:hover {
+        background: rgba(255, 255, 255, 1);
+    }
 `;
 export const FilterContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 20%;
-	@media (max-width: 768px) {
-		width: 100%;
-		height: 100%;
-	}
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+    }
 `;
 export const Filter = styled.div`
-	padding: 0 1rem;
-	width: 100%;
+    padding: 0 1rem;
+    width: 100%;
 
-	@media (max-width: 768px) {
-		width: 100%;
-		display: flex;
-		flex-direction: row;
-		height: 100%;
-		margin: 0;
-		padding: 0.5rem;
-	}
-	@media (max-width: 600px) {
-		flex-direction: column;
-	}
+    @media (max-width: 768px) {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        margin: 0;
+        padding: 0.5rem;
+    }
+    @media (max-width: 600px) {
+        flex-direction: column;
+    }
 `;
 
 export const FilterTitle = styled.h2`
-	color: white;
-	font-size: 24px;
-	font-weight: 500;
-	overflow: hidden;
-	padding: 0.5rem;
-	@media (max-width: 768px) {
-		padding: 0.5rem 1rem;
-	}
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+    overflow: hidden;
+    padding: 0.5rem;
+    @media (max-width: 768px) {
+        padding: 0.5rem 1rem;
+    }
 `;
 
 export const FilterCategory = styled.div`
-	margin-left: 10px;
-	label {
-		margin-left: 5px;
-	}
-	@media (max-width: 768px);
-	 {
-		width: 100%;
-	}
+    margin-left: 10px;
+    label {
+        margin-left: 5px;
+    }
+    @media (max-width: 768px);
+     {
+        width: 100%;
+    }
 `;
 
 export const FilterCategoryTitle = styled.h3`
-	color: white;
-	font-size: 18px;
-	font-weight: 500;
-	margin-top: 15px;
-	margin-bottom: 8px;
-	margin-left: -10px;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    margin-left: -10px;
 `;
 
 export const FilterField = styled.div`
-	color: #686d88;
-	display: block;
-	position: relative;
-	margin-top: 5px;
-	height: 18px;
-	&:hover label {
-		color: #000000;
-	}
-	&:hover .check {
-		border: 2px solid #89ccf6;
-	}
-	input[type="radio"] {
-		position: absolute;
-		visibility: hidden;
-	}
-	label {
-		display: block;
-		position: relative;
-		cursor: pointer;
-		margin-left: 25px;
-		font-weight: 500;
-		transition: all 0.25s ease-in-out;
-	}
-	input[type="radio"]:checked ~ .check {
-		border: 2px solid #89ccf6;
-	}
+    color: #686d88;
+    display: block;
+    position: relative;
+    margin-top: 5px;
+    height: 18px;
+    &:hover label {
+        color: #000000;
+    }
+    &:hover .check {
+        border: 2px solid #89ccf6;
+    }
+    input[type="radio"] {
+        position: absolute;
+        visibility: hidden;
+    }
+    label {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        margin-left: 25px;
+        font-weight: 500;
+        transition: all 0.25s ease-in-out;
+    }
+    input[type="radio"]:checked ~ .check {
+        border: 2px solid #89ccf6;
+    }
 
-	input[type="radio"]:checked ~ .check::before {
-		background: #89ccf6;
-	}
+    input[type="radio"]:checked ~ .check::before {
+        background: #89ccf6;
+    }
 
-	input[type="radio"]:checked ~ label {
-		color: #000000;
-	}
+    input[type="radio"]:checked ~ label {
+        color: #000000;
+    }
 `;
 
 export const Check = styled.div`
-	display: block;
-	position: absolute;
-	top: 1px;
-	border: 2px solid #aaaaaa;
-	border-radius: 100%;
-	height: 18px;
-	width: 18px;
-	transition: all 0.25s ease-in-out;
-	&:before {
-		display: block;
-		position: absolute;
-		content: "";
-		border-radius: 100%;
-		height: 10px;
-		width: 10px;
-		top: 2px;
-		left: 2px;
-		margin: auto;
-		transition: all 0.25s ease-in-out;
-	}
+    display: block;
+    position: absolute;
+    top: 1px;
+    border: 2px solid #aaaaaa;
+    border-radius: 100%;
+    height: 18px;
+    width: 18px;
+    transition: all 0.25s ease-in-out;
+    &:before {
+        display: block;
+        position: absolute;
+        content: "";
+        border-radius: 100%;
+        height: 10px;
+        width: 10px;
+        top: 2px;
+        left: 2px;
+        margin: auto;
+        transition: all 0.25s ease-in-out;
+    }
 `;

@@ -206,7 +206,7 @@ const Settings = ({ onSubmit, authError }) => {
 							<InputType>
 								{showText3 ? (
 									<Div>
-										{" "}
+										
 										<input
 											placeholder="Password"
 											className={`input ${errors.password && "is-danger"}`}
@@ -217,11 +217,11 @@ const Settings = ({ onSubmit, authError }) => {
 										/>
 										{errors.password && (
 											<p className="help is-danger">{errors.password}</p>
-										)}{" "}
+										)}
 									</Div>
 								) : (
 									<Div>
-										{" "}
+										
 										<InputType>*******</InputType>
 										<Button onClick={onClick3}>Edit</Button>
 									</Div>
