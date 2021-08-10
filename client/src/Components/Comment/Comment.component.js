@@ -6,8 +6,6 @@ import {
     CommentUserName,
     CommentText,
     ImageCircleStyle,
-    DeleteCommentButton,
-    EditCommentButton,
     SaveCommentButton,
     CommentBox,
 } from "./Comment.styledComponents";
@@ -15,6 +13,7 @@ import ReactImageFallback from "react-image-fallback";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { DeleteButton,EditButton } from "../Global.styledComponents";
 
 export const Comment = ({ comment, userData }) => {
     const [edit, setEdit] = useState(false);
@@ -53,7 +52,7 @@ export const Comment = ({ comment, userData }) => {
                     </a>
                     {userData && userData.id === comment?.createdBy?._id && (
                         <div style={{ float: "right" }}>
-                            <DeleteCommentButton
+                            <DeleteButton
                                 onClick={() => {
                                     deleteThisComment();
                                 }}
@@ -63,9 +62,9 @@ export const Comment = ({ comment, userData }) => {
                                     className="icon"
                                     fixedWidth
                                 />
-                            </DeleteCommentButton>
+                            </DeleteButton>
                             {!edit && (
-                                <EditCommentButton
+                                <EditButton
                                     onClick={() => {
                                         setEdit(true);
                                     }}
@@ -75,7 +74,7 @@ export const Comment = ({ comment, userData }) => {
                                         className="icon"
                                         fixedWidth
                                     />
-                                </EditCommentButton>
+                                </EditButton>
                             )}
                         </div>
                     )}
