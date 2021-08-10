@@ -18,9 +18,10 @@ router.post("/login", controller.loginUser);
 
 //GetAllUsers
 router.get("/getAllUsers", controller.getAllUsers);
+router.get("/getAllPosts/:id", controller.getAllUserPosts);
 
-router.get("/generateKey",auth, controller.generateSecurityKey);
-router.post("/testMiddleware",auth, verifyKey, controller.Test);
-router.post("/changePassword",auth,verifyKey,controller.changePassword);
-router.delete("/deleteAccount",auth,verifyKey,controller.deleteAccount);
+router.get("/generateKey", auth, controller.generateSecurityKey);
+router.post("/testMiddleware", auth, verifyKey, controller.Test);
+router.post("/changePassword", auth, verifyKey, controller.changePassword);
+router.delete("/deleteAccount", auth, verifyKey, controller.deleteAccount);
 module.exports = router;
