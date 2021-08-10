@@ -4,9 +4,7 @@ const Comment = require("../models/comment");
 const mongoose = require("mongoose");
 const commentsPerPage = 3;
 const createComment = async (req, res) => {
-	let name;
 	const postId = req.params.id;
-
 	try {
 		const postExist = await Post.findById(postId);
 
@@ -15,17 +13,6 @@ const createComment = async (req, res) => {
 		} else {
 			let user = await User.findById(req.user._id).exec();
 			if (user) {
-				if (user.role === "Student") {
-					name = user.firstName + " " + user.lastName;
-				} else if (user.role === "Company") {
-					name = user.companyName;
-				}
-
-				const createdBy = {
-					id: user.id,
-					name: name,
-				};
-
 				const newComment = {
 					comment: req.body.comment,
 					createdBy: mongoose.Types.ObjectId(user._id),

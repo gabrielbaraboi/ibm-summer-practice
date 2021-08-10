@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const mongoose = require("mongoose");
 const Post = require("../models/post");
+const Comment = require("../models/comment");
 const QueryBuilder = require("../utils/QueryBuilder");
 const postsPerPage = 3;
 
@@ -97,10 +98,11 @@ const updatePost = async (req, res) => {
 
 const deletePost = async (req, res) => {
 	try {
+		await Comment.deleteMany({ parentPostId: req.params.id });
 		await Post.deleteOne({ _id: req.params.id });
 		res.status(200).json({ message: "Post deleted successfully!" });
 	} catch (error) {
-		res.status(400).json({ message: "Failed to delete this comment!" });
+		res.status(400).json({ message: "Failed to delete this post!" });
 	}
 };
 
