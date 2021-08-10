@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { getAllUsers, getCurrentUser } from "../../Services/auth.service";
 import {
     createConversation,
@@ -8,6 +7,7 @@ import {
     newMessage,
 } from "../../Services/inbox.service";
 import moment from "moment";
+import { io } from "socket.io-client";
 
 const AllConversations = () => {
     const [userData, setUserData] = useState();
@@ -18,6 +18,8 @@ const AllConversations = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
     const scrollRef = useRef();
+    const socket = useRef();
+    const [arrivalMessage, setArrivalMessage] = useState(null);
 
     let allUsersFiltered;
 
@@ -25,6 +27,23 @@ const AllConversations = () => {
         const currentUserData = getCurrentUser();
         setUserData(currentUserData);
     }, []);
+
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+        socket.current.on("getMessage", (data) => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            });
+        });
+    }, []);
+
+    useEffect(() => {
+        arrivalMessage &&
+            currentChat?.members.includes(arrivalMessage.sender) &&
+            setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
         getAllConversations(userData?.id)
@@ -100,7 +119,14 @@ const AllConversations = () => {
                                             setCurrentChat(conversation?._id)
                                         }
                                     >
-                                        <div className={`${currentChat === conversation?._id && 'chat-active' } conversation`} key={idx}>
+                                        <div
+                                            className={`${
+                                                currentChat ===
+                                                    conversation?._id &&
+                                                "chat-active"
+                                            } conversation`}
+                                            key={idx}
+                                        >
                                             <img
                                                 className="conversationImg"
                                                 src={`/profile/${conversation?.member2?._id}/getProfilePic`}
@@ -158,35 +184,42 @@ const AllConversations = () => {
                         {currentChat ? (
                             <>
                                 <div className="chatBoxTop">
-                                    {messages.map((message) => (
-                                        <div ref={scrollRef}>
-                                            <div
-                                                className={
-                                                    message?.senderID?._id ===
-                                                    userData?.id
-                                                        ? "message own"
-                                                        : "message"
-                                                }
-                                            >
-                                                <div className="messageTop">
-                                                    <img
-                                                        className="messageImg"
-                                                        src={`/profile/${message?.senderID?._id}/getProfilePic`}
-                                                    />
-                                                    <p className="messageText">
-                                                        {message?.content}
-                                                    </p>
-                                                </div>
-                                                <div className="messageBottom">
-                                                    {moment(
-                                                        new Date(
-                                                            message?.dCreatedDate
-                                                        )
-                                                    ).fromNow()}
+                                    {messages.length !== 0 ? (
+                                        messages.map((message) => (
+                                            <div ref={scrollRef}>
+                                                <div
+                                                    className={
+                                                        message?.senderID
+                                                            ?._id ===
+                                                        userData?.id
+                                                            ? "message own"
+                                                            : "message"
+                                                    }
+                                                >
+                                                    <div className="messageTop">
+                                                        <img
+                                                            className="messageImg"
+                                                            src={`/profile/${message?.senderID?._id}/getProfilePic`}
+                                                        />
+                                                        <p className="messageText">
+                                                            {message?.content}
+                                                        </p>
+                                                    </div>
+                                                    <div className="messageBottom">
+                                                        {moment(
+                                                            new Date(
+                                                                message?.dCreatedDate
+                                                            )
+                                                        ).fromNow()}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))
+                                    ) : (
+                                        <span className="noConversationText">
+                                            You don't have any messages yet.
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="chatBoxBottom">
                                     <textarea
