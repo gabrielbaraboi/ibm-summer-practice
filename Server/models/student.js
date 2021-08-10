@@ -10,4 +10,5 @@ var StudentSchema = new mongoose.Schema(
 		collection: "Users",
 	}
 );
+
 module.exports = User.discriminator("Student", StudentSchema);

@@ -1,13 +1,13 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const ibm = require("./IBMfunctions");
-const fs = require("fs");
 const Utils = require("../utils/utilFunctions");
 const Key = require("../models/key");
 const Mailer = require("../config/nodemailer");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const Student = require("../models/student.js");
+const Company = require('../models/company.js');
 
 //nodemailer setup
 const registerUser = async (req, res) => {
@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
 			}
 
 			//create user to db
-			const user = await User.create({
+			const user = await Student.create({
 				email: email.toLowerCase(),
 				firstName,
 				lastName,
@@ -50,7 +50,7 @@ const registerUser = async (req, res) => {
 				res.status(400).json({ message: "All inputs are required!" });
 			}
 
-			const company = await User.create({
+			const company = await Company.create({
 				email: email.toLowerCase(),
 				password: await encryptPass(password),
 				companyName,
