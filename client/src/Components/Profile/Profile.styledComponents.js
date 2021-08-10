@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
-    padding: 20px 6vh;
+    background:#1B1830;
+    height:100%;
 `;
 
 export const Container = styled.div`
@@ -9,30 +10,23 @@ export const Container = styled.div`
 `;
 
 export const ProfileCard = styled.div`
-    background-image: linear-gradient(180deg, #74718b, #1d1b31);
-    display: block;
-    justify-content: center;
-    padding: 10px 10px;
-    margin-bottom: 5px;
+    background: #29283a;
+    padding: 0.4rem 0.4rem 5rem 0.4rem;
+    margin-bottom: 0.25rem;
     width: 100%;
-    height: 24rem;
-    user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
 `;
 
 export const ProfilePicture = styled.div`
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     position: relative;
     display: inline-block;
     margin-left: 2rem;
-    top: 60%;
+    top: 4rem;
+    z-index: 10;
     img{
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         border-radius: 30%;
         border: 3px solid white;
     }
@@ -127,11 +121,15 @@ export const ModalClose = styled.button`
 `;
 
 export const NameContainer = styled.div`
+    border-right: 1px solid white;
     justify-content: center;
+    position:relative;
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
-    margin-left: 200px;
+    margin-top: 0.5rem;
+    padding: 0.25rem 1rem;
+    text-align:right;
+    width: 50%;
     span {
         color: whitesmoke;
         font-size: 25px;
@@ -139,48 +137,43 @@ export const NameContainer = styled.div`
 `;
 
 export const BackgroundPhoto = styled.div`
-    background-image: url(https://cdn.pixabay.com/photo/2016/05/24/16/48/mountains-1412683__340.png);
-    height: 60%;
+    background-image: linear-gradient(360deg, #e58c8a, #eec0c6);
     width: 100%;
+    margin-bottom:0.5rem;
 `;
 
 export const SpanLink = styled.a`
     color: white;
-    float: right;
 `;
 
 export const LinksCard = styled.div`
-    background-image: linear-gradient(360deg, #74718b, #1d1b31);
+    background: #29283a;
     display: flex;
     flex-direction: column;
     margin-right: 5px;
-    overflow: hidden;
     position: relative;
-    width: 50%;
-    height: 20vw;
+    width:50%;
+    padding: 0.25rem 1rem 0.25 0.25rem;
     ul {
-        height: 75%;
-        margin-bottom: 30px;
         list-style-type: none;
-        padding: 10px 15px 15px 15px;
+        overflow: hidden;
     }
-    li {
-        color: white;
+    a{
+        color:white;
     }
     span {
         font-size: 15px;
         color: white;
     }
     p {
-        padding: 0px 10px;
-        top: 15px;
         color: white;
     }
 `;
 
 export const Group = styled.div`
-    margin-top: 10px;
+    width:100%;
     p {
+        margin-top:0.25rem;
         float: left;
     }
 `;
@@ -199,21 +192,92 @@ export const EditBtn = styled.button`
     }
 `;
 
-export const AboutContainer = styled.div`
-    background-image: linear-gradient(360deg, #74718b, #1d1b31);
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    width: 50%;
-    p {
-        padding: 0px 20px;
-        margin-bottom: 15px;
-        top: 15px;
-        color: white;
-    }
+export const UserPostsContainer = styled.div`
+    background: #29283a;
+    display: block;
+    width: 100%;
     span {
         color: white;
     }
 `;
+
+export const Title = styled.p`
+    padding:0.5rem 0.5rem;
+    margin-bottom: 15px;
+    float:left;
+    top: 15px;
+    color: white;
+`
+
+export const AboutContainer = styled.div`
+    width:100%;
+    height: 100%;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height:100%;
+    p{
+        padding:0.25rem;
+        font-size: 1rem;
+        font-weight:bold;
+        float:left;
+        text-aling: left;
+    }
+    span{
+        padding:0.25rem;
+    }
+`
+
+export const ProfilePostContainer = styled.div`
+    color: white;
+    padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+    overflow-y: scroll;
+	@media (max-width: 768px) {
+		width: 100%;
+	}
+`
+
+export const ProfilePost = styled.div`
+    display:flex;
+    flex-direction:column;
+    background: #1d1b31;
+    border-radius: 0.5rem;
+    padding:1rem;
+    margin-bottom: 0.25rem;
+    width: 100%;
+	@media (max-width: 1000px) {
+		padding: 0 1rem;
+	}
+`
+
+export const ProfilePostTitle = styled.div`
+    font-size: 1rem;
+	a {
+        transition: 0.5s;
+		color: white;
+        &:hover {
+            cursor: pointer;
+            opacity: 0.5;
+        }
+	}
+	@media (max-width: 768px) {
+		font-size: 1rem;
+	}
+`
+
+export const ProfilePostInformation = styled.div`
+    font-size: 1rem;
+	width: 100%;
+	a {
+		color: white;
+	}
+	@media (max-width: 768px) {
+		font-size: 1rem;
+	}   
+`

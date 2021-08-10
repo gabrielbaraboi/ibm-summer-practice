@@ -78,7 +78,7 @@ export const ProfileModal = ({
                             <form onSubmit={handleSubmitAbout}>
                                 <textarea
                                     name="description"
-                                    rows="5"
+                                    rows="3"
                                     placeholder={userData?.about}
                                 ></textarea>
                                 <button type="submit">Save</button>

@@ -5,7 +5,7 @@ import {
     ProfileContainer,
     LinksCard,
     SpanLink,
-    AboutContainer,
+    UserPostsContainer,
     Container,
     NameContainer,
     BackgroundPhoto,
@@ -15,8 +15,15 @@ import {
     ModalStyles,
     ModalForm,
     ModalClose,
+    AboutContainer,
+    Title,
+    ProfilePostContainer,
+    ProfilePost,
+    ProfilePostTitle,
+    ProfilePostInformation
 } from "./Profile.styledComponents";
-import { faEdit, faCamera, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { DeleteButton,EditButton } from "../Global.styledComponents";
+import { faEdit, faCamera, faGlobe,faTrash } from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebook,
     faTwitter,
@@ -26,10 +33,13 @@ import {
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProfile, setProfilePic } from "../../Services/profile.service";
-import { getCurrentUser, isUserData } from "../../Services/auth.service";
+import { getCurrentUser, getAllUserPosts } from "../../Services/auth.service";
 import ReactImageFallback from "react-image-fallback";
 import { ProfileModal } from "./ProfileModal.component";
+import moment from "moment";
 import Modal from "react-modal";
+import { Link } from "react-router-dom";
+import { deletePost } from "../../Services/post.service";
 
 const Profile = () => {
     const { id } = useParams();
@@ -37,6 +47,7 @@ const Profile = () => {
     const [currentUser, setCurrentUser] = useState([]);
     const [showModalProfilePic, setShowModalProfilePic] = useState(false);
     const [file, setFile] = useState(null);
+    const [posts, setPosts] = useState([]);
 
     const [editSocialLinks, setEditSocialLinks] = useState(false);
     const toggleEditSocialLinks = () => {
@@ -47,7 +58,6 @@ const Profile = () => {
     const toggleEditAbout = () => {
         setEditAbout(false);
     };
-    // comentariu
 
     useEffect(
         () =>
@@ -60,6 +70,19 @@ const Profile = () => {
                 }),
         []
     );
+
+    useEffect(() => {
+		getAllUserPosts(
+			id
+		)
+			.then((res) => {
+				setPosts(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+				setPosts([]);
+			});
+	}, [posts]);
 
     const openModalProfilePic = (e) => {
         setFile(null);
@@ -75,11 +98,11 @@ const Profile = () => {
         const formData = new FormData();
         formData.append("profile-picture", file);
         setProfilePic(formData);
+        window.location.reload();
     };
 
     return (
-        <>
-        {isUserData() ? 
+        <> 
         <ProfileContainer>
             <Modal
                 isOpen={showModalProfilePic}
@@ -104,31 +127,64 @@ const Profile = () => {
             <ProfileCard>
                 <BackgroundPhoto>
                     <ProfilePicture>
-                        <ReactImageFallback
-                            src={`/profile/${id}/getProfilePic`}
-                            fallbackImage={
-                                process.env.PUBLIC_URL + "/iconUser.jpg"
-                            }
-                        />
-                        {getCurrentUser() && currentUser.id === id ? (
-                            <button onClick={openModalProfilePic}>
-                                <FontAwesomeIcon
-                                    icon={faCamera}
-                                    className="icon"
-                                    fixedWidth
-                                />
-                            </button>
-                        ) : null}
-                    </ProfilePicture>
+                            <ReactImageFallback
+                                src={`/profile/${id}/getProfilePic`}
+                                fallbackImage={
+                                    process.env.PUBLIC_URL + "/iconUser.jpg"
+                                }
+                            />
+                            {getCurrentUser() && currentUser.id === id ? (
+                                <button onClick={openModalProfilePic}>
+                                    <FontAwesomeIcon
+                                        icon={faCamera}
+                                        className="icon"
+                                        fixedWidth
+                                    />
+                                </button>
+                            ) : null}
+                        </ProfilePicture>
                 </BackgroundPhoto>
-                <NameContainer>
-                    <span>
-                        {userData?.companyName}
-                        {userData?.firstName}
-                        {userData?.lastName}
-                    </span>
-                    <span>{userData?.role}</span>
-                </NameContainer>
+                <Container>
+                    <NameContainer>
+                        <span>
+                            {userData?.companyName}
+                            {userData?.firstName}
+                            {" "}
+                            {userData?.lastName}
+                        </span>
+                        <span>{userData?.role}</span>
+                    </NameContainer>
+                    <AboutContainer>
+                        <Group>
+                            <p>About</p>
+                            {getCurrentUser() && currentUser.id === id ? (
+                                !editAbout ? (
+                                    <>
+                                        <EditBtn
+                                            onClick={() => setEditAbout(true)}
+                                            type="button"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faEdit}
+                                                className="icon"
+                                                fixedWidth
+                                            ></FontAwesomeIcon>
+                                        </EditBtn>
+                                    </>
+                                ) : (
+                                    <ProfileModal
+                                        type={"about"}
+                                        userData={userData}
+                                        toggleEditAbout={toggleEditAbout}
+                                    />
+                                )
+                            ) : (
+                                ""
+                            )} 
+                        </Group>
+                        <span>{userData?.about}</span>
+                    </AboutContainer>
+                </Container>
             </ProfileCard>
             <Container>
                 <LinksCard>
@@ -162,145 +218,157 @@ const Profile = () => {
                     </Group>
                     {getCurrentUser() && currentUser.id === id ? (
                         <ul>
-                            <li>
-                                <FontAwesomeIcon
-                                    icon={faGlobe}
-                                    className="icon"
-                                    fixedWidth
-                                ></FontAwesomeIcon>
+                            <li> 
+                                <a href={userData?.website}>
+                                    <FontAwesomeIcon
+                                        icon={faGlobe}
+                                        className="icon"
+                                        fixedWidth
+                                    />
+                                </a>
                                 <span> website </span>
-                                <SpanLink> {userData?.website} </SpanLink>
                             </li>
                             <li>
-                                <FontAwesomeIcon
-                                    icon={faGithub}
-                                    className="icon"
-                                    fixedWidth
-                                ></FontAwesomeIcon>
+                                <a href={userData?.github}>
+                                    <FontAwesomeIcon
+                                        icon={faGithub}
+                                        className="icon"
+                                        fixedWidth
+                                    />
+                                </a>
                                 <span> github </span>
-                                <SpanLink> {userData?.github} </SpanLink>
                             </li>
                             <li>
-                                <FontAwesomeIcon
-                                    icon={faTwitter}
-                                    className="icon"
-                                    fixedWidth
-                                ></FontAwesomeIcon>
+                                <a href={userData?.twitter}>
+                                    <FontAwesomeIcon
+                                        icon={faTwitter}
+                                        className="icon"
+                                        fixedWidth
+                                    />
+                                </a>
                                 <span> twitter </span>
-                                <SpanLink> {userData?.twitter} </SpanLink>
                             </li>
                             <li>
-                                <FontAwesomeIcon
-                                    icon={faLinkedin}
-                                    className="icon"
-                                    fixedWidth
-                                ></FontAwesomeIcon>
+                                <a href={userData?.linkedin}>
+                                    <FontAwesomeIcon
+                                        icon={faLinkedin}
+                                        className="icon"
+                                        fixedWidth
+                                    />
+                                </a>
                                 <span> linkedin </span>
-                                <SpanLink> {userData?.linkedin} </SpanLink>
                             </li>
                             <li>
-                                <FontAwesomeIcon
-                                    icon={faFacebook}
-                                    className="icon"
-                                    fixedWidth
-                                ></FontAwesomeIcon>
+                                <a href={userData?.facebook}>
+                                    <FontAwesomeIcon
+                                        icon={faFacebook}
+                                        className="icon"
+                                        fixedWidth
+                                    />
+                                </a>
                                 <span> facebook </span>
-                                <SpanLink> {userData?.facebook} </SpanLink>
                             </li>
                         </ul>
                     ) : (
                         <ul>
                             {userData?.website && (
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon={faGlobe}
-                                        className="icon"
-                                        fixedWidth
-                                    ></FontAwesomeIcon>
+                                    <a href={userData?.website}>
+                                        <FontAwesomeIcon
+                                            icon={faGlobe}
+                                            className="icon"
+                                            fixedWidth
+                                        />
+                                    </a>
                                     <span> website </span>
-                                    <SpanLink> {userData?.website} </SpanLink>
                                 </li>
                             )}
                             {userData?.github && (
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon={faGithub}
-                                        className="icon"
-                                        fixedWidth
-                                    ></FontAwesomeIcon>
+                                    <a href={userData?.github}>
+                                        <FontAwesomeIcon
+                                            icon={faGithub}
+                                            className="icon"
+                                            fixedWidth
+                                        />
+                                    </a>
                                     <span> github </span>
-                                    <SpanLink> {userData?.github} </SpanLink>
                                 </li>
                             )}
                             {userData?.twitter && (
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon={faTwitter}
-                                        className="icon"
-                                        fixedWidth
-                                    ></FontAwesomeIcon>
+                                    <a href={userData?.twitter}>
+                                        <FontAwesomeIcon
+                                            icon={faTwitter}
+                                            className="icon"
+                                            fixedWidth
+                                        />
+                                    </a>
                                     <span> twitter </span>
-                                    <SpanLink> {userData?.twitter} </SpanLink>
                                 </li>
                             )}
                             {userData?.linkedin && (
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon={faLinkedin}
-                                        className="icon"
-                                        fixedWidth
-                                    ></FontAwesomeIcon>
+                                    <a href={userData?.linkedin}>
+                                        <FontAwesomeIcon
+                                            icon={faLinkedin}
+                                            className="icon"
+                                            fixedWidth
+                                        />
+                                    </a>
                                     <span> linkedin </span>
                                     <SpanLink> {userData?.linkedin} </SpanLink>
                                 </li>
                             )}
                             {userData?.facebook && (
                                 <li>
-                                    <FontAwesomeIcon
-                                        icon={faFacebook}
-                                        className="icon"
-                                        fixedWidth
-                                    ></FontAwesomeIcon>
+                                    <a href={userData?.facebook}>
+                                        <FontAwesomeIcon
+                                            icon={faFacebook}
+                                            className="icon"
+                                            fixedWidth
+                                        />
+                                    </a>
                                     <span> facebook </span>
-                                    <SpanLink> {userData?.facebook} </SpanLink>
                                 </li>
                             )}
                         </ul>
                     )}
                 </LinksCard>
-                <AboutContainer>
+                <UserPostsContainer>
                     <Group>
-                        <p>About</p>
-                        {getCurrentUser() && currentUser.id === id ? (
-                            !editAbout ? (
-                                <>
-                                    <EditBtn
-                                        onClick={() => setEditAbout(true)}
-                                        type="button"
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faEdit}
-                                            className="icon"
-                                            fixedWidth
-                                        ></FontAwesomeIcon>
-                                    </EditBtn>
-                                </>
-                            ) : (
-                                <ProfileModal
-                                    type={"about"}
-                                    userData={userData}
-                                    toggleEditAbout={toggleEditAbout}
-                                />
-                            )
-                        ) : (
-                            ""
-                        )} 
+                        <Title>Your posts</Title>
                     </Group>
-                    <span>{userData?.about}</span>
-                </AboutContainer>
+                    {getCurrentUser() && currentUser.id === id ? (
+                    <ProfilePostContainer>
+                        {posts?.map((post,id)=>
+                            <ProfilePost>
+                                <ProfilePostTitle>
+                                    <Link to={`/post/${post?._id}`}>
+                                        {post?.title}
+                                    </Link>
+                                    <div style={{float:"right"}}>
+                                        <DeleteButton onClick={() => deletePost(post?._id)}>
+                                            <FontAwesomeIcon icon={faTrash} className="icon" fixedWidth />
+                                        </DeleteButton>
+                                        <EditButton>
+                                            <FontAwesomeIcon icon={faEdit} className="icon" fixedWidth />
+                                        </EditButton>
+                                    </div>
+                                </ProfilePostTitle>
+                                <ProfilePostInformation>
+                                    <p>{moment(new Date(post?.dCreatedDate)).fromNow()}</p>
+                                </ProfilePostInformation>
+                            </ProfilePost>
+                        )}
+                    </ProfilePostContainer>
+                    )
+                    : (
+                        ""
+                    )}
+                </UserPostsContainer>
             </Container>
         </ProfileContainer>
-        : ""}
         </>
     );
 };

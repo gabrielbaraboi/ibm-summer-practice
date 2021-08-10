@@ -2,19 +2,15 @@ import styled from "styled-components";
 
 export const BackgroundPage = styled.div`
     width: 100%;
-    height: 100%;
-    background: linear-gradient(360deg, #74718b, #1d1b31);
+    background: #29283a;
     position: absolute;
     display: flex;
-    justify-content: center;
-    align-items: center;
 `;
 
 export const Group = styled.div`
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
     p {
         float: left;
-        
     }
 `;
 
@@ -25,40 +21,41 @@ export const InputLink = styled.input`
 export const ModalWrapper = styled.div`
     width: 100%;
     height: 100%;
-    background: transparent;
     z-index: 10;
     color: white;
 `;
 
 export const ModalContent = styled.div`
-    display: block;
+    width:100%;
     form {
-        display:block;
         width: 100%;
-        height: 100%;
+        display:flex;
+        flex-direction:column;
+    }
+    textarea {
+        font-size: 1rem;
+        width: 100%;
+        min-width: 150px;
+        resize: none;
+        margin-bottom:0.25rem;
     }
     button {
+        width: 10%;
+        min-width:3rem;
         text-align: center;
         transition-duration: 0.4s;
-        padding: 10px 24px;
-        background: #141414;
-        color: #fff;
+        padding: 0.5rem 0.5rem;
+        background: white;
+        color: black;
         border: none;
         cursor: pointer;
-        margin-left: 5px;
-        margin-top: 10px;
-        float: left;
         &:hover {
             background-color: whitesmoke;
             color: black;
         }
-    }
-    textarea {
-        resize: none;
-        width: 90%;
-        height: 160px;
-        min-width 300px;
-        min-height: 150px;
+        @media (max-width: 1000px) {
+            width: 3rem;
+        }
     }
 `;
 
@@ -73,7 +70,6 @@ export const CloseModalButton = styled.button`
     width: 24px;
     height: 24px;
     transition-duration: 0.4s;
-    z-index: 10;
     &:hover {
         background-color: black;
         color: white;

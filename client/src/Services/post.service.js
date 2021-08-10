@@ -56,3 +56,15 @@ export const getWorkPlaces = async () => {
         throw error;
     }
 };
+
+export const deletePost = async (postId) => {
+    try {
+        const res = await axios.delete(API_URL + 'post/' + postId, {
+            headers: authHeader(),
+        });
+        window.location.reload();
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};

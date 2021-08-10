@@ -44,6 +44,16 @@ export const getAllUsers = async () => {
     }
 };
 
+export const getAllUserPosts = async (id) => {
+    try {
+        const res = await axios.get(API_URL + "getAllPosts/" + id);
+        return res;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 export const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user"));
 };
