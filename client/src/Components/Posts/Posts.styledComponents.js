@@ -9,14 +9,14 @@ export const Posts = styled.div`
 `;
 
 export const PaginationBtn = styled.button`
-    background-color: #181342;
-    color: white;
+    background-color: #e4e9f7;
+    color: black;
     transition-duration: 0.4s;
     border: none;
     border-radius: 0.5rem;
     padding: 8px;
     &:hover {
-        background-color: #7a77bb;
+        background-color: white;
         cursor: pointer;
     }
 `;
@@ -26,6 +26,7 @@ export const PageSpan = styled.span`
     margin-right: 10px;
     text-decoration: none;
     border: none;
+    color:white;
 `;
 
 const gradient = (degs) => css`
@@ -159,14 +160,16 @@ export const ActionButton = styled.button`
 `;
 
 export const Filter = styled.div`
+    background : #29283a;
+    border-radius: 1rem;
     width: 25%;
     height: 500px;
     padding: 20px;
-    margin-top: 15px;
+    margin-top: 10px;
 `;
 
 export const FilterTitle = styled.h2`
-    color: #1b2942;
+    color: white;
     font-size: 24px;
     font-weight: 500;
     overflow: hidden;
@@ -195,7 +198,7 @@ export const FilterField = styled.div`
     margin-top: 5px;
     height: 18px;
     &:hover label {
-        color: #000000;
+        color: white;
     }
     &:hover .check {
         border: 2px solid #89ccf6;
@@ -217,7 +220,7 @@ export const FilterField = styled.div`
     }
 
     input[type="radio"]:checked ~ .check::before {
-        background: #89ccf6;
+        background: white;
     }
 
     input[type="radio"]:checked ~ label {

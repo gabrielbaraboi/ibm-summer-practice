@@ -12,6 +12,7 @@ import {
     CommentsCountText,
     ImageCircleStyle,
     ButtonWrapper,
+    Center,
 } from "./Comment.styledComponents";
 import { createComment, getAllComments } from "../../Services/comment.service";
 import { useParams } from "react-router-dom";
@@ -94,7 +95,9 @@ const CommentSection = ({ userData }) => {
                 </AddComment>
             )}
             {comments.length === 0 ? (
-                <center>No comments yet!</center>
+                <Center>
+                    <center>No comments yet!</center>
+                </Center> 
             ) : (
                 comments?.map((comment, idx) => (
                     <Comment
