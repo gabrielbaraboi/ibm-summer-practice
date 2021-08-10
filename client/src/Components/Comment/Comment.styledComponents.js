@@ -11,6 +11,11 @@ export const ButtonWrapper = styled.div`
     margin-left: auto;
 `;
 
+export const Center = styled.div`
+    color:white;
+    margin:auto;
+`
+
 export const AddComment = styled.div`
     display: flex;
     height: 11rem;
@@ -79,6 +84,7 @@ export const CommentUserName = styled.div`
     font-weight: bold;
     margin: 0 0 0.5rem 0;
     a{
+        color:white;
         transition: 0.5s ease;
         &:hover{
             color:rgba(30, 30, 218);
@@ -90,7 +96,7 @@ export const CommentUserName = styled.div`
 `;
 
 export const CommentText = styled.div`
-    color: black;
+    color: whitesmoke;
     word-break: break-all;
     @media (max-width: 1000px) {
         font-size: 1rem;
@@ -105,8 +111,8 @@ export const PostCommentButton = styled.button`
     border-radius: 0.5rem;
     font-weight: bold;
     transition: 0.5s ease;
-    background-color:#1e1c36;
-    color:white;
+    background-color: #e4e9f7;
+    color:black;
     font-size: 1rem;
     height:20%;
     width:15%;
@@ -177,6 +183,7 @@ export const CommentInfo = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 10rem;
+    color:white;
 `;
 
 export const CommentsCountDiv = styled.div`
