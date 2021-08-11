@@ -42,7 +42,7 @@ const NavBar = () => {
     }, []);
 
     return (
-        <Nav className={openNav ? `open` : ``}>
+        <Nav className={openNav ? `` : `open`}>
             <LogoDetails>
                 <i>
                     <FontAwesomeIcon
@@ -55,8 +55,8 @@ const NavBar = () => {
                 <button
                     className={
                         openNav
-                            ? `hamburger hamburger--slider is-active`
-                            : `hamburger hamburger--slider`
+                            ? `hamburger hamburger--slider`
+                            : `hamburger hamburger--slider is-active`
                     }
                     type="button"
                     onClick={(e) => {
