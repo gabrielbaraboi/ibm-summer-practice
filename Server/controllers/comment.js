@@ -19,11 +19,13 @@ const createComment = async (req, res) => {
 					parentPostId: postId,
 				};
 
-				Comment.create(newComment, (err, comment) => {
+				Comment.create(newComment, async (err, comment) => {
 					if (err) {
 						console.log(err);
 						res.status(400).json({ message: "Can`t create comment" });
 					} else {
+						postExist.comments= postExist.comments+1;
+						await postExist.save();
 						res.status(200).json({ message: "Comment created successfully" });
 					}
 				});

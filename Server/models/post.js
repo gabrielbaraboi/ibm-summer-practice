@@ -14,6 +14,7 @@ var PostSchema = new mongoose.Schema(
 		workHours: { type: String, required: true },
 		workPlace: { type: String, required: true },
 		requirements: [],
+		comments:{type: Number, required: true, default: 0}
 	},
 	{
 		timestamps: {
