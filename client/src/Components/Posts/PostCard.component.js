@@ -26,7 +26,7 @@ const PostCard = ({ post }) => {
 		post?.workPlace
 	]);
 
-	const created_date = new Date(post?.dCreatedDate);
+	const created_date = new Date(post?.dUpdatedDate);
 	return (
 		<Card>
 			<Content>
@@ -56,7 +56,8 @@ const PostCard = ({ post }) => {
 							{post?.createdBy?.companyName}
 						</Link>
 					</Author>
-					<Data>{moment(created_date).fromNow()}</Data>
+					<Data>{moment(created_date).fromNow()}{post?.dCreatedDate !== post?.dUpdatedDate && " updated"}</Data>
+
 					<Data>{post?.type}</Data>
 				</Group>
 			</Content>

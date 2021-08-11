@@ -68,3 +68,15 @@ export const deletePost = async (postId) => {
         throw error;
     }
 };
+
+export const updatePost = async (postId,data) => {
+    try {
+        const res = await axios.put(API_URL + 'post/' + postId,data, {
+            headers: authHeader(),
+        });
+        window.location.reload();
+        return res;
+    } catch (error) {
+        throw error;
+    }
+};

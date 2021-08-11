@@ -50,24 +50,23 @@ export const ProfilePicture = styled.div`
     img{
         width: 120px;
         height: 120px;
-        border-radius: 30%;
+        border-radius: 100%;
         border: 3px solid white;
     }
     button{
         position: absolute;
-        bottom: -10px;
-        font-size : 25px;
+        top: -5px;
+        font-size : 1.2rem;
         right: -10px;
         padding: 5px 5px;
-        background-color:rgba(96, 96, 245, 0.3);
+        background-color:white;
         border-radius: 100%;
-        color: #f5f8f5dc;
-        border: none;
+        border: 2px solid black;
         z-index: 5;
         &:hover{
             cursor:pointer;
             color: white;
-            background-color:rgba(129, 129, 245, 0.3);
+            background-color:black;
     }
 `;
 
@@ -96,7 +95,7 @@ export const ModalForm = styled.form`
     justify-content: center;
     width:100%;
     padding: 1.5rem;
-    textarea {
+    select,textarea {
         resize:none;
 		width: 100%;
 		border: 2px solid;

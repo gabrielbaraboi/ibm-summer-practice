@@ -28,7 +28,7 @@ import {
     LinkList,
 } from "./Profile.styledComponents";
 import { DeleteButton,EditButton,ButtonWrapper } from "../Global.styledComponents";
-import { faEdit, faCamera, faGlobe,faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faGlobe,faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebook,
     faTwitter,
@@ -43,7 +43,7 @@ import ReactImageFallback from "react-image-fallback";
 import moment from "moment";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
-import { deletePost } from "../../Services/post.service";
+import { deletePost,getPost,updatePost } from "../../Services/post.service";
 import { PaginationBtn,PageSpan } from "../Posts/Posts.styledComponents";
 
 const Profile = () => {
@@ -52,9 +52,11 @@ const Profile = () => {
     const [currentUser, setCurrentUser] = useState([]);
     const [file, setFile] = useState(null);
     const [posts, setPosts] = useState([]);
+    const [postId, setPostId] = useState();
+    const [postEdit,setPostEdit] = useState();
 
     const [page, setPage] = useState(1);
-	const [nextPage, setNextPage] = useState(1);
+	const [nextPage, setNextPage] = useState();
 	const [totalPages, setTotalPages] = useState();
 
     const goNextPage = () => {
@@ -75,9 +77,13 @@ const Profile = () => {
     const [showModalProfilePic, setShowModalProfilePic] = useState(false);
     const [editSocialLinks, setEditSocialLinks] = useState(false);
     const [editAbout, setEditAbout] = useState(false);
-    const [editPost, setEditPost] = useState(false);
+    const [showEditPost, setShowEditPost] = useState(false);
+    const [values, setValues] = useState({});
 
-    
+    const editPost = (postId) => {
+        setShowEditPost(true);
+        setPostId(postId);
+    }
 
     function handleChange(event) {
         event.persist();
@@ -98,6 +104,20 @@ const Profile = () => {
         }
     };
 
+    const handleChangePost = (event) =>{
+        event.persist();
+        setValues((values) => ({
+            ...values,
+            [event.target.name]: event.target.value,
+        }));
+        console.log(values);
+    };
+
+    const handleSubmitEdit = (event) => {
+        event.preventDefault();
+        updatePost(postId,values);
+    };
+
     const toggleEditSocialLinks = () => {
         setEditSocialLinks(false);
     };
@@ -105,7 +125,7 @@ const Profile = () => {
         setEditAbout(false);
     };
     const toggleEditPost = () => {
-        setEditPost(false);
+        setShowEditPost(false);
     }
 
 
@@ -119,6 +139,19 @@ const Profile = () => {
                     console.log(err.message);
                 }),
         [id]
+    );
+
+    useEffect(
+        () =>
+            getPost(postId)
+                .then((res) => {
+                    setPostEdit(res.data);
+                    setValues(res.data);
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                }),
+        [postId]
     );
 
     useEffect(() => {
@@ -135,9 +168,9 @@ const Profile = () => {
             console.log(err);
             setPosts([]);
             setTotalPages(1);
-            setNextPage(1);
+            setNextPage();
         });
-	}, [page,posts]);
+	}, [page]);
 
     const openModalProfilePic = (e) => {
         setFile(null);
@@ -163,6 +196,7 @@ const Profile = () => {
                 isOpen={showModalProfilePic}
                 style={ModalStyles}
                 onRequestClose={openModalProfilePic}
+                ariaHideApp={false}
             >
                 <Group>
                     <p>Edit</p>
@@ -194,7 +228,7 @@ const Profile = () => {
                         {currentUser && currentUser.id === id ? (
                             <button onClick={openModalProfilePic}>
                                 <FontAwesomeIcon
-                                    icon={faCamera}
+                                    icon={faPen}
                                     className="icon"
                                     fixedWidth
                                 />
@@ -234,6 +268,7 @@ const Profile = () => {
                                         isOpen={editAbout}
                                         style={ModalStyles}
                                         onRequestClose={toggleEditAbout}
+                                        ariaHideApp={false}
                                     >
                                         <Group>
                                             <p>Edit</p>
@@ -499,9 +534,89 @@ const Profile = () => {
                         <p>Your posts</p>
                     </Group>
                     <ProfilePostContainer>
+                    <Modal
+                        isOpen={showEditPost}
+                        style={ModalStyles}
+                        onRequestClose={toggleEditPost}
+                        ariaHideApp={false}
+                    >
+                        <Group>
+                            <p>Edit</p>
+                            <ModalClose onClick={toggleEditPost}>X</ModalClose>
+                        </Group>
+                        <ModalForm onSubmit={handleSubmitEdit}>
+                        <Group>
+                            <div>
+                                <label>Title</label>
+                                <InputLink
+                                    type="text" 
+                                    name="title"
+                                    onChange={handleChangePost}
+                                    value={values.title || "" }
+                                    placeholder="Type here..."
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label>Programming Language</label>
+                                <InputLink
+                                    type="text"
+                                    name="programmingLanguage"
+                                    onChange={handleChangePost}
+                                    value={values.programmingLanguage || ""}
+                                    placeholder="Type here..."
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label>Work Hours</label>
+                                <select
+                                    type="text"
+                                    name="workHours"
+                                    onChange={handleChangePost}
+                                    value={values.workHours || ""}
+                                    required
+                                >
+                                    <option value="full-time">Full Time</option>
+                                    <option value="part-time">Part Time</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Work place</label>
+                                <select
+                                    type="text"
+                                    name="workPlace"
+                                    onChange={handleChangePost}
+                                    value={values.workPlace || ""}
+                                    required
+                                >
+                                    <option value="Iași">Iași</option>
+                                    <option value="Cluj">Cluj</option>
+                                    <option value="Brașov">Brașov</option>
+                                    <option value="Timișoara">Timișoara</option>
+                                    <option value="București">București</option>
+                                    <option value="remote">Remote</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Description</label>
+                                <textarea 
+                                    name="description"
+                                    rows="3"
+                                    onChange={handleChangePost}
+                                    value={values.description || ""}
+                                    placeholder="Type here..."
+                                    required
+                                >
+                                </textarea>
+                            </div>
+                            </Group>
+                            <ModalSubmit type="submit">Update</ModalSubmit>
+                        </ModalForm>
+                    </Modal>
                     {posts.length > 0 ? (
                         posts?.map((post,k)=>
-                            <ProfilePost>
+                            <ProfilePost key={k}>
                                 <ProfilePostTitle>
                                     <Link to={`/post/${post?._id}`}>
                                         {post?.title}
@@ -511,7 +626,7 @@ const Profile = () => {
                                         <DeleteButton onClick={() => deletePost(post?._id)}>
                                             <FontAwesomeIcon icon={faTrash} className="icon" fixedWidth />
                                         </DeleteButton>
-                                        <EditButton>
+                                        <EditButton onClick={() => editPost(post?._id)}>
                                             <FontAwesomeIcon icon={faEdit} className="icon" fixedWidth />
                                         </EditButton>
                                     </ButtonWrapper>
