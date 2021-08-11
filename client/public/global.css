@@ -217,6 +217,9 @@ a:visited {
 .messenger {
     height: calc(100vh - 70px);
     display: flex;
+    flex-direction:row;
+    padding:0 1rem ;
+    padding-bottom:1rem;
 }
 
 .chatMenu {
@@ -234,14 +237,14 @@ a:visited {
     flex: 7.5;
     background: #29283a;
     margin-top: 20px;
-    border-radius: 0.5rem;
-}
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+} 
 
 .chatBoxWrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
+    position: relative; 
 }
 
 .chatBoxTop {
@@ -260,7 +263,8 @@ a:visited {
 .chatMessageInput {
     width: 90%;
     padding: 10px;
-    border-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
     background: #414052;
     color: white;
     border: none;
@@ -276,10 +280,12 @@ a:visited {
 }
 
 .chatSubmitButton {
-    width: 70px;
-    height: 40px;
+    width: 4.5rem;
+    height: 100%;
     border: none;
-    border-radius: 5px;
+    border-left:3px solid #29283A;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
     cursor: pointer;
     background: #414052;
     font-weight: 600;
@@ -292,14 +298,14 @@ a:visited {
 }
 
 .chatBoxWrapper {
-    padding: 20px;
+    padding: 2rem;
     height: 100%;
 }
 
 .noConversationText {
     position: absolute;
     top: 10%;
-    font-size: 50px;
+    font-size: 3rem;
     color: rgb(224, 220, 220);
     cursor: default;
 }
@@ -310,13 +316,15 @@ a:visited {
     padding: 10px;
     cursor: pointer;
     margin-top: 10px;
-    border-radius: 0.5rem 0 0 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
     transition: all 0.2s ease-in-out;
 }
 
 .conversation.chat-active {
     background-color: #29283a;
-    border-radius: 0.5rem 0 0 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%),
         0 0px 0 1px rgb(10 10 10 / 2%);
 }
@@ -401,6 +409,7 @@ a:visited {
 .select-container,.new-conversation-container button{
     border: 1px solid white ;
     background-color: #1D1B31;
+    
 }
 .new-conversation-container button {
     color: #714BB9;
@@ -422,4 +431,32 @@ a:visited {
     padding: 0.8rem 3rem 0.9rem 0.9rem ;
     font-size: 0.9rem;
     color: #714BB9;
+}
+
+@media (max-width:768px){
+    .new-conversation-container{
+        flex-direction:column;
+        width:100%;
+        
+    }
+    .messenger{
+        padding-right:1rem;
+        
+    }
+    
+    
+    .new-conversation-container button{
+        padding: 0.8rem 3rem 0.9rem 0.9rem;
+        border-left:1px solid white;
+        text-align:left;
+    }
+    .noConversationText{
+        font-size:1rem;
+    }
+    .conversationName{
+        display:none;
+    }
+    .messageBottom{
+        font-size: 0.5rem;
+    }
 }
