@@ -8,7 +8,7 @@ const Post = require("../models/post");
 const Comment = require("../models/comment");
 const Student = require("../models/student.js");
 const Company = require("../models/company.js");
-
+const postsPerPage = 3;
 //nodemailer setup
 const registerUser = async (req, res) => {
 	try {
@@ -115,12 +115,28 @@ const getAllUsers = async (req, res) => {
 	}
 };
 const getAllUserPosts = async (req, res) => {
+	const page = parseInt(req.query.page);
+	const startIndex = (page - 1) * postsPerPage;
+	const endIndex = page * postsPerPage;
+	const result = {};
+
 	try {
-		const posts = await Post.find({ createdBy: req.params.id });
-		if (posts.length !== 0) {
-			res.status(200).json(posts);
-		} else {
-			res.status(404).json({ message: "This user don`t have any post" });
+		result.posts = await Post.find({ createdBy: req.params.id })
+			.sort({
+				dUpdatedDate: -1,
+			})
+			.skip(startIndex)
+			.limit(postsPerPage);
+		if (result.posts.length === 0)
+			res.status(404).json({
+				message: "No post found matching your filter",
+			});
+		else {
+			const count = await Post.countDocuments({ createdBy: req.params.id });
+			if (startIndex > 0) result.previous = page - 1;
+			if (endIndex < count) result.next = page + 1;
+			result.total = Math.ceil(count / postsPerPage);
+			res.status(200).json(result);
 		}
 	} catch (err) {
 		res.status(400).json({ message: "Can`t get any post" });

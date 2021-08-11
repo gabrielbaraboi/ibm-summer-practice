@@ -390,3 +390,36 @@ a:visited {
     background-color: teal;
     color: white;
 }
+
+.new-conversation-container{
+    display:flex;
+    justify-content: flex-start;
+    padding:0.5rem;
+}
+
+
+.select-container,.new-conversation-container button{
+    border: 1px solid white ;
+    background-color: #1D1B31;
+}
+.new-conversation-container button {
+    color: #714BB9;
+    border-left:none;
+    padding:0 2rem;
+    text-align:center;
+    font-size: 0.9rem;
+}
+.select-container select{
+    border: none ;
+    outline: none ;
+    background: transparent;
+    -webkit-appearance: none ;
+    -moz-appearance: none ;
+    appearance: none;
+    border-radius: 0;
+    margin: 0 ;
+    width: 100% ;
+    padding: 0.8rem 3rem 0.9rem 0.9rem ;
+    font-size: 0.9rem;
+    color: #714BB9;
+}
