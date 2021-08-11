@@ -13,7 +13,7 @@ import ReactImageFallback from "react-image-fallback";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { DeleteButton,EditButton } from "../Global.styledComponents";
+import { DeleteButton,EditButton,ButtonWrapper } from "../Global.styledComponents";
 
 export const Comment = ({ comment, userData }) => {
     const [edit, setEdit] = useState(false);
@@ -51,7 +51,7 @@ export const Comment = ({ comment, userData }) => {
                         {comment?.createdBy?.companyName}
                     </a>
                     {userData && userData.id === comment?.createdBy?._id && (
-                        <div style={{ float: "right" }}>
+                        <ButtonWrapper>
                             <DeleteButton
                                 onClick={() => {
                                     deleteThisComment();
@@ -76,7 +76,7 @@ export const Comment = ({ comment, userData }) => {
                                     />
                                 </EditButton>
                             )}
-                        </div>
+                        </ButtonWrapper>
                     )}
                 </CommentUserName>
                 {!edit ? (

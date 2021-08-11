@@ -46,3 +46,7 @@ export const EditButton = styled.button`
 		font-size: 0.8rem;
 	}
 `;
+
+export const ButtonWrapper = styled.div`
+    float: right;
+`
