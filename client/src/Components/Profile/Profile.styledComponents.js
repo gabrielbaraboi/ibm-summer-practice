@@ -3,6 +3,29 @@ import styled from "styled-components";
 export const ProfileContainer = styled.div`
     background:#1B1830;
     height:100%;
+    padding: 0.25rem;
+`;
+
+export const InputLink = styled.input`
+    width: 100%;
+    border: 2px solid;
+    border-color: #29283a;
+    color: white;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 0.5rem;
+    background-color: #414052;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%),
+        0 0px 0 1px rgb(10 10 10 / 2%);
+    &:focus {
+        outline: none;
+    }
+    &::placeholder {
+        color: darkgray;
+    }
 `;
 
 export const Container = styled.div`
@@ -12,6 +35,7 @@ export const Container = styled.div`
 export const ProfileCard = styled.div`
     background: #29283a;
     padding: 0.4rem 0.4rem 5rem 0.4rem;
+    border-radius: 1rem;
     margin-bottom: 0.25rem;
     width: 100%;
 `;
@@ -23,7 +47,6 @@ export const ProfilePicture = styled.div`
     display: inline-block;
     margin-left: 2rem;
     top: 4rem;
-    z-index: 10;
     img{
         width: 120px;
         height: 120px;
@@ -40,6 +63,7 @@ export const ProfilePicture = styled.div`
         border-radius: 100%;
         color: #f5f8f5dc;
         border: none;
+        z-index: 5;
         &:hover{
             cursor:pointer;
             color: white;
@@ -55,10 +79,14 @@ export const ModalStyles = {
         bottom: "auto",
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
-        minWidth: "300px",
-        minHeight: "300px",
+        minWidth: "50%",
         background: "#1d1b31",
+        border:"none"
     },
+    overlay:{
+        zIndex:10,
+        background: "rgba(0, 0, 0, 0.6)"
+    }
 };
 
 export const ModalForm = styled.form`
@@ -66,45 +94,64 @@ export const ModalForm = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    label {
-        color: white;
-        position: relative;
-        text-align: center;
-        border: 0px solid #4caf50;
-        font-size: 20px;
-        transition-duration: 0.4s;
-        padding: 0px 10px;
-        margin-bottom: 10px;
-        &:hover {
-            cursor: pointer;
-            color: #74718b;
-        }
-    }
-    img {
-        top: 80px;
-        position: absolute;
-        width: 150px;
-        height: 150px;
-        border-radius: 30%;
-        border: 3px solid white;
-    }
-    button {
-        top: 160px;
-        position: relative;
-        padding: 5px;
-        width: 80%;
-        background-color: #7a77bb;
-        color: white;
-        transition-duration: 0.4s;
-        border: none;
-        border-radius: 0%;
-        &:hover {
-            background-color: rgba(129, 129, 245, 0.3);
-            cursor: pointer;
-        }
-    }
+    width:100%;
+    padding: 1.5rem;
+    textarea {
+        resize:none;
+		width: 100%;
+		border: 2px solid;
+		border-color: #29283a;
+		color: white;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		display: block;
+		padding: 10px 15px;
+		border-radius: 0.5rem;
+		background-color: #414052;
+		box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%),
+			0 0px 0 1px rgb(10 10 10 / 2%);
+		&:focus {
+			outline: none;
+		}
+		&::placeholder {
+			color: darkgray;
+		}
+	}
 `;
+
+export const ProfilePicThumbnail = styled.img`
+    width: 150px;
+    height: 150px;
+    border-radius: 30%;
+    border: 3px solid white;
+    margin-bottom: 0.25rem;
+`
+
+export const ProfilePicSelect = styled.label`
+    color: white;
+    text-align: center;
+    border: 0px solid #4caf50;
+    font-size: 1.5rem;
+    transition-duration: 0.4s;
+    &:hover {
+        cursor: pointer;
+        color: #74718b;
+    }
+`
+
+export const ProfilePicSave = styled.button`
+    padding: 0.25rem;
+    background-color: #7a77bb;
+    color: white;
+    transition-duration: 0.4s;
+    border: none;
+    border-radius: 1rem;
+    &:hover {
+        background-color: rgba(129, 129, 245, 0.3);
+        cursor: pointer;
+    }
+`
 
 export const ModalClose = styled.button`
     position: relative;
@@ -119,6 +166,21 @@ export const ModalClose = styled.button`
         opacity: 0.5;
     }
 `;
+
+export const ModalSubmit = styled.button`
+    position: relative;
+    padding: 0.5rem 1rem;
+    top:1rem;
+    background-color: #7a77bb;
+    color: white;
+    transition-duration: 0.4s;
+    border: none;
+    border-radius: 1rem;
+    &:hover {
+        background-color: rgba(129, 129, 245, 0.3);
+        cursor: pointer;
+    }
+`
 
 export const NameContainer = styled.div`
     border-right: 1px solid white;
@@ -153,14 +215,8 @@ export const LinksCard = styled.div`
     margin-right: 5px;
     position: relative;
     width:50%;
-    padding: 0.25rem 1rem 0.25 0.25rem;
-    ul {
-        list-style-type: none;
-        overflow: hidden;
-    }
-    a{
-        color:white;
-    }
+    padding: 0.5rem;
+    border-radius: 1rem;
     span {
         font-size: 15px;
         color: white;
@@ -170,10 +226,24 @@ export const LinksCard = styled.div`
     }
 `;
 
+export const LinkList = styled.ul`
+    width:100%;
+    list-style-type: none;
+    overflow: hidden;
+    color:white;
+    span{
+        font-size:1rem;
+    }
+    a{
+        color:white;
+        font-size:1rem;
+    }
+`
+
 export const Group = styled.div`
     width:100%;
+    color:white;
     p {
-        margin-top:0.25rem;
         float: left;
     }
 `;
@@ -194,8 +264,10 @@ export const EditBtn = styled.button`
 
 export const UserPostsContainer = styled.div`
     background: #29283a;
-    display: block;
     width: 100%;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    min-height: 20rem;
     span {
         color: white;
     }
@@ -217,27 +289,22 @@ export const AboutContainer = styled.div`
     flex-direction: column;
     position: relative;
     height:100%;
+    padding:1rem;
     p{
-        padding:0.25rem;
         font-size: 1rem;
         font-weight:bold;
         float:left;
         text-aling: left;
     }
-    span{
-        padding:0.25rem;
-    }
 `
 
 export const ProfilePostContainer = styled.div`
     color: white;
-    padding: 0.5rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-    overflow-y: scroll;
 	@media (max-width: 768px) {
 		width: 100%;
 	}

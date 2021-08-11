@@ -50,7 +50,7 @@ const PostCard = ({ post }) => {
 				<Group>
 					<Author>
 						Created by
-						<Link to={`/profile/${post?.createdBy?.id}`}>
+						<Link to={`/profile/${post?.createdBy?._id}`}>
 							{post?.createdBy?.firstName}
 							{post?.createdBy?.lastName}
 							{post?.createdBy?.companyName}

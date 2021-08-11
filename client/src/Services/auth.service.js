@@ -44,9 +44,13 @@ export const getAllUsers = async () => {
     }
 };
 
-export const getAllUserPosts = async (id) => {
+export const getAllUserPosts = async (id,page) => {
     try {
-        const res = await axios.get(API_URL + "getAllPosts/" + id);
+        const res = await axios.get(API_URL + "getAllPosts/" + id,{
+            params:{
+                page
+            }
+        });
         return res;
     } catch (error) {
         throw error;
