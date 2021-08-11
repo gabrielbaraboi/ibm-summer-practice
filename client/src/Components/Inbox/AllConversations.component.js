@@ -167,8 +167,8 @@ const AllConversations = () => {
                                                 }
                                                 {
                                                     conversation?.member2
-                                                        ?.firstName + " "
-                                                }
+                                                        ?.firstName
+                                                }{" "}
                                                 {
                                                     conversation?.member2
                                                         ?.lastName
