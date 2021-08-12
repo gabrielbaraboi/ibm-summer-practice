@@ -149,7 +149,6 @@ const Settings = () => {
 					onRequestClose={openModalDeleteAccount}
 				>
 					<ModalClose onClick={openModalDeleteAccount}>
-						{" "}
 						<FontAwesomeIcon icon={faTimes} />
 					</ModalClose>
 					<ModalForm>

@@ -20,7 +20,7 @@ export const PostDivSinglePost = styled.div`
     align-items: center;
     width: 70%;
 	margin: 0 auto;
-    @media (max-width: 768px) {
+    @media (max-width: 1366px) {
         width: 100%;
     }
 `;

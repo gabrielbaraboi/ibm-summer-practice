@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
-	background: #1b1830;
 	height: 100%;
 	padding: 0.25rem;
+	margin: 0 auto;
+	width: 70%;
+	@media (max-width: 1366px) {
+        width: 100%;
+    }
 `;
 
 export const InputLink = styled.input`

@@ -28,7 +28,7 @@ import {
     LinkList,
 } from "./Profile.styledComponents";
 import { DeleteButton,EditButton,ButtonWrapper } from "../Global.styledComponents";
-import { faEdit, faGlobe,faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faGlobe,faTrash, faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebook,
     faTwitter,
@@ -53,7 +53,7 @@ const Profile = () => {
     const [file, setFile] = useState(null);
     const [posts, setPosts] = useState([]);
     const [postId, setPostId] = useState();
-    const [postEdit,setPostEdit] = useState();
+    const [postEdit, setPostEdit] = useState();
 
     const [page, setPage] = useState(1);
 	const [nextPage, setNextPage] = useState();
@@ -200,7 +200,9 @@ const Profile = () => {
             >
                 <Group>
                     <p>Edit</p>
-                    <ModalClose onClick={openModalProfilePic}>X</ModalClose>
+                    <ModalClose onClick={openModalProfilePic}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </ModalClose>
                 </Group>
                 <ModalForm onSubmit={handleSubmitProfilePic}>
                     <ProfilePicSelect htmlFor="profilePic">Select a Photo</ProfilePicSelect>
@@ -272,7 +274,9 @@ const Profile = () => {
                                     >
                                         <Group>
                                             <p>Edit</p>
-                                            <ModalClose onClick={toggleEditAbout}>X</ModalClose>
+                                            <ModalClose onClick={toggleEditAbout}>
+                                            <FontAwesomeIcon icon={faTimes} />
+                                            </ModalClose>
                                         </Group>
                                         
                                         <ModalForm onSubmit={handleSubmitAbout}>
@@ -317,7 +321,9 @@ const Profile = () => {
                             >
                                  <Group>
                                     <p>Edit</p>
-                                    <ModalClose onClick={toggleEditSocialLinks}>X</ModalClose>
+                                    <ModalClose onClick={toggleEditSocialLinks}>
+                                        <FontAwesomeIcon icon={faTimes} />
+                                    </ModalClose>
                                 </Group>
                                 <ModalForm onSubmit={handleSubmitLinks}>
                                     <LinkList>
