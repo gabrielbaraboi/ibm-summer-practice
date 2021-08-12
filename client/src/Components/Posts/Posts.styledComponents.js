@@ -34,6 +34,12 @@ export const Posts = styled.div`
 	}
 `;
 
+export const PaginationWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
 export const PaginationBtn = styled.button`
 	background: #6c7a89;
 	padding: 2px 1rem;
@@ -83,6 +89,9 @@ export const PageSpan = styled.span`
 	text-decoration: none;
 	border: none;
 	color: white;
+	@media (max-width: 400px) {
+		font-size: 0.8rem;
+	}
 `;
 
 const gradient = (degs) => css`
@@ -93,21 +102,31 @@ export const CardDivider = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin-left: 3rem;
+	@media (max-width: 400px) {
+		width: 100%;
+		margin: 0.2rem;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
 `;
 
 export const Card = styled.div`
 	position: relative;
 	overflow: hidden;
 	width: 100%;
-
 	min-height: 180px;
 	padding: 1rem 0;
 	border-radius: 0.5rem;
 	color: white;
-	margin-bottom: 10px;
+	margin-bottom: 1.5rem;
 	${gradient()};
 	box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.025),
 		0 9px 46px 8px rgba(0, 0, 0, 0.025), 0 11px 15px -7px rgba(0, 0, 0, 0.025);
+
+	@media (max-width: 400px) {
+		padding-bottom: 0;
+	}
 `;
 
 export const Content = styled.div`
@@ -116,6 +135,11 @@ export const Content = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	@media (max-width: 400px) {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 `;
 
 export const Div = styled.div`
@@ -149,23 +173,33 @@ export const Icon = styled.div`
 
 export const PostTitle = styled.div`
 	font-size: 1.75rem;
-	self-align: left;
+	align-self: start;
 	width: 50%;
-	max-width: 60%;
+	${"" /* max-width: 60%; */}
 	a {
 		color: white;
 	}
 	@media (max-width: 768px) {
 		font-size: 1rem;
 	}
+	@media (max-width: 400px) {
+		align-self: center;
+		text-align: center;
+		width: 100%;
+		font-size: 1.2rem;
+	}
 `;
 
 export const PostItems = styled.div`
 	font-size: 0.75rem;
+	@media (max-width: 400px) {
+		width: 100%;
+		font-size: 0.6rem;
+	}
 `;
 
 export const Data = styled.div`
-	font-size: 11px;
+	font-size: 0.6rem;
 	text-align: right;
 	margin-right: 0.8rem;
 	margin-top: 5px;
@@ -176,6 +210,10 @@ export const Data = styled.div`
 	a {
 		color: black;
 		transition: all 0.2s ease-in-out;
+		@media (max-width: 400px) {
+			text-align: center;
+			font-size: 0.8rem;
+		}
 	}
 	a:hover {
 		color: #6672b4;
@@ -184,11 +222,15 @@ export const Data = styled.div`
 	@media (max-width: 768px) {
 		font-size: 0.6rem;
 	}
+	@media (max-width: 400px) {
+		text-align: center;
+		font-size: 0.7rem;
+	}
 `;
 
 export const Group = styled.div`
 	width: 32%;
-	self-align: right;
+	align-self: right;
 	a {
 		color: #222133;
 		font-size: 13px;
@@ -196,9 +238,18 @@ export const Group = styled.div`
 		@media (max-width: 768px) {
 			font-size: 0.6rem;
 		}
+		@media (max-width: 400px) {
+			text-align: center;
+			font-size: 0.8rem;
+		}
 	}
 	@media (max-width: 768px) {
 		width: 50%;
+	}
+	@media (max-width: 400px) {
+		width: 100%;
+		align-self: center;
+		text-align: center;
 	}
 `;
 
@@ -212,10 +263,18 @@ export const FeatureListItem = styled.div`
 
 export const PostDescription = styled.div`
 	font-size: 1.2rem;
+	@media (max-width: 400px) {
+		width: 100%;
+		font-size: 0.8rem;
+	}
 `;
 
 export const PostRequirements = styled.div`
 	font-size: 0.75rem;
+	@media (max-width: 400px) {
+		width: 100%;
+		font-size: 0.6rem;
+	}
 `;
 
 export const Author = styled.div`
@@ -227,12 +286,18 @@ export const Author = styled.div`
 	@media (max-width: 768px) {
 		font-size: 0.6rem;
 	}
+	@media (max-width: 400px) {
+		justify-content: center;
+		align-items: center;
+		margin: 0;
+		font-size: 0.8rem;
+	}
 `;
 
 export const ActionButton = styled.button`
 	flex: 0 0 auto;
 	margin-right: 20px;
-	height: 40px;
+	height: 2.8rem;
 	padding: 0 2rem;
 	float: right;
 	border: 0;
@@ -244,6 +309,12 @@ export const ActionButton = styled.button`
 
 	&:hover {
 		background: rgba(255, 255, 255, 1);
+	}
+	@media (max-width: 400px) {
+		float: none;
+		width: 100%;
+		margin: 0;
+		border-radius: 0 0 0.5rem 0.5rem;
 	}
 `;
 export const FilterContainer = styled.div`

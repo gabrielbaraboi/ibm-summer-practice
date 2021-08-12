@@ -23,7 +23,7 @@ const PostCard = ({ post }) => {
 	const [features] = useState([
 		post?.programmingLanguage,
 		post?.workHours,
-		post?.workPlace
+		post?.workPlace,
 	]);
 
 	const created_date = new Date(post?.dUpdatedDate);
@@ -49,14 +49,17 @@ const PostCard = ({ post }) => {
 
 				<Group>
 					<Author>
-						Created by
+						<span>Created by</span>
 						<Link to={`/profile/${post?.createdBy?._id}`}>
 							{post?.createdBy?.firstName}
 							{post?.createdBy?.lastName}
 							{post?.createdBy?.companyName}
 						</Link>
 					</Author>
-					<Data>{moment(created_date).fromNow()}{post?.dCreatedDate !== post?.dUpdatedDate && " updated"}</Data>
+					<Data>
+						{moment(created_date).fromNow()}
+						{post?.dCreatedDate !== post?.dUpdatedDate && " updated"}
+					</Data>
 
 					<Data>{post?.type}</Data>
 				</Group>
@@ -67,7 +70,11 @@ const PostCard = ({ post }) => {
 						<FeatureListItem>{item}</FeatureListItem>
 					))}
 				</PostItems>
-				<PostDescription>{post?.description.length > 100 ? post?.description.slice(0, 100) + "..." : post?.description}</PostDescription>
+				<PostDescription>
+					{post?.description.length > 100
+						? post?.description.slice(0, 100) + "..."
+						: post?.description}
+				</PostDescription>
 				<PostRequirements>
 					{post?.requirements.map((req, idx) => (
 						<FeatureListItem key={idx}>

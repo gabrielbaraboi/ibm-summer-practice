@@ -12,6 +12,7 @@ import {
 	Posts,
 	FilterContainer,
 	ClearBtn,
+	PaginationWrapper,
 } from "./Posts.styledComponents";
 import PostCard from "./PostCard.component";
 import { getPosts, getWorkPlaces } from "../../Services/post.service";
@@ -85,7 +86,7 @@ const AllPosts = () => {
 				) : (
 					<p>No posts to show</p>
 				)}
-				<div>
+				<PaginationWrapper>
 					<PaginationBtn disabled={page <= 1} onClick={goPrevPage}>
 						{" "}
 						&lt; Previous Page
@@ -96,7 +97,7 @@ const AllPosts = () => {
 					<PaginationBtn disabled={!nextPage} onClick={goNextPage}>
 						Next Page &gt;
 					</PaginationBtn>
-				</div>
+				</PaginationWrapper>
 			</PostDiv>
 			<FilterContainer>
 				<FilterTitle>Filter</FilterTitle>
