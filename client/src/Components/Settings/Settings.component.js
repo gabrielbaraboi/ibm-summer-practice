@@ -84,106 +84,79 @@ const Settings = () => {
 
     return (
         <Body>
-            <Box>
-                <Title>Settings</Title>
-            </Box>
-            <View>
+            <SettingsForm>
                 <Box>
-                    <Icon>
-                        <ProfilePicture>
-                            <ReactImageFallback
-                                src={`/profile/${id}/getProfilePic`}
-                                fallbackImage={
-                                    process.env.PUBLIC_URL + "/iconUser.jpg"
-                                }
-                            />
-                        </ProfilePicture>
-                    </Icon>
+                    <Title>Settings</Title>
                 </Box>
+                <View>
+                    <Box>
+                        <Icon>
+                            <ProfilePicture>
+                                <ReactImageFallback
+                                    src={`/profile/${id}/getProfilePic`}
+                                    fallbackImage={
+                                        process.env.PUBLIC_URL + "/iconUser.jpg"
+                                    }
+                                />
+                            </ProfilePicture>
+                        </Icon>
+                    </Box>
+                    <Box>
+                        <Name>
+                            <span>
+                                {userData?.companyName}
+                                {userData?.firstName} {userData?.lastName}
+                            </span>
+                        </Name>
+                        <Name>
+                            <span>{userData?.role}</span>
+                        </Name>
+                    </Box>
+                    <Box>
+                        <DeleteButton onClick={openModalDeleteAccount}>
+                            Delete Account
+                        </DeleteButton>
+                    </Box>
+                </View>
                 <Box>
-                    <Name>
-                        <span>
-                            {userData?.companyName}
-                            {userData?.firstName} {userData?.lastName}
-                        </span>
-                    </Name>
-                    <Name>
-                        <span>{userData?.role}</span>
-                    </Name>
+                    <CardView>
+                        <Content>
+                            <Text>Email</Text>
+                            <InputType>
+                                <Div>
+                                    <span>{userData?.email} </span>
+                                </Div>
+                            </InputType>
+                            <Text>Display Name</Text>
+                            <InputType>
+                                <Div>
+                                    <span>
+                                        {" "}
+                                        {userData?.firstName}{" "}
+                                        {userData?.lastName}
+                                        {userData?.companyName}
+                                    </span>
+                                </Div>
+                            </InputType>
+                            <Text type="password">Password</Text>
+                            <InputType>
+                                <Div>
+                                    <InputType>*******</InputType>
+                                    <Button onClick={openModalChangePassword}>
+                                        Edit
+                                    </Button>
+                                </Div>
+                            </InputType>
+                        </Content>
+                    </CardView>
+                    <ActionButton type="submit">Save</ActionButton>
                 </Box>
-                <Box>
-                    <DeleteButton onClick={openModalDeleteAccount}>
-                        Delete Account
-                    </DeleteButton>
-                </Box>
-            </View>
-            <Box>
-                <CardView>
-                    <Content>
-                        <Text>Email</Text>
-                        <InputType>
-                            <Div>
-                                <span>{userData?.email} </span>
-                            </Div>
-                        </InputType>
-                        <Text>Display Name</Text>
-                        <InputType>
-                            <Div>
-                                <span>
-                                    {" "}
-                                    {userData?.firstName} {userData?.lastName}
-                                    {userData?.companyName}
-                                </span>
-                            </Div>
-                        </InputType>
-                        <Text type="password">Password</Text>
-                        <InputType>
-                            <Div>
-                                <InputType>*******</InputType>
-                                <Button onClick={openModalChangePassword}>
-                                    Edit
-                                </Button>
-                            </Div>
-                        </InputType>
-                    </Content>
-                </CardView>
-                <ActionButton type="submit">Save</ActionButton>
-            </Box>
-            <Modal
-                isOpen={showModalDeleteAccount}
-                style={ModalStyles}
-                onRequestClose={openModalDeleteAccount}
-            >
-                <ModalClose onClick={openModalDeleteAccount}>X</ModalClose>
-                <button
-                    onClick={() => {
-                        handleGenerateKey();
-                    }}
+                <Modal
+                    isOpen={showModalDeleteAccount}
+                    style={ModalStyles}
+                    onRequestClose={openModalDeleteAccount}
                 >
-                    Send Code
-                </button>
-                <label htmlFor="code">Code</label>
-                <input
-                    onChange={(e) => setSecretKey(e.target.value)}
-                    type="text"
-                    minLength="5"
-                    maxLength="5"
-                    id="code"
-                />
-                <button
-                    disabled={secretKey.length !== 5}
-                    onClick={handleSubmitDeleteAccount}
-                >
-                    Delete
-                </button>
-            </Modal>
-            <Modal
-                isOpen={showModalChangePassword}
-                style={ModalStyles}
-                onRequestClose={openModalChangePassword}
-            >
-                <ModalClose onClick={openModalChangePassword}><FontAwesomeIcon icon={faTimes}/></ModalClose>
-                <ModalForm>
+                    <ModalClose onClick={openModalDeleteAccount}>X</ModalClose>
                     <button
                         onClick={() => {
                             handleGenerateKey();
@@ -199,28 +172,60 @@ const Settings = () => {
                         maxLength="5"
                         id="code"
                     />
-                    <label htmlFor="password">New Password</label>
-                    <input
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        type="password"
-                        minLength="4"
-                        id="password"
-                    />
-                    <label htmlFor="confirm">Confirm Password</label>
-                    <input
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        type="password"
-                        minLength="4"
-                        id="confirm"
-                    />
                     <button
                         disabled={secretKey.length !== 5}
-                        onClick={handleSubmitChangePassword}
+                        onClick={handleSubmitDeleteAccount}
                     >
-                        Change
+                        Delete
                     </button>
-                </ModalForm>
-            </Modal>
+                </Modal>
+                <Modal
+                    isOpen={showModalChangePassword}
+                    style={ModalStyles}
+                    onRequestClose={openModalChangePassword}
+                >
+                    <ModalClose onClick={openModalChangePassword}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </ModalClose>
+                    <ModalForm>
+                        <button
+                            onClick={() => {
+                                handleGenerateKey();
+                            }}
+                        >
+                            Send Code
+                        </button>
+                        <label htmlFor="code">Code</label>
+                        <input
+                            onChange={(e) => setSecretKey(e.target.value)}
+                            type="text"
+                            minLength="5"
+                            maxLength="5"
+                            id="code"
+                        />
+                        <label htmlFor="password">New Password</label>
+                        <input
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            type="password"
+                            minLength="4"
+                            id="password"
+                        />
+                        <label htmlFor="confirm">Confirm Password</label>
+                        <input
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            type="password"
+                            minLength="4"
+                            id="confirm"
+                        />
+                        <button
+                            disabled={secretKey.length !== 5}
+                            onClick={handleSubmitChangePassword}
+                        >
+                            Change
+                        </button>
+                    </ModalForm>
+                </Modal>
+            </SettingsForm>
         </Body>
     );
 };
