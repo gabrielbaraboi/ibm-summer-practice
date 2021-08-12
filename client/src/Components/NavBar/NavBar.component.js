@@ -133,19 +133,6 @@ const NavBar = () => {
                 ) : (
                     ``
                 )}
-                <NavItem>
-                    <Link to={``}>
-                        <i>
-                            <FontAwesomeIcon
-                                icon={faBuilding}
-                                className="icon"
-                                fixedWidth
-                            />
-                        </i>
-                        <LinkName>Companies</LinkName>
-                    </Link>
-                    <Tooltip className="tooltip">Companies</Tooltip>
-                </NavItem>
                 {isUserData() ? (
                     <NavItem>
                         <Link to={`/settings/${user?.id}`}>

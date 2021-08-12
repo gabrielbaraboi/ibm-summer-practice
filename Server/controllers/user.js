@@ -176,6 +176,7 @@ const generateSecurityKey = async (req, res) => {
 		res.status(400).json(e.message);
 	}
 };
+
 const changePassword = async (req, res) => {
 	try {
 		const user = await User.findById(req.user._id);
@@ -191,6 +192,7 @@ const changePassword = async (req, res) => {
 		res.status(400).json(e.message);
 	}
 };
+
 const deleteAccount = async (req, res) => {
 	try {
 		//delete all comments sent by user

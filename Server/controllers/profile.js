@@ -11,8 +11,6 @@ const getUserProfilePic = async (req, res) => {
 				ibm
 					.getPic(user.profilePic)
 					.on("error", (err) => {
-						console.log("ERORR 1");
-						console.log(err);
 						res.status(404).json({ message: err.message });
 					})
 					.pipe(res)

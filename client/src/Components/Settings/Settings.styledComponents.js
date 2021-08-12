@@ -34,7 +34,6 @@ export const Card = styled.div`
 
 export const Content = styled.div`
 	position: relative;
-	z-index: 3;
 	text-align: left;
 	padding-left: 25px;
 	padding-bottom: 20px;
