@@ -33,7 +33,7 @@ import { DeleteButton,
     ModalForm,
     ModalClose,
     ModalSubmit, } from "../Global.styledComponents";
-import { faEdit, faGlobe,faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faGlobe,faTrash, faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebook,
     faTwitter,
