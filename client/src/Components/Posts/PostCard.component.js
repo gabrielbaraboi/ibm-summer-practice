@@ -18,10 +18,11 @@ import {
 import { Link } from "react-router-dom";
 import moment from "moment";
 import ReactImageFallback from "react-image-fallback";
+import { InputRequirement, InputRequirements } from "./AddPost.styledComponents";
 
 const PostCard = ({ post }) => {
     const [features] = useState([
-        post?.programmingLanguage,
+        post?.type,
         post?.workHours,
         post?.workPlace,
     ]);
@@ -47,11 +48,16 @@ const PostCard = ({ post }) => {
                             ? post?.title.slice(0, 35) + "..."
                             : post?.title}
                     </Link>
+					<PostItems>
+                    {features.map((item) => (
+                        <FeatureListItem>{item}</FeatureListItem>
+                    ))}
+                </PostItems>
                 </PostTitle>
 
                 <Group>
                     <Author>
-                        <span>Created by</span>
+                        <span>by</span>
                         <Link to={`/profile/${post?.createdBy?._id}`}>
                             {post?.createdBy?.firstName}&nbsp;
 							{post?.createdBy?.lastName}
@@ -59,32 +65,28 @@ const PostCard = ({ post }) => {
                         </Link>
                     </Author>
                     <Data>
+					{post?.dCreatedDate !== post?.dUpdatedDate &&
+                            "updated "}
                         {moment(created_date).fromNow()}
-                        {post?.dCreatedDate !== post?.dUpdatedDate &&
-                            " updated"}
                     </Data>
 
                     <Data>{post?.type}</Data>
                 </Group>
             </Content>
             <CardDivider>
-                <PostItems>
-                    {features.map((item) => (
-                        <FeatureListItem>{item}</FeatureListItem>
-                    ))}
-                </PostItems>
                 <PostDescription>
                     {post?.description.length > 100
                         ? post?.description.slice(0, 100) + "..."
                         : post?.description}
                 </PostDescription>
-                <PostRequirements>
+                <InputRequirements>
+				<InputRequirement>{post?.programmingLanguage}</InputRequirement>
                     {post?.requirements.map((req, idx) => (
-                        <FeatureListItem key={idx}>
+                        <InputRequirement key={idx}>
                             {req.length > 30 ? req.slice(0, 30) + "..." : req}
-                        </FeatureListItem>
+                        </InputRequirement>
                     ))}
-                </PostRequirements>
+                </InputRequirements>
             </CardDivider>
 
             <Link to={`/post/${post?._id}`}>

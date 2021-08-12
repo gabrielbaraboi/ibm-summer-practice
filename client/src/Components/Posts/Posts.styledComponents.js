@@ -224,7 +224,10 @@ export const FeatureListItem = styled.div`
     padding-left: 10px;
     display: inline-block;
     margin-right: 10px;
-    border-left: 2px solid white;
+    border-left: 1px solid #ffffff50;
+	&:nth-child(1) {
+		border-left: none;
+	}
 `;
 
 export const PostDescription = styled.div`

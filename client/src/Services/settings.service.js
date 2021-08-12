@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader, logout } from "./auth.service";
+import { authHeader } from "./auth.service";
 
 const API_URL = "http://localhost:7055/auth/";
 
@@ -8,7 +8,6 @@ export const deleteAccount = async (data) => {
         const res = await axios.post(API_URL + `deleteAccount`, data, {
             headers: authHeader(),
         });
-        logout();
         return res;
     } catch (err) {
         throw err;

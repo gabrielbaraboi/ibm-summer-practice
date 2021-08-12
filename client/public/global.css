@@ -280,7 +280,7 @@ a:visited {
 }
 
 .chatSubmitButton {
-    width: 4.5rem;
+    width: 10%;
     height: 100%;
     border: none;
     border-left:3px solid #29283A;

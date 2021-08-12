@@ -118,7 +118,7 @@ export const NameContainer = styled.div`
 	margin-top: 0.5rem;
 	padding: 0.25rem 1rem;
 	text-align: right;
-	width: 50%;
+	width: 100%;
 	span {
 		color: whitesmoke;
 		font-size: 25px;

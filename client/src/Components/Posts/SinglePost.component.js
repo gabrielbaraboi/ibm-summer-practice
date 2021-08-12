@@ -22,6 +22,7 @@ import {
 import moment from "moment";
 import ReactImageFallback from "react-image-fallback";
 import { Link } from "react-router-dom";
+import { InputRequirements, InputRequirement } from "./AddPost.styledComponents";
 
 const SinglePost = () => {
     const { id } = useParams();
@@ -62,10 +63,15 @@ const SinglePost = () => {
 
                     <PostTitle>
                         <Link to={`/post/${post?._id}`}>
-                            {post?.title.length > 45
-                                ? post?.title.slice(0, 35) + "..."
-                                : post?.title}
+                            {post?.title}
                         </Link>
+                        <PostItems>
+                        <FeatureListItem>
+                            {post?.programmingLanguage}
+                        </FeatureListItem>
+                        <FeatureListItem>{post?.workHours}</FeatureListItem>
+                        <FeatureListItem>{post?.workPlace}</FeatureListItem>
+                    </PostItems>
                     </PostTitle>
 
                     <Group>
@@ -82,27 +88,17 @@ const SinglePost = () => {
                     </Group>
                 </Content>
                 <CardDivider>
-                    <PostItems>
-                        <FeatureListItem>
-                            {post?.programmingLanguage}
-                        </FeatureListItem>
-                        <FeatureListItem>{post?.workHours}</FeatureListItem>
-                        <FeatureListItem>{post?.workPlace}</FeatureListItem>
-                    </PostItems>
                     <PostDescription>
-                        {post?.description.length > 100
-                            ? post?.description.slice(0, 100) + "..."
-                            : post?.description}
+                        {post?.description}
                     </PostDescription>
-                    <PostRequirements>
-                        {post?.requirements.map((req, idx) => (
-                            <FeatureListItem key={idx}>
-                                {req.length > 30
-                                    ? req.slice(0, 30) + "..."
-                                    : req}
-                            </FeatureListItem>
-                        ))}
-                    </PostRequirements>
+                    <InputRequirements>
+                    <InputRequirement>{post?.programmingLanguage}</InputRequirement>
+                    {post?.requirements.map((req, idx) => (
+                        <InputRequirement key={idx}>
+                            {req}
+                        </InputRequirement>
+                    ))}
+                </InputRequirements>
                 </CardDivider>
             </Card>
             <CommentSection userData={userData} />
