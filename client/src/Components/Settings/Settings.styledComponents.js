@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Body = styled.div`
-	padding-top: 100px;
+	padding-top: 4rem;
+	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
@@ -13,6 +14,7 @@ export const Body = styled.div`
 export const SettingsForm = styled.form`
 	height: 100%;
 	text-align: center;
+	width: 100%;
 `;
 
 export const Div = styled.div`
@@ -42,7 +44,6 @@ export const Content = styled.div`
 
 export const Icon = styled.div`
 	background: #29283a;
-	margin-left: 170px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -59,6 +60,10 @@ export const Icon = styled.div`
 export const InputType = styled.div`
 	font-size: 1.1rem;
 	display: inline;
+	@media (max-width: 400px) {
+		dipsly: block;
+		font-size: 0.8rem;
+	}
 `;
 
 export const Button = styled.button`
@@ -73,6 +78,9 @@ export const Button = styled.button`
 		background: white;
 		color: #29283a;
 	}
+	@media (max-width: 400px) {
+		font-size: 0.8rem;
+	}
 `;
 export const DeleteButton = styled.button`
 	margin-left: 80px;
@@ -85,6 +93,9 @@ export const DeleteButton = styled.button`
 		background: white;
 		color: #29283a;
 	}
+	@media (max-width: 400px) {
+		margin: 0;
+	}
 `;
 export const Text = styled.div`
 	color: gray;
@@ -94,7 +105,9 @@ export const Text = styled.div`
 export const ActionButton = styled.button`
 	flex: 0 0 auto;
 	height: 40px;
+	width: 50%;
 	padding: 0 2rem;
+	margin: 0 auto;
 	margin-top: 30px;
 	border: 0;
 	border-radius: 5px;
@@ -102,6 +115,12 @@ export const ActionButton = styled.button`
 	background: #29283a;
 	box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
 	transition: background 0.25;
+	@media (max-width: 768px) {
+		width: 80%;
+	}
+	@media (max-width: 400px) {
+		width: 100%;
+	}
 
 	&:hover {
 		background: white;
@@ -112,7 +131,9 @@ export const ActionButton = styled.button`
 export const Box = styled.div`
 	padding: 10px;
 	margin: 2px;
-	display: inline-block;
+	display: flex;
+	align-items: ceter;
+	flex-direction: column;
 	text-align: center;
 `;
 
@@ -128,17 +149,30 @@ export const IconContext = styled.div`
 
 export const View = styled.div`
 	color: white;
-	padding-right: 150px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	@media (max-width: 400px) {
+		flex-direction: column;
+	}
 `;
 
 export const CardView = styled.div`
 	color: white;
 	background: #29283a;
-	width: 500px;
+	width: 50%;
 	align-items: left;
 	border-radius: 0.5rem;
 	box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.025),
 		0 9px 46px 8px rgba(0, 0, 0, 0.025), 0 11px 15px -7px rgba(0, 0, 0, 0.025);
+	margin: 0 auto;
+	@media (max-width: 768px) {
+		width: 80%;
+	}
+	@media (max-width: 400px) {
+		width: 100%;
+	}
 `;
 
 export const Name = styled.div`

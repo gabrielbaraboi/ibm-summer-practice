@@ -80,11 +80,11 @@ const Settings = ({ onSubmit, authError }) => {
 				<Box>
 					<Title>Settings</Title>
 				</Box>
-				<Box>
-					{/* <IconContext>
+				{/* <Box>
+					<IconContext>
 						<FaEllipsisH />
-					</IconContext> */}
-				</Box>
+					</IconContext>
+				</Box> */}
 				<View>
 					<Box>
 						<Icon>
@@ -206,7 +206,6 @@ const Settings = ({ onSubmit, authError }) => {
 							<InputType>
 								{showText3 ? (
 									<Div>
-										
 										<input
 											placeholder="Password"
 											className={`input ${errors.password && "is-danger"}`}
@@ -221,7 +220,6 @@ const Settings = ({ onSubmit, authError }) => {
 									</Div>
 								) : (
 									<Div>
-										
 										<InputType>*******</InputType>
 										<Button onClick={onClick3}>Edit</Button>
 									</Div>
