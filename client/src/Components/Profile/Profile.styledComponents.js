@@ -300,7 +300,7 @@ export const AboutContainer = styled.div`
 		font-size: 1rem;
 		font-weight: bold;
 		float: left;
-		text-aling: left;
+		text-align: left;
 	}
 `;
 

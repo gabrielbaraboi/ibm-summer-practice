@@ -1,94 +1,97 @@
 import React, { useState } from "react";
 import {
-	Card,
-	Content,
-	Div,
-	Data,
-	Icon,
-	Group,
-	PostTitle,
-	PostItems,
-	Author,
-	FeatureListItem,
-	PostDescription,
-	PostRequirements,
-	ActionButton,
-	CardDivider,
+    Card,
+    Content,
+    Div,
+    Data,
+    Icon,
+    Group,
+    PostTitle,
+    PostItems,
+    Author,
+    FeatureListItem,
+    PostDescription,
+    PostRequirements,
+    ActionButton,
+    CardDivider,
 } from "./Posts.styledComponents";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import ReactImageFallback from "react-image-fallback";
 
 const PostCard = ({ post }) => {
-	const [features] = useState([
-		post?.programmingLanguage,
-		post?.workHours,
-		post?.workPlace,
-	]);
+    const [features] = useState([
+        post?.programmingLanguage,
+        post?.workHours,
+        post?.workPlace,
+    ]);
 
-	const created_date = new Date(post?.dUpdatedDate);
-	return (
-		<Card>
-			<Content>
-				<Div>
-					<Icon>
-						<ReactImageFallback
-							src={`/profile/${post?.createdBy?._id}/getProfilePic`}
-							fallbackImage={process.env.PUBLIC_URL + "/iconUser.jpg"}
-						/>
-					</Icon>
-				</Div>
+    const created_date = new Date(post?.dUpdatedDate);
+    return (
+        <Card>
+            <Content>
+                <Div>
+                    <Icon>
+                        <ReactImageFallback
+                            src={`/profile/${post?.createdBy?._id}/getProfilePic`}
+                            fallbackImage={
+                                process.env.PUBLIC_URL + "/iconUser.jpg"
+                            }
+                        />
+                    </Icon>
+                </Div>
 
-				<PostTitle>
-					<Link to={`/post/${post?._id}`}>
-						{post?.title.length > 45
-							? post?.title.slice(0, 35) + "..."
-							: post?.title}
-					</Link>
-				</PostTitle>
+                <PostTitle>
+                    <Link to={`/post/${post?._id}`}>
+                        {post?.title.length > 45
+                            ? post?.title.slice(0, 35) + "..."
+                            : post?.title}
+                    </Link>
+                </PostTitle>
 
-				<Group>
-					<Author>
-						<span>Created by</span>
-						<Link to={`/profile/${post?.createdBy?._id}`}>
-							{post?.createdBy?.firstName}
-							{post?.createdBy?.lastName}
-							{post?.createdBy?.companyName}
-						</Link>
-					</Author>
-					<Data>
-						{moment(created_date).fromNow()}
-						{post?.dCreatedDate !== post?.dUpdatedDate && " updated"}
-					</Data>
+                <Group>
+                    <Author>
+                        <span>Created by</span>
+                        <Link to={`/profile/${post?.createdBy?._id}`}>
+                            {post?.createdBy?.firstName}
+                            {post?.createdBy?.lastName}
+                            {post?.createdBy?.companyName}
+                        </Link>
+                    </Author>
+                    <Data>
+                        {moment(created_date).fromNow()}
+                        {post?.dCreatedDate !== post?.dUpdatedDate &&
+                            " updated"}
+                    </Data>
 
-					<Data>{post?.type}</Data>
-				</Group>
-			</Content>
-			<CardDivider>
-				<PostItems>
-					{features.map((item) => (
-						<FeatureListItem>{item}</FeatureListItem>
-					))}
-				</PostItems>
-				<PostDescription>
-					{post?.description.length > 100
-						? post?.description.slice(0, 100) + "..."
-						: post?.description}
-				</PostDescription>
-				<PostRequirements>
-					{post?.requirements.map((req, idx) => (
-						<FeatureListItem key={idx}>
-							{req.length > 30 ? req.slice(0, 30) + "..." : req}
-						</FeatureListItem>
-					))}
-				</PostRequirements>
-			</CardDivider>
+                    <Data>{post?.type}</Data>
+                </Group>
+            </Content>
+            <CardDivider>
+                <PostItems>
+                    {features.map((item) => (
+                        <FeatureListItem>{item}</FeatureListItem>
+                    ))}
+                </PostItems>
+                <PostDescription>
+                    {post?.description.length > 100
+                        ? post?.description.slice(0, 100) + "..."
+                        : post?.description}
+                </PostDescription>
+                <PostRequirements>
+                    {post?.requirements.map((req, idx) => (
+                        <FeatureListItem key={idx}>
+                            {req.length > 30 ? req.slice(0, 30) + "..." : req}
+                        </FeatureListItem>
+                    ))}
+                </PostRequirements>
+            </CardDivider>
 
-			<Link to={`/post/${post?._id}`}>
-				<ActionButton>Show more</ActionButton>
-			</Link>
-		</Card>
-	);
+            <Link to={`/post/${post?._id}`}>
+                <ActionButton>Show more</ActionButton>
+            </Link>
+        </Card>
+    );
 };
 
 export default PostCard;

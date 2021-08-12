@@ -7,6 +7,9 @@ export const Container = styled.div`
 	position: relative;
 	width: 100%;
 	flex-direction: column;
+	@media (max-width: 1366px) {
+        width: 100%;
+    }
 `;
 
 export const ButtonWrapper = styled.div`
