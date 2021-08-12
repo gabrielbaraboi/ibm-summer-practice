@@ -70,7 +70,7 @@ export const Button = styled.button`
 	margin-right: 20px;
 	background: #6c7a89;
 	border: 0;
-	padding: 0 1rem;
+	padding: 0.5rem 1rem;
 	color: white;
 	border-radius: 5px;
 	&:hover {
@@ -80,12 +80,16 @@ export const Button = styled.button`
 	@media (max-width: 400px) {
 		font-size: 0.8rem;
 	}
+	&:disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
 `;
 export const DeleteButton = styled.button`
 	margin-left: 80px;
 	background: #6c7a89;
 	border: 0;
-	padding: 0 1rem;
+	padding: 0.5rem 1rem;
 	color: white;
 	border-radius: 5px;
 	&:hover {
@@ -100,33 +104,26 @@ export const Text = styled.div`
 	color: gray;
 	padding-top: 20px;
 `;
-
-export const ActionButton = styled.button`
-	flex: 0 0 auto;
-	height: 40px;
-	width: 50%;
-	padding: 0 2rem;
-	margin: 0 auto;
-	margin-top: 30px;
-	border: 0;
-	border-radius: 5px;
-	color: white;
-	background: #29283a;
-	box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
-	transition: background 0.25;
+export const InputContainer = styled.div`
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0.5rem;
+	flex-direction: row;
+	label {
+		display: block;
+		width: 50%;
+	}
 	@media (max-width: 768px) {
-		width: 80%;
-	}
-	@media (max-width: 400px) {
-		width: 100%;
-	}
+		flex-direction: column;
 
-	&:hover {
-		background: white;
-		color: #29283a;
+		label {
+			display: inline;
+			width: 100%;
+		}
 	}
 `;
-
 export const Box = styled.div`
 	padding: 10px;
 	margin: 2px;
