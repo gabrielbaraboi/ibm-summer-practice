@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import {
-	CardView,
-	Div,
-	SettingsForm,
-	Content,
-	View,
-	Box,
-	Button,
-	Text,
-	Body,
-	Icon,
-	InputType,
-	Name,
-	Title,
-	DeleteButton,
-	InputContainer,
+    CardView,
+    Div,
+    SettingsForm,
+    Content,
+    View,
+    Box,
+    Button,
+    Text,
+    Body,
+    Icon,
+    InputType,
+    InputContainer,
+    Name,
+    Title,
+    DeleteButton,
 } from "./Settings.styledComponents";
 import ReactImageFallback from "react-image-fallback";
 import { ProfilePicture } from "../Settings/Settings.styledComponents";
@@ -25,11 +25,7 @@ import {
 	updatePassword,
 } from "../../Services/settings.service";
 import Modal from "react-modal";
-import {
-	ModalStyles,
-	ModalForm,
-	ModalClose,
-} from "../Profile/Profile.styledComponents";
+import {ModalStyles,ModalForm,ModalClose } from "../Global.styledComponents";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";

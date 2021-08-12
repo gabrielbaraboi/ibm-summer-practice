@@ -12,23 +12,28 @@ import {
     LinksCard,
     SpanLink,
     UserPostsContainer,
-    Container,
+    CardWrapper,
     NameContainer,
     BackgroundPhoto,
     Group,
     EditBtn,
-    ModalStyles,
-    ModalForm,
-    ModalClose,
-    ModalSubmit,
     AboutContainer,
     InputLink,
     ProfilePicSelect,
     ProfilePicThumbnail,
     LinkList,
 } from "./Profile.styledComponents";
-import { DeleteButton,EditButton,ButtonWrapper } from "../Global.styledComponents";
-import { faEdit, faGlobe,faTrash, faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { DeleteButton,
+    EditButton,
+    ButtonWrapper,
+    PageSpan,
+    PaginationBtn,
+    PaginationWrapper,
+    ModalStyles,
+    ModalForm,
+    ModalClose,
+    ModalSubmit, } from "../Global.styledComponents";
+import { faEdit, faGlobe,faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebook,
     faTwitter,
@@ -44,7 +49,6 @@ import moment from "moment";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import { deletePost,getPost,updatePost } from "../../Services/post.service";
-import { PaginationBtn,PageSpan } from "../Posts/Posts.styledComponents";
 
 const Profile = () => {
     const { id } = useParams();
@@ -53,7 +57,6 @@ const Profile = () => {
     const [file, setFile] = useState(null);
     const [posts, setPosts] = useState([]);
     const [postId, setPostId] = useState();
-    const [postEdit, setPostEdit] = useState();
 
     const [page, setPage] = useState(1);
 	const [nextPage, setNextPage] = useState();
@@ -134,6 +137,7 @@ const Profile = () => {
             getProfile(id)
                 .then((res) => {
                     setUserData(res.data.user);
+                    
                 })
                 .catch((err) => {
                     console.log(err.message);
@@ -145,7 +149,6 @@ const Profile = () => {
         () =>
             getPost(postId)
                 .then((res) => {
-                    setPostEdit(res.data);
                     setValues(res.data);
                 })
                 .catch((err) => {
@@ -238,7 +241,7 @@ const Profile = () => {
                         ) : null}
                     </ProfilePicture>
                 </BackgroundPhoto>
-                <Container>
+                <CardWrapper>
                     <NameContainer>
                         <span>
                             {userData?.companyName}
@@ -294,9 +297,9 @@ const Profile = () => {
                         </Group>
                         <span>{userData?.about.length > 100 ? userData?.about.slice(0, 100) + "..." : userData?.about }</span>
                     </AboutContainer>
-                </Container>
+                </CardWrapper>
             </ProfileCard>
-            <Container>
+            <CardWrapper>
                 <LinksCard>
                     <Group>
                         <p>Social media</p>
@@ -339,7 +342,7 @@ const Profile = () => {
                                             <InputLink
                                                 type="url"
                                                 name="website"
-                                                value={linksData?.website}
+                                                value={linksData?.website || ""}
                                                 onChange={handleChange}
                                             />
                                         </li>
@@ -355,7 +358,7 @@ const Profile = () => {
                                             <InputLink
                                                 type="url"
                                                 name="github"
-                                                value={linksData?.github}
+                                                value={linksData?.github || ""}
                                                 onChange={handleChange}
                                             />
                                         </li>
@@ -371,7 +374,7 @@ const Profile = () => {
                                             <InputLink
                                                 type="url"
                                                 name="twitter"
-                                                value={linksData?.twitter}
+                                                value={linksData?.twitter || ""}
                                                 onChange={handleChange}
                                             />
                                         </li>
@@ -387,7 +390,7 @@ const Profile = () => {
                                             <InputLink
                                                 type="url"
                                                 name="linkedin"
-                                                value={linksData?.linkedin}
+                                                value={linksData?.linkedin || ""}
                                                 onChange={handleChange}
                                             />
                                         </li>
@@ -403,7 +406,7 @@ const Profile = () => {
                                             <InputLink
                                                 type="url"
                                                 name="facebook"
-                                                value={linksData?.facebook}
+                                                value={linksData.facebook || ""}
                                                 onChange={handleChange}
                                             />
                                         </li>
@@ -649,7 +652,7 @@ const Profile = () => {
                             <p>No posts to show</p>
                         )}
                     </ProfilePostContainer>
-                    <center>
+                    <PaginationWrapper>
                         <PaginationBtn disabled={page <= 1} onClick={goPrevPage}>
                             {" "}
                             &lt; Previous Page
@@ -660,9 +663,9 @@ const Profile = () => {
                         <PaginationBtn disabled={!nextPage} onClick={goNextPage}>
                             Next Page &gt;
                         </PaginationBtn>
-                    </center>
+                    </PaginationWrapper>
                 </UserPostsContainer>
-            </Container>
+            </CardWrapper>
         </ProfileContainer>
         </>
     );

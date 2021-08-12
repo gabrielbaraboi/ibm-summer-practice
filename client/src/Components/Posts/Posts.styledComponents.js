@@ -40,64 +40,24 @@ export const Posts = styled.div`
     }
 `;
 
-export const PaginationWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
-export const PaginationBtn = styled.button`
-    background: #6c7a89;
-    padding: 2px 1rem;
-    color: white;
-    border-radius: 0.5rem;
-    color: white;
-    transition: all 0.2s ease-in-out;
-    border: none;
-    font-size: 1rem;
-    &:hover {
-        background-color: white;
-        color: black;
-        cursor: pointer;
-    }
-    &:disabled {
-        background: lightgray;
-        color: gray;
-        pointer-events: none;
-    }
-    @media (max-width: 400px) {
-        font-size: 0.8rem;
-    }
-`;
-
 export const ClearBtn = styled.button`
-    background-color: #181342;
-    color: white;
-    transition-duration: 0.4s;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 8px;
-    &:hover {
-        background-color: #7a77bb;
-        cursor: pointer;
-    }
-    @media (max-width: 768px) {
-        width: 33%;
-    }
-    @media (max-width: 600px) {
-        width: 100%;
-    }
-`;
-
-export const PageSpan = styled.span`
-    margin-left: 10px;
-    margin-right: 10px;
-    text-decoration: none;
-    border: none;
-    color: white;
-    @media (max-width: 400px) {
-        font-size: 0.8rem;
-    }
+	background-color: #6c7a89;
+	color: white;
+	transition-duration: 0.4s;
+	border: none;
+	border-radius: 0.5rem;
+	padding: 8px;
+	&:hover {
+		background-color: white;
+		color: black;
+		cursor: pointer;
+	}
+	@media (max-width: 768px) {
+		width: 33%;
+	}
+	@media (max-width: 600px) {
+		width: 100%;
+	}
 `;
 
 const gradient = (degs) => css`
@@ -289,6 +249,9 @@ export const Author = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+	a{
+		color:#a5a4a4;
+	}
     @media (max-width: 768px) {
         font-size: 0.6rem;
     }
@@ -308,13 +271,15 @@ export const ActionButton = styled.button`
     float: right;
     border: 0;
     border-radius: 20px;
-    color: rgba(0, 0, 0, 0.85);
-    background: rgba(225, 255, 255, 0.85);
+    color: white;
+    background: #6c7a89;
     box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.25);
-    transition: background 0.25;
+    transition: 0.5s;
 
     &:hover {
-        background: rgba(255, 255, 255, 1);
+        background-color: white;
+		color: black;
+		cursor: pointer;
     }
     @media (max-width: 400px) {
         float: none;
@@ -389,40 +354,41 @@ export const FilterCategoryTitle = styled.h3`
 `;
 
 export const FilterField = styled.div`
-    color: #686d88;
-    display: block;
-    position: relative;
-    margin-top: 5px;
-    height: 18px;
-    &:hover label {
-        color: #000000;
-    }
-    &:hover .check {
-        border: 2px solid #89ccf6;
-    }
-    input[type="radio"] {
-        position: absolute;
-        visibility: hidden;
-    }
-    label {
-        display: block;
-        position: relative;
-        cursor: pointer;
-        margin-left: 25px;
-        font-weight: 500;
-        transition: all 0.25s ease-in-out;
-    }
-    input[type="radio"]:checked ~ .check {
-        border: 2px solid #89ccf6;
-    }
+	color: #686d88;
+	display: block;
+	position: relative;
+	margin-top: 5px;
+	height: 18px;
+	&:hover label {
+		color: white;
+		cursor: pointer;
+	}
+	&:hover .check {
+		border: 2px solid #89ccf6;
+	}
+	input[type="radio"] {
+		position: absolute;
+		visibility: hidden;
+	}
+	label {
+		display: block;
+		position: relative;
+		cursor: pointer;
+		margin-left: 25px;
+		font-weight: 500;
+		transition: all 0.25s ease-in-out;
+	}
+	input[type="radio"]:checked ~ .check {
+		border: 2px solid #89ccf6;
+	}
 
-    input[type="radio"]:checked ~ .check::before {
-        background: #89ccf6;
-    }
+	input[type="radio"]:checked ~ .check::before {
+		background: #89ccf6;
+	}
 
-    input[type="radio"]:checked ~ label {
-        color: #000000;
-    }
+	input[type="radio"]:checked ~ label {
+		color: #000000;
+	}
 `;
 
 export const Check = styled.div`

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { getPost } from "../../Services/post.service";
 import CommentSection from "../Comment/CommentSection.component";
 import { getCurrentUser } from "../../Services/auth.service";
-import PostCard from "./PostCard.component";
 import { PostDivSinglePost } from "./Posts.styledComponents";
 import {
     Card,
@@ -18,7 +17,6 @@ import {
     FeatureListItem,
     PostDescription,
     PostRequirements,
-    ActionButton,
     CardDivider,
 } from "./Posts.styledComponents";
 import moment from "moment";
