@@ -53,8 +53,8 @@ const PostCard = ({ post }) => {
                     <Author>
                         <span>Created by</span>
                         <Link to={`/profile/${post?.createdBy?._id}`}>
-                            {post?.createdBy?.firstName}
-                            {post?.createdBy?.lastName}
+                            {post?.createdBy?.firstName}&nbsp;
+							{post?.createdBy?.lastName}
                             {post?.createdBy?.companyName}
                         </Link>
                     </Author>

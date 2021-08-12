@@ -6,7 +6,6 @@ import { createPost } from "../../Services/post.service";
 import {
 	Card,
 	CardStyle,
-	TitleCard,
 	ReqButton,
 	Content,
 	SubmitButton,
@@ -15,12 +14,10 @@ import {
 	Choose,
 	InputContainer,
 	Label,
-	Div,
 	InputRequirements,
 	InputRequirement,
 	InputDescription,
 } from "./AddPost.styledComponents";
-import { Box } from "../Settings/Settings.styledComponents";
 
 const AddPost = ({ onSubmit, authError }) => {
 	const { values, errors, handleChange, handleSubmit } = useForm(

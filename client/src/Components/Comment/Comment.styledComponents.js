@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const CommentContainer = styled.div`
 	display: flex;
 	margin: 0rem 0;
 	padding: 0.25rem 1rem;
