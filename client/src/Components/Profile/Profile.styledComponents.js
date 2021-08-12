@@ -28,8 +28,8 @@ export const InputLink = styled.input`
 	}
 `;
 
-export const Container = styled.div`
-	display: flex;
+export const CardWrapper = styled.div`
+    display: flex;
 `;
 
 export const ProfileCard = styled.div`
@@ -71,60 +71,6 @@ export const ProfilePicture = styled.div`
 	}
 `;
 
-export const ModalStyles = {
-	content: {
-		top: "50%",
-		left: "50%",
-		right: "auto",
-		bottom: "auto",
-		marginRight: "-50%",
-		transform: "translate(-50%, -50%)",
-		minWidth: "50%",
-		background: "#1d1b31",
-		border: "none",
-	},
-	overlay: {
-		zIndex: 100,
-		background: "rgba(0, 0, 0, 0.6)",
-	},
-};
-
-export const ModalForm = styled.form`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	padding: 1.5rem;
-	input,
-	select,
-	textarea {
-		resize: none;
-		width: 100%;
-		border: 2px solid;
-		border-color: #29283a;
-		color: white;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		display: block;
-		padding: 10px 15px;
-		border-radius: 0.5rem;
-		background-color: #414052;
-		box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 2%),
-			0 0px 0 1px rgb(10 10 10 / 2%);
-
-		&:focus {
-			outline: none;
-		}
-		&::placeholder {
-			color: darkgray;
-		}
-	}
-	label {
-		color: white;
-	}
-`;
 
 export const ProfilePicThumbnail = styled.img`
 	width: 150px;
@@ -148,35 +94,6 @@ export const ProfilePicSelect = styled.label`
 
 export const ProfilePicSave = styled.button`
 	padding: 0.25rem;
-	background-color: #7a77bb;
-	color: white;
-	transition-duration: 0.4s;
-	border: none;
-	border-radius: 1rem;
-	&:hover {
-		background-color: rgba(129, 129, 245, 0.3);
-		cursor: pointer;
-	}
-`;
-
-export const ModalClose = styled.button`
-	position: relative;
-	float: right;
-	background: transparent;
-	color: white;
-	border: 0px solid #4caf50;
-	font-size: 20px;
-	transition-duration: 0.4s;
-	&:hover {
-		cursor: pointer;
-		opacity: 0.5;
-	}
-`;
-
-export const ModalSubmit = styled.button`
-	position: relative;
-	padding: 0.5rem 1rem;
-	top: 1rem;
 	background-color: #7a77bb;
 	color: white;
 	transition-duration: 0.4s;

@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import {
-    PostDiv,
-    Filter,
-    FilterTitle,
-    FilterCategory,
-    FilterCategoryTitle,
-    FilterField,
-    Check,
-    PaginationBtn,
-    PageSpan,
-    Posts,
-    FilterContainer,
-    ClearBtn,
-    PaginationWrapper,
+	PostDiv,
+	Filter,
+	FilterTitle,
+	FilterCategory,
+	FilterCategoryTitle,
+	FilterField,
+	Check,
+	Posts,
+	FilterContainer,
+	ClearBtn,
 } from "./Posts.styledComponents";
+import { PaginationBtn,PageSpan,PaginationWrapper } from "../Global.styledComponents";
 import PostCard from "./PostCard.component";
 import { getPosts, getWorkPlaces } from "../../Services/post.service";
 

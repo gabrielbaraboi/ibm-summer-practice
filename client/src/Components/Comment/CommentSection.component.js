@@ -11,14 +11,13 @@ import {
 	CommentsCount,
 	CommentsCountText,
 	ImageCircleStyle,
-	ButtonWrapper,
 	Center,
+	CommentContainer
 } from "./Comment.styledComponents";
 import { createComment, getAllComments } from "../../Services/comment.service";
 import { useParams } from "react-router-dom";
 import { Comment } from "./Comment.component";
-import { PageSpan, PaginationBtn } from "../Posts/Posts.styledComponents";
-import { Container } from "./Comment.styledComponents";
+import { PaginationBtn,PageSpan,PaginationWrapper } from "../Global.styledComponents";
 
 const CommentSection = ({ userData }) => {
 	const { id } = useParams();
@@ -60,7 +59,7 @@ const CommentSection = ({ userData }) => {
 
 	return (
 		<>
-			<Container>
+			<CommentContainer>
 				<CommentInfo>
 					<h3>Comments</h3>
 					<CommentsCountDiv>
@@ -70,8 +69,8 @@ const CommentSection = ({ userData }) => {
 						</CommentsCountText>
 					</CommentsCountDiv>
 				</CommentInfo>
-			</Container>
-			<Container>
+			</CommentContainer>
+			<CommentContainer>
 				{userData && (
 					<AddComment>
 						<ImageDiv>
@@ -109,9 +108,9 @@ const CommentSection = ({ userData }) => {
 						></Comment>
 					))
 				)}
-			</Container>
-			<Container>
-				<ButtonWrapper>
+			</CommentContainer>
+			<CommentContainer>
+				<PaginationWrapper>
 					<PaginationBtn disabled={page <= 1} onClick={goPrevPage}>
 						&lt; Previous Page
 					</PaginationBtn>
@@ -121,8 +120,8 @@ const CommentSection = ({ userData }) => {
 					<PaginationBtn disabled={!nextPage} onClick={goNextPage}>
 						Next Page &gt;
 					</PaginationBtn>
-				</ButtonWrapper>
-			</Container>
+				</PaginationWrapper>
+			</CommentContainer>
 		</>
 	);
 };
